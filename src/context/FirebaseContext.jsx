@@ -7,6 +7,7 @@ export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
 	const [products, setProducts] = useState([]);
+	const [product, setProduct] = useState([]);
 
 	const [user, setUser] = useState(null);
 	const auth = getAuth();
@@ -26,38 +27,17 @@ export const FirebaseProvider = ({ children }) => {
 		getProducts();
 	}, []);
 
-	// const loginUser = async (data) => {
+	// const getProduct = async (uid) => {
 	// 	try {
-	// 		const userCredential = await signInWithEmailAndPassword(
-	// 			auth,
-	// 			data.email,
-	// 			data.password
-	// 		);
-	// 		const loggedInUser = userCredential.user;
-	// 		console.log(data);
-	// 		// Check if the user exists in Firestore
-	// 		const userDocRef = doc(db, "users", loggedInUser.uid);
-	// 		const userDoc = await getDoc(userDocRef);
-
-	// 		if (userDoc.exists()) {
-	// 			// Retrieve user data from Firestore
-	// 			const userData = {
-	// 				id: loggedInUser.uid,
-	// 				email: loggedInUser.email,
-	// 				username: userDoc.data().username,
-	// 				descripcion: userDoc.data().descripcion,
-	// 				// Add more fields as needed
-	// 			};
-	// 			setUser(userData);
-	// 			console.log("User logged in:", userData.username);
-	// 		} else {
-	// 			console.error("User data not found in Firestore");
-	// 		}
-	// 	} catch (error) {
-	// 		alert("Error during login:", error.code, error.message);
+	// 		const docRef = doc(db, "products", uid);
+	// 		const document = await getDoc(docRef);
+	// 		return console.log(document.data());
+	// 	} catch (err) {
+	// 		console.log(err);
 	// 	}
 	// };
 
+	// getProduct();
 	const getUserInfo = async (uid) => {
 		try {
 			const docRef = doc(db, "users", uid);
