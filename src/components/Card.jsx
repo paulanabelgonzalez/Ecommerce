@@ -19,6 +19,7 @@ export const Card = () => {
 					<Typography>{product.id}</Typography>
 					<Typography>{product.descripcion}</Typography>
 					<Typography>{product.nombre}</Typography>
+					<img src={product.image} alt={product.nombre} />
 				</Container>
 			))}
 		</Container>

@@ -14,7 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiCartDownload } from "react-icons/bi";
 import { IoIosSearch } from "react-icons/io";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { FirebaseContext } from "../context/FirebaseContext";
 import { Cart } from "./Cart";
 
 const pages = ["Productos"];
@@ -27,6 +28,8 @@ export const NavBar = () => {
 	const [state, setState] = useState({
 		right: false,
 	});
+
+	const { user } = useContext(FirebaseContext);
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -116,6 +119,7 @@ export const NavBar = () => {
 					>
 						BOUTIQUE
 					</Typography>
+					<Typography>Bienvenido {user?.username}</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
 						<GiHamburgerMenu
