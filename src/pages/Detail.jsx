@@ -6,6 +6,8 @@ import { Button, Container, Typography } from "@mui/material";
 
 import { FirebaseContext } from "../context/FirebaseContext";
 
+import { AddButton } from "../components/AddButton";
+
 export const Detail = () => {
 	const { products } = useContext(FirebaseContext);
 	const { id } = useParams();
@@ -19,7 +21,7 @@ export const Detail = () => {
 					<Typography>{product.nombre}</Typography>
 					<img src={product.image} alt={product.nombre} />
 					<Typography>{product.descripcion}</Typography>
-					<Button>Añadir al carrito</Button>
+					<AddButton />
 					<Button>Comprar</Button>
 				</>
 			) : (

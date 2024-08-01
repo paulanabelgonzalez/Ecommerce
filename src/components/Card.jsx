@@ -1,13 +1,16 @@
 import { useContext } from "react";
 
+import { Link } from "react-router-dom";
+
 import { Box, Button, Container, Typography } from "@mui/material";
 
+import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
-
-import { Link } from "react-router-dom";
 
 export const Card = () => {
 	const { products } = useContext(FirebaseContext);
+	const { handleAdd } = useContext(CartContext);
+
 	return (
 		<Container
 			sx={{
@@ -25,7 +28,7 @@ export const Card = () => {
 					<Typography>{product.nombre}</Typography>
 					<img src={product.image} alt={product.nombre} width={"300px"} />
 					<Link to={`detail/${product.id}`}>ver más</Link>
-					<Button>Añadir al carrito</Button>
+					<Button onClick={() => handleAdd(product)}>Añadir al carrito</Button>
 				</Box>
 			))}
 		</Container>
