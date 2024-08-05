@@ -6,6 +6,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
+import { QuantityProdcuts } from "./QuantityProdcuts";
 
 export const Card = () => {
 	const { products } = useContext(FirebaseContext);
@@ -22,11 +23,20 @@ export const Card = () => {
 			}}
 		>
 			{products?.map((product) => (
-				<Box key={product.id} sx={{ border: "2px solid" }}>
+				<Box
+					key={product.id}
+					sx={{
+						border: "2px solid",
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+					}}
+				>
+					<img src={product.image} alt={product.nombre} width={"300px"} />
 					<Typography>{product.id}</Typography>
 					<Typography>{product.descripcion}</Typography>
 					<Typography>{product.nombre}</Typography>
-					<img src={product.image} alt={product.nombre} width={"300px"} />
+					{/* import { useNavigate } from "react-router"; */}
 					<Link to={`detail/${product.id}`}>ver más</Link>
 					<Button onClick={() => handleAdd(product)}>Añadir al carrito</Button>
 				</Box>
