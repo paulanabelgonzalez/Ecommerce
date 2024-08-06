@@ -36,7 +36,7 @@ export const Card = () => {
 					<Typography>{product.id}</Typography>
 					<Typography>{product.descripcion}</Typography>
 					<Typography>{product.nombre}</Typography>
-					{/* import { useNavigate } from "react-router"; */}
+					<QuantityProdcuts key={product.id} product={product} />
 					<Link to={`detail/${product.id}`}>ver más</Link>
 					<Button onClick={() => handleAdd(product)}>Añadir al carrito</Button>
 				</Box>
