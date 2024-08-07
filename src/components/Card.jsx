@@ -6,7 +6,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
-import { QuantityProdcuts } from "./QuantityProducts";
+import { QuantityProducts } from "./QuantityProducts";
 
 export const Card = () => {
 	const { products } = useContext(FirebaseContext);

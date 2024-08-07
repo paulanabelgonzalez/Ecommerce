@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Box, Button, Drawer, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
-import { QuantityProdcuts } from "./QuantityProdcuts";
+import { QuantityProducts } from "./QuantityProducts";
 import { AddButton } from "./AddButton";
 
 export const Cart = ({ state, toggleDrawer }) => {
