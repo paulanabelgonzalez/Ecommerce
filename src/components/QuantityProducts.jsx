@@ -4,7 +4,7 @@ import { Box, Button } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 
-export const QuantityProdcuts = ({ product }) => {
+export const QuantityProducts = ({ product }) => {
 	const { handleAddQuantity } = useContext(CartContext);
 
 	return (
