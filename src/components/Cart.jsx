@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import { useNavigate } from "react-router";
 
@@ -6,11 +6,10 @@ import { Box, Button, Drawer, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 import { QuantityProducts } from "./QuantityProducts";
-import { AddButton } from "./AddButton";
 
 export const Cart = ({ state, toggleDrawer }) => {
-	const { cart, handleDelete } = useContext(CartContext);
-	const { subTotalProduct, subtotal } = useContext(CartContext);
+	const { cart, handleDelete, subtotal, subTotalProduct } =
+		useContext(CartContext);
 
 	const navigate = useNavigate();
 

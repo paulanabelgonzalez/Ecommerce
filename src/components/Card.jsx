@@ -9,8 +9,8 @@ import { FirebaseContext } from "../context/FirebaseContext";
 // import { QuantityProducts } from "./QuantityProducts";
 
 export const Card = () => {
-	const { products } = useContext(FirebaseContext);
 	const { handleAdd } = useContext(CartContext);
+	const { products } = useContext(FirebaseContext);
 
 	return (
 		<Container

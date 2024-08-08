@@ -19,6 +19,14 @@ export const CartProvider = ({ children }) => {
 		console.log(initialSubtotal);
 	}, [cart]);
 
+	useEffect(() => {
+		const initialNotification = cart.reduce((acc, product) => {
+			return acc + (product.quantity > 0 ? product.quantity : 0);
+		}, 0);
+		setQuantity(initialNotification);
+		console.log(initialNotification);
+	}, [cart]);
+
 	const handleAdd = (product) => {
 		const existingProduct = cart.find((item) => item.id === product.id);
 		if (existingProduct) {
@@ -68,41 +76,6 @@ export const CartProvider = ({ children }) => {
 		return product.price * product.quantity;
 	};
 
-	// const total = () => {
-	// 	return cart.reduce((total, product) => total + subTotalProduct(product), 0);
-	// };
-
-	// const handleRemoveQuantity = (productToRemove) => {
-	// 	const newCart = cart.map((cartProduct) => {
-	// 		cartProduct.id === productToRemove
-	// 			? {
-	// 					...cartProduct,
-	// 					quantity: cartProduct.quantity > 1 ? cartProduct.quantity - 1 : 0,
-	// 			  }
-	// 			: cartProduct;
-	// 	});
-	// 	setCart(newCart);
-	// 	console.log(newCart, quantity);
-	// };
-
-	// const handleRemoveQuantity = () => {
-	// 	if (quantity > 0) {
-	// 		setQuantity((quantity) => quantity - 1);
-	// 	}
-	// };
-
-	// const restarCantidad = (productoId) => {
-	// 		const nuevoCarrito = carrito.map((producto) => {
-	// 			if (producto.id === productoId) {
-	// 				const nuevaCantidad = (producto.cantidad || 0) - 1;
-	// 				return {
-	// 					...producto,
-	// 					cantidad: nuevaCantidad >= 0 ? nuevaCantidad : 0,
-	// 				};
-	// 			}
-	// 			return producto;
-	// 		});
-	// 		setCarrito(nuevoCarrito);
 	return (
 		<CartContext.Provider
 			value={{

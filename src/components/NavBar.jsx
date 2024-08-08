@@ -1,21 +1,28 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import InputBase from "@mui/material/InputBase";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import { useState, useContext } from "react";
+
+import {
+	AppBar,
+	Avatar,
+	Box,
+	Button,
+	Container,
+	InputBase,
+	Menu,
+	MenuItem,
+	Toolbar,
+	Tooltip,
+	Typography,
+} from "@mui/material";
+
 import { styled, alpha } from "@mui/material/styles";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BiCartDownload } from "react-icons/bi";
 import { IoIosSearch } from "react-icons/io";
-import { useState, useContext } from "react";
+
+import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
+
 import { Cart } from "./Cart";
 
 const pages = ["Productos"];
@@ -24,10 +31,11 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export const NavBar = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
-
 	const [state, setState] = useState({
 		right: false,
 	});
+
+	const { quantity } = useContext(CartContext);
 
 	const { user } = useContext(FirebaseContext);
 
@@ -44,6 +52,7 @@ export const NavBar = () => {
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
 	};
+
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
@@ -69,16 +78,6 @@ export const NavBar = () => {
 			marginLeft: theme.spacing(1),
 			width: "auto",
 		},
-	}));
-
-	const SearchIconWrapper = styled("div")(({ theme }) => ({
-		padding: theme.spacing(0, 2),
-		height: "100%",
-		position: "absolute",
-		pointerEvents: "none",
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
 	}));
 
 	const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -195,7 +194,9 @@ export const NavBar = () => {
 								style={{ fontSize: "30px" }}
 								onClick={toggleDrawer("right", true)}
 							/>
-							<span style={{ color: "pink" }}>4</span>
+							<span style={{ color: "pink" }}>
+								{quantity > 0 ? quantity : ""}
+							</span>
 						</Box>
 						<Cart state={state} toggleDrawer={toggleDrawer} />
 						<Tooltip title="Open settings">
