@@ -1,15 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, onSnapshot, doc, getDoc } from "firebase/firestore";
+
 import { db } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 
 export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
 	const [products, setProducts] = useState([]);
-	const [product, setProduct] = useState([]);
-
 	const [user, setUser] = useState(null);
+
 	const auth = getAuth();
 
 	useEffect(() => {
@@ -27,17 +27,6 @@ export const FirebaseProvider = ({ children }) => {
 		getProducts();
 	}, []);
 
-	// const getProduct = async (uid) => {
-	// 	try {
-	// 		const docRef = doc(db, "products", uid);
-	// 		const document = await getDoc(docRef);
-	// 		return console.log(document.data());
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
-	// getProduct();
 	const getUserInfo = async (uid) => {
 		try {
 			const docRef = doc(db, "users", uid);
@@ -67,6 +56,7 @@ export const FirebaseProvider = ({ children }) => {
 		};
 		isAuth();
 	}, []);
+
 	return (
 		<FirebaseContext.Provider value={{ products, user, setUser }}>
 			{children}

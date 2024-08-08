@@ -1,12 +1,17 @@
-import AppBar from "@mui/material/AppBar";
 import { Typography, Container } from "@mui/material";
+
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export const Footer = () => {
 	return (
-		<AppBar
+		<Container
+			as="footer"
 			position="static"
-			sx={{ width: "100%", textAlign: "center", marginTop: "20px" }}
+			sx={{
+				backgroundColor: "#1976d2",
+				minWidth: "100%",
+				textAlign: "center",
+			}}
 		>
 			<Typography variant="subtitle1" color="white" component="div">
 				COPYRIGHT
@@ -19,6 +24,6 @@ export const Footer = () => {
 					<FaLinkedin />
 				</a>
 			</Container>
-		</AppBar>
+		</Container>
 	);
 };
