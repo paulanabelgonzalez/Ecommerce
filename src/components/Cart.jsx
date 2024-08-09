@@ -6,10 +6,13 @@ import { Box, Button, Drawer, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 import { QuantityProducts } from "./QuantityProducts";
+import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Cart = ({ state, toggleDrawer }) => {
 	const { cart, handleDelete, subtotal, subTotalProduct } =
 		useContext(CartContext);
+
+	const { user } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
 
@@ -49,7 +52,13 @@ export const Cart = ({ state, toggleDrawer }) => {
 			{cart.length > 0 && (
 				<Box>
 					<Typography>Subtotal: $ {subtotal} </Typography>
-					<Button onClick={() => navigate("Login")}>Comprar</Button>
+					<Button
+						onClick={
+							user ? () => navigate("/CheckOut") : () => navigate("/Login")
+						}
+					>
+						Comprar
+					</Button>
 				</Box>
 			)}
 		</Drawer>

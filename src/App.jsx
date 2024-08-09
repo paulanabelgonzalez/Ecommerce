@@ -2,7 +2,7 @@ import { Footer } from "./layout/Footer";
 import { Header } from "./layout/Header";
 import { Main } from "./layout/Main";
 
-function App() {
+export const App = () => {
 	return (
 		<>
 			<Header />
@@ -10,6 +10,4 @@ function App() {
 			<Footer />
 		</>
 	);
-}
-
-export default App;
+};

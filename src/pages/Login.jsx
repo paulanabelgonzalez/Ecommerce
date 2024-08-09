@@ -55,7 +55,7 @@ export const Login = () => {
 					email: loggedInUser.email,
 				});
 				// console.log(user);
-				navigate("/");
+				navigate("/checkOut");
 			} catch (error) {
 				console.error("Error during login:", error.code, error.message);
 			}

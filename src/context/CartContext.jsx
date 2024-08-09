@@ -87,6 +87,7 @@ export const CartProvider = ({ children }) => {
 				handleRemoveQuantity,
 				subTotalProduct,
 				subtotal,
+				setCart,
 			}}
 		>
 			{children}

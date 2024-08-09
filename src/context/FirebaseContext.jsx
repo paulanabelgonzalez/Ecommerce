@@ -2,7 +2,14 @@ import { createContext, useEffect, useState } from "react";
 
 import { db } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
+import {
+	collection,
+	doc,
+	getDoc,
+	onSnapshot,
+	updateDoc,
+	arrayUnion,
+} from "firebase/firestore";
 
 export const FirebaseContext = createContext();
 
@@ -44,7 +51,8 @@ export const FirebaseProvider = ({ children }) => {
 					if (user) {
 						const uid = user.uid;
 						const userInfo = await getUserInfo(uid);
-						setUser(userInfo);
+						// setUser(userInfo);
+						setUser({ ...user, ...userInfo });
 					} else {
 						setUser(null);
 					}
@@ -57,8 +65,30 @@ export const FirebaseProvider = ({ children }) => {
 		isAuth();
 	}, []);
 
+	const finalizarCompra = async (cart, subtotal) => {
+		if (user && user.uid) {
+			try {
+				const userDocRef = doc(db, "users", user.uid);
+				await updateDoc(userDocRef, {
+					orders: arrayUnion({
+						cart: [...cart],
+						fecha: new Date(),
+						total: subtotal,
+					}),
+				});
+				console.log("Compra finalizada y guardada en Firestore.");
+			} catch (error) {
+				console.error("Error al finalizar la compra:", error);
+			}
+		} else {
+			console.error("Usuario no autenticado.");
+		}
+	};
+
 	return (
-		<FirebaseContext.Provider value={{ products, user, setUser }}>
+		<FirebaseContext.Provider
+			value={{ products, user, setUser, finalizarCompra }}
+		>
 			{children}
 		</FirebaseContext.Provider>
 	);
