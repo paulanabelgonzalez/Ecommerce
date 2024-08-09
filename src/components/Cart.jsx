@@ -25,6 +25,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 				onKeyDown={(event) => event.stopPropagation()}
 				sx={{ height: "100%", overflowY: "scroll" }}
 			>
+				<Button onClick={toggleDrawer("right", false)}>x</Button>
 				{cart.length === 0 ? (
 					<Typography>No hay productos en el carrito</Typography>
 				) : (

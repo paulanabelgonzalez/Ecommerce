@@ -6,7 +6,6 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 
 import { CartProvider } from "./context/CartContext.jsx";
-
 import { FirebaseProvider } from "./context/FirebaseContext.jsx";
 
 import { CssBaseline } from "@mui/material";
