@@ -8,9 +8,15 @@ import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
 // import { QuantityProducts } from "./QuantityProducts";
 
-export const Card = () => {
+export const Card = ({ filter }) => {
 	const { handleAdd } = useContext(CartContext);
 	const { products } = useContext(FirebaseContext);
+
+	const filteredProducts = filter
+		? products.filter((product) =>
+				product.nombre.toLowerCase().includes(filter.toLowerCase())
+		  )
+		: products;
 
 	return (
 		<Container
@@ -22,25 +28,31 @@ export const Card = () => {
 				marginBlock: "20px",
 			}}
 		>
-			{products?.map((product) => (
-				<Box
-					key={product.id}
-					sx={{
-						border: "2px solid",
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-					}}
-				>
-					<img src={product.image} alt={product.nombre} width={"300px"} />
-					<Typography>{product.id}</Typography>
-					<Typography>{product.descripcion}</Typography>
-					<Typography>{product.nombre}</Typography>
-					{/* <QuantityProducts key={product.id} product={product} /> */}
-					<Link to={`detail/${product.id}`}>ver más</Link>
-					<Button onClick={() => handleAdd(product)}>Añadir al carrito</Button>
-				</Box>
-			))}
+			{filteredProducts.length > 0 ? (
+				filteredProducts?.map((product) => (
+					<Box
+						key={product.id}
+						sx={{
+							border: "2px solid",
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+						}}
+					>
+						<img src={product.image} alt={product.nombre} width={"300px"} />
+						<Typography>{product.id}</Typography>
+						<Typography>{product.descripcion}</Typography>
+						<Typography>{product.nombre}</Typography>
+						{/* <QuantityProducts key={product.id} product={product} /> */}
+						<Link to={`detail/${product.id}`}>ver más</Link>
+						<Button onClick={() => handleAdd(product)}>
+							Añadir al carrito
+						</Button>
+					</Box>
+				))
+			) : (
+				<Typography variant="h6">No se encontraron productos</Typography>
+			)}
 		</Container>
 	);
 };
