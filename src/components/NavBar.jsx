@@ -226,47 +226,36 @@ export const NavBar = () => {
 					</Box>
 
 					<Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
-						<Box sx={{ display: "flex" }}>
-							<BiCartDownload
-								style={{ fontSize: "30px" }}
-								onClick={toggleDrawer("right", true)}
-							/>
-							<span style={{ color: "pink" }}>
-								{quantity > 0 ? quantity : ""}
-							</span>
-						</Box>
-						<Cart state={state} toggleDrawer={toggleDrawer} />
-						<Tooltip title="Sesión">
-							<Box>
-								{/* <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-									<FaUser style={{ fontSize: "23px", color: "white" }} />
-									{user ? (
-										<Typography variant="p" sx={{ color: "white" }}>
-											{user.username}
-										</Typography>
-									) : (
-										<Typography sx={{ color: "white" }}>
-											Iniciar Sesión
-										</Typography>
-									)}
-								</Button> */}
-								{user ? (
-									<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<FaUser style={{ fontSize: "23px", color: "white" }} />
-										<Typography variant="p" sx={{ color: "white" }}>
-											{user.username}
-										</Typography>
-									</Button>
-								) : (
-									<Button onClick={() => navigate("/Login")}>
-										<FaUser style={{ fontSize: "23px", color: "white" }} />
-										<Typography sx={{ color: "white" }}>
-											Iniciar Sesión
-										</Typography>
-									</Button>
-								)}
-							</Box>
+						<Tooltip title="Mi compra">
+							<Button onClick={toggleDrawer("right", true)} sx={{ p: 0 }}>
+								<BiCartDownload style={{ fontSize: "30px", color: "white" }} />
+								<span style={{ color: "pink" }}>
+									{quantity > 0 ? quantity : ""}
+								</span>
+							</Button>
 						</Tooltip>
+						<Cart state={state} toggleDrawer={toggleDrawer} />
+						<Box>
+							{user ? (
+								<Tooltip title="Mi usuario">
+									<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<FaUser style={{ fontSize: "20px", color: "white" }} />
+										<Typography variant="p" sx={{ color: "white" }}>
+											{user.username}
+										</Typography>
+									</Button>
+								</Tooltip>
+							) : (
+								<Tooltip title="Inciar sesión">
+									<Button onClick={() => navigate("/Login")}>
+										<FaUser style={{ fontSize: "20px", color: "white" }} />
+										<Typography sx={{ color: "white" }}>
+											Iniciar Sesión
+										</Typography>
+									</Button>
+								</Tooltip>
+							)}
+						</Box>
 						<Menu
 							sx={{ mt: "45px" }}
 							id="menu-appbar"
@@ -292,10 +281,10 @@ export const NavBar = () => {
 								</MenuItem>
 							))}
 						</Menu>
-						<Tooltip title="Cerrar Sesión">
+						<Tooltip title="Cerrar sesión">
 							<Box>
 								<Button onClick={handleSingOut} sx={{ p: 0 }}>
-									<TbLogout style={{ fontSize: "23px", color: "white" }} />
+									<TbLogout style={{ fontSize: "27px", color: "white" }} />
 								</Button>
 							</Box>
 						</Tooltip>

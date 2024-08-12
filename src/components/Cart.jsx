@@ -38,8 +38,8 @@ export const Cart = ({ state, toggleDrawer }) => {
 							sx={{ padding: 2, borderBottom: "1px solid #ddd" }}
 						>
 							<Button onClick={() => handleDelete(product)}>Eliminar</Button>
-							<Typography variant="h6">{product.nombre}</Typography>
-							<img src={product.image} alt={product.nombre} width={"200px"} />
+							<Typography variant="h6">{product.name}</Typography>
+							<img src={product.image} alt={product.name} width={"200px"} />
 							<Typography variant="body2">{product.descripcion}</Typography>
 							<Typography variant="body2">Precio: $ {product.price}</Typography>
 							<QuantityProducts key={product.id} product={product} />

@@ -14,7 +14,7 @@ export const Card = ({ filter }) => {
 
 	const filteredProducts = filter
 		? products.filter((product) =>
-				product.nombre.toLowerCase().includes(filter.toLowerCase())
+				product.name.toLowerCase().includes(filter.toLowerCase())
 		  )
 		: products;
 
@@ -39,10 +39,11 @@ export const Card = ({ filter }) => {
 							alignItems: "center",
 						}}
 					>
-						<img src={product.image} alt={product.nombre} width={"300px"} />
-						<Typography>{product.id}</Typography>
-						<Typography>{product.descripcion}</Typography>
-						<Typography>{product.nombre}</Typography>
+						<img src={product.image} alt={product.name} width={"300px"} />
+						{/* <Typography>{product.id}</Typography> */}
+						<Typography variant="h5">{product.name}</Typography>
+						<Typography>{product.description}</Typography>
+						<Typography>$ {product.price}</Typography>
 						{/* <QuantityProducts key={product.id} product={product} /> */}
 						<Link to={`detail/${product.id}`}>ver más</Link>
 						<Button onClick={() => handleAdd(product)}>

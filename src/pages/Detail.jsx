@@ -21,9 +21,9 @@ export const Detail = () => {
 			{product ? (
 				<>
 					<Button onClick={() => navigate("/")}>Volver</Button>
-					<Typography>{product.nombre}</Typography>
-					<img src={product.image} alt={product.nombre} />
-					<Typography>{product.descripcion}</Typography>
+					<Typography>{product.name}</Typography>
+					<img src={product.image} alt={product.name} />
+					<Typography>{product.description}</Typography>
 					<AddButton />
 					<Button>Comprar</Button>
 				</>
