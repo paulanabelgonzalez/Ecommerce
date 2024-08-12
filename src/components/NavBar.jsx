@@ -19,11 +19,14 @@ import { styled, alpha } from "@mui/material/styles";
 
 import { BiCartDownload } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosSearch } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
+
+import { getAuth, signOut } from "firebase/auth";
 
 import { Cart } from "./Cart";
 
@@ -109,13 +112,24 @@ export const NavBar = () => {
 				navigate("/Order");
 				break;
 			case "Cerrar Sesión":
-				// Implementa la lógica de cierre de sesión aquí
-				console.log("Logging out...");
+				handleSingOut();
 				break;
 			default:
 				navigate("/"); // Navegar a la página principal por defecto
 		}
 		handleCloseUserMenu(); // Cierra el menú después de la selección
+	};
+
+	const handleSingOut = () => {
+		const auth = getAuth();
+		signOut(auth)
+			.then(() => {
+				navigate("/");
+				console.log("sin bucle infinito");
+			})
+			.catch((error) => {
+				// An error happened.
+			});
 	};
 
 	return (
@@ -221,7 +235,7 @@ export const NavBar = () => {
 							</span>
 						</Box>
 						<Cart state={state} toggleDrawer={toggleDrawer} />
-						<Tooltip title="Open settings">
+						<Tooltip title="Iniciar Sesión">
 							<Box>
 								<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<FaUser style={{ fontSize: "23px", color: "white" }} />
@@ -262,6 +276,13 @@ export const NavBar = () => {
 								</MenuItem>
 							))}
 						</Menu>
+						<Tooltip title="Cerrar Sesión">
+							<Box>
+								<Button onClick={handleSingOut} sx={{ p: 0 }}>
+									<TbLogout style={{ fontSize: "23px", color: "white" }} />
+								</Button>
+							</Box>
+						</Tooltip>
 					</Box>
 				</Toolbar>
 			</Container>

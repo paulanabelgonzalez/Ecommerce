@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import { CardsContainer } from "../components/CardsContainer";
 import { CheckOut } from "../pages/CheckOut";
@@ -11,7 +11,6 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Main = () => {
 	const { user } = useContext(FirebaseContext);
-	const Navigate = useNavigate();
 	return (
 		<Routes>
 			<Route path="/" element={<CardsContainer />} />
