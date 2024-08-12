@@ -65,13 +65,13 @@ export const FirebaseProvider = ({ children }) => {
 		isAuth();
 	}, []);
 
-	const finalizarCompra = async (cart, subtotal) => {
+	const finalizePurchase = async (cart, subtotal) => {
 		if (user && user.uid) {
 			try {
 				const userDocRef = doc(db, "users", user.uid);
 				await updateDoc(userDocRef, {
 					orders: arrayUnion({
-						cart: [...cart],
+						order: [...cart],
 						fecha: new Date(),
 						total: subtotal,
 					}),
@@ -87,7 +87,7 @@ export const FirebaseProvider = ({ children }) => {
 
 	return (
 		<FirebaseContext.Provider
-			value={{ products, user, setUser, finalizarCompra }}
+			value={{ products, user, setUser, finalizePurchase }}
 		>
 			{children}
 		</FirebaseContext.Provider>

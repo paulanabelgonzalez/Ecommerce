@@ -9,11 +9,11 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const CheckOut = () => {
 	const { cart, subtotal, subTotalProduct, setCart } = useContext(CartContext);
-	const { finalizarCompra } = useContext(FirebaseContext);
+	const { finalizePurchase } = useContext(FirebaseContext);
 	const navigate = useNavigate();
 
-	const handleFinalizarCompra = () => {
-		finalizarCompra(cart, subtotal);
+	const handlefinalizePurchase = () => {
+		finalizePurchase(cart, subtotal);
 		navigate("/");
 		setCart([]);
 	};
@@ -42,7 +42,7 @@ export const CheckOut = () => {
 				</Box>
 			))}
 			<Typography>Total: $ {subtotal} </Typography>
-			<Button onClick={handleFinalizarCompra}>Finalizar compra</Button>
+			<Button onClick={handlefinalizePurchase}>Finalizar compra</Button>
 		</Box>
 	);
 };

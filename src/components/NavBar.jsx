@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 
+import { useNavigate } from "react-router";
+
 import {
 	AppBar,
-	Avatar,
 	Box,
 	Button,
 	Container,
@@ -16,9 +17,10 @@ import {
 
 import { styled, alpha } from "@mui/material/styles";
 
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BiCartDownload } from "react-icons/bi";
+import { FaUser } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
+import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
@@ -26,7 +28,7 @@ import { FirebaseContext } from "../context/FirebaseContext";
 import { Cart } from "./Cart";
 
 const pages = ["Productos"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Iniciar Sesión", "Historial de Compras", "Cerrar Sesión"];
 
 export const NavBar = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
@@ -34,6 +36,7 @@ export const NavBar = () => {
 	const [state, setState] = useState({
 		right: false,
 	});
+	const navigate = useNavigate();
 
 	const { quantity } = useContext(CartContext);
 
@@ -96,6 +99,25 @@ export const NavBar = () => {
 			},
 		},
 	}));
+
+	const handleMenuItemClick = (page) => {
+		switch (page) {
+			case "Iniciar Sesión":
+				navigate("/Login");
+				break;
+			case "Historial de Compras":
+				navigate("/Order");
+				break;
+			case "Cerrar Sesión":
+				// Implementa la lógica de cierre de sesión aquí
+				console.log("Logging out...");
+				break;
+			default:
+				navigate("/"); // Navegar a la página principal por defecto
+		}
+		handleCloseUserMenu(); // Cierra el menú después de la selección
+	};
+
 	return (
 		<AppBar position="static">
 			<Container maxWidth="xl">
@@ -200,9 +222,20 @@ export const NavBar = () => {
 						</Box>
 						<Cart state={state} toggleDrawer={toggleDrawer} />
 						<Tooltip title="Open settings">
-							<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-							</Button>
+							<Box>
+								<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+									<FaUser style={{ fontSize: "23px", color: "white" }} />
+									{user ? (
+										<Typography variant="p" sx={{ color: "white" }}>
+											{user.username}
+										</Typography>
+									) : (
+										<Typography sx={{ color: "white" }}>
+											Iniciar Sesión
+										</Typography>
+									)}
+								</Button>
+							</Box>
 						</Tooltip>
 						<Menu
 							sx={{ mt: "45px" }}
@@ -221,7 +254,10 @@ export const NavBar = () => {
 							onClose={handleCloseUserMenu}
 						>
 							{settings.map((setting) => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
+								<MenuItem
+									key={setting}
+									onClick={() => handleMenuItemClick(setting)}
+								>
 									<Typography textAlign="center">{setting}</Typography>
 								</MenuItem>
 							))}

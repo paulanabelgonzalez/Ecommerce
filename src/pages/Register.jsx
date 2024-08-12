@@ -53,7 +53,6 @@ export const Register = ({}) => {
 					username: values.nombre,
 					mail: values.email,
 					orders: [],
-					cart: [],
 					id: userCredential.user.uid,
 				};
 				await setDoc(doc(db, "users", user.id), user);
