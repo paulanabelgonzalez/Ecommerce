@@ -16,6 +16,7 @@ import { IoEyeSharp } from "react-icons/io5";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { IoMdClose } from "react-icons/io";
+import { CartContext } from "../context/CartContext";
 
 const validationSchema = yup.object({
 	email: yup
@@ -29,6 +30,7 @@ const validationSchema = yup.object({
 });
 
 export const Login = () => {
+	const { cart } = useContext(CartContext);
 	const { setUser, user } = useContext(FirebaseContext);
 	const navigate = useNavigate();
 	const auth = getAuth();
@@ -54,8 +56,11 @@ export const Login = () => {
 					id: loggedInUser.uid,
 					email: loggedInUser.email,
 				});
-				// console.log(user);
-				navigate("/checkOut");
+				if (cart.length === 0) {
+					navigate("/");
+				} else {
+					navigate("/checkOut");
+				}
 			} catch (error) {
 				console.error("Error during login:", error.code, error.message);
 			}
@@ -75,6 +80,7 @@ export const Login = () => {
 				id="email"
 				name="email"
 				label="Email"
+				autoComplete="email"
 				value={formik.values.email}
 				onChange={handleEmailChange}
 				onBlur={formik.handleBlur}
@@ -87,6 +93,7 @@ export const Login = () => {
 				id="password"
 				name="password"
 				label="Password"
+				autoComplete="password"
 				type={typePassword}
 				value={formik.values.password}
 				onChange={formik.handleChange}

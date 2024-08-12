@@ -31,7 +31,8 @@ import { getAuth, signOut } from "firebase/auth";
 import { Cart } from "./Cart";
 
 const pages = ["Productos"];
-const settings = ["Iniciar Sesión", "Historial de Compras", "Cerrar Sesión"];
+const settings = ["Historial de Compras", "Cerrar Sesión"];
+// "Iniciar Sesión",
 
 export const NavBar = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
@@ -189,9 +190,9 @@ export const NavBar = () => {
 					<Button sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 					<Typography
 						variant="h5"
-						noWrap
-						component="a"
-						href="#app-bar-with-responsive-menu"
+						// noWrap
+						// component="a"
+						// href="#app-bar-with-responsive-menu"
 						sx={{
 							mr: 2,
 							display: { xs: "flex", md: "none" },
@@ -235,9 +236,9 @@ export const NavBar = () => {
 							</span>
 						</Box>
 						<Cart state={state} toggleDrawer={toggleDrawer} />
-						<Tooltip title="Iniciar Sesión">
+						<Tooltip title="Sesión">
 							<Box>
-								<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+								{/* <Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 									<FaUser style={{ fontSize: "23px", color: "white" }} />
 									{user ? (
 										<Typography variant="p" sx={{ color: "white" }}>
@@ -248,7 +249,22 @@ export const NavBar = () => {
 											Iniciar Sesión
 										</Typography>
 									)}
-								</Button>
+								</Button> */}
+								{user ? (
+									<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<FaUser style={{ fontSize: "23px", color: "white" }} />
+										<Typography variant="p" sx={{ color: "white" }}>
+											{user.username}
+										</Typography>
+									</Button>
+								) : (
+									<Button onClick={() => navigate("/Login")}>
+										<FaUser style={{ fontSize: "23px", color: "white" }} />
+										<Typography sx={{ color: "white" }}>
+											Iniciar Sesión
+										</Typography>
+									</Button>
+								)}
 							</Box>
 						</Tooltip>
 						<Menu
