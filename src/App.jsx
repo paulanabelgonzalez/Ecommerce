@@ -1,5 +1,13 @@
-function App() {
-	return <></>;
-}
+import { Footer } from "./layout/Footer";
+import { Header } from "./layout/Header";
+import { Main } from "./layout/Main";
 
-export default App;
+export const App = () => {
+	return (
+		<>
+			<Header />
+			<Main />
+			<Footer />
+		</>
+	);
+};
