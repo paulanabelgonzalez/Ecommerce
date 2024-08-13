@@ -34,15 +34,15 @@ export const FirebaseProvider = ({ children }) => {
 		getProducts();
 	}, []);
 
-	const getUserInfo = async (uid) => {
-		try {
-			const docRef = doc(db, "users", uid);
-			const document = await getDoc(docRef);
-			return document.data();
-		} catch (err) {
-			console.log(err);
-		}
-	};
+	// const getUserInfo = async (uid) => {
+	// 	try {
+	// 		const docRef = doc(db, "users", uid);
+	// 		const document = await getDoc(docRef);
+	// 		return document.data();
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 	}
+	// };
 
 	useEffect(() => {
 		const isAuth = () => {
@@ -50,9 +50,11 @@ export const FirebaseProvider = ({ children }) => {
 				try {
 					if (user) {
 						const uid = user.uid;
-						const userInfo = await getUserInfo(uid);
-						// setUser(userInfo);
-						setUser({ ...user, ...userInfo });
+						const userDocRef = doc(db, "users", uid);
+						onSnapshot(userDocRef, (doc) => {
+							const userInfo = doc.data();
+							setUser({ ...user, ...userInfo });
+						});
 					} else {
 						setUser(null);
 					}
@@ -72,7 +74,7 @@ export const FirebaseProvider = ({ children }) => {
 				await updateDoc(userDocRef, {
 					orders: arrayUnion({
 						order: [...cart],
-						fecha: new Date(),
+						date: new Date().toLocaleString(),
 						total: subtotal,
 					}),
 				});

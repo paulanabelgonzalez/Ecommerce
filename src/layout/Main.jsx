@@ -9,6 +9,7 @@ import { NotFound } from "../pages/404";
 import { Register } from "../pages/Register";
 import { FirebaseContext } from "../context/FirebaseContext";
 import { Modal } from "../components/Modal";
+import { OrderHistory } from "../pages/OrderHistory";
 
 export const Main = () => {
 	const { user } = useContext(FirebaseContext);
@@ -24,6 +25,7 @@ export const Main = () => {
 				element={user ? <CheckOut /> : <Navigate to="/Login" />}
 			/>
 			<Route path="modal" element={<Modal />} />
+			<Route path="OrderHistory" element={<OrderHistory />} />
 		</Routes>
 	);
 };

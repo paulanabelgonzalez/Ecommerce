@@ -110,10 +110,10 @@ export const NavBar = () => {
 				navigate("/Login");
 				break;
 			case "Historial de Compras":
-				navigate("/Order");
+				navigate("/OrderHistory");
 				break;
 			case "Cerrar Sesión":
-				handleSingOut();
+				handleSignOut();
 				break;
 			default:
 				navigate("/"); // Navegar a la página principal por defecto
@@ -121,7 +121,7 @@ export const NavBar = () => {
 		handleCloseUserMenu(); // Cierra el menú después de la selección
 	};
 
-	const handleSingOut = () => {
+	const handleSignOut = () => {
 		const auth = getAuth();
 		signOut(auth)
 			.then(() => {
@@ -283,7 +283,7 @@ export const NavBar = () => {
 						</Menu>
 						<Tooltip title="Cerrar sesión">
 							<Box>
-								<Button onClick={handleSingOut} sx={{ p: 0 }}>
+								<Button onClick={handleSignOut} sx={{ p: 0 }}>
 									<TbLogout style={{ fontSize: "27px", color: "white" }} />
 								</Button>
 							</Box>
