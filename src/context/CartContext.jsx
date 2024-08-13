@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-import { getAddedProducts } from "../LocalStorage";
+import { getAddedProducts, setCartLS } from "../LocalStorage";
 
 export const CartContext = createContext();
 
@@ -25,6 +25,18 @@ export const CartProvider = ({ children }) => {
 		}, 0);
 		setQuantity(initialNotification);
 		console.log(initialNotification);
+	}, [cart]);
+
+	useEffect(() => {
+		setCartLS(JSON.stringify(cart));
+		console.log("sin bucle");
+
+		const timeoutId = setTimeout(() => {
+			handleDeleteAll();
+			console.log("Carrito borrado después de 9 segundos");
+		}, 86400000);
+
+		return () => clearTimeout(timeoutId);
 	}, [cart]);
 
 	const handleAdd = (product) => {
