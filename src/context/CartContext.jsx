@@ -47,6 +47,10 @@ export const CartProvider = ({ children }) => {
 		setCart(deletedProduct);
 	};
 
+	const handleDeleteAll = () => {
+		setCart([]);
+	};
+
 	const handleAddQuantity = (productToAdd) => {
 		const newCart = cart?.map((cartProduct) =>
 			cartProduct.id === productToAdd
@@ -88,6 +92,7 @@ export const CartProvider = ({ children }) => {
 				subTotalProduct,
 				subtotal,
 				setCart,
+				handleDeleteAll,
 			}}
 		>
 			{children}

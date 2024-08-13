@@ -9,7 +9,7 @@ import { QuantityProducts } from "./QuantityProducts";
 import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Cart = ({ state, toggleDrawer }) => {
-	const { cart, handleDelete, subtotal, subTotalProduct } =
+	const { cart, handleDelete, subtotal, subTotalProduct, handleDeleteAll } =
 		useContext(CartContext);
 
 	const { user } = useContext(FirebaseContext);
@@ -29,6 +29,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 				sx={{ height: "100%", overflowY: "scroll" }}
 			>
 				<Button onClick={toggleDrawer("right", false)}>x</Button>
+				<Button onClick={handleDeleteAll}>Vaciar carrito</Button>
 				{cart.length === 0 ? (
 					<Typography>No hay productos en el carrito</Typography>
 				) : (

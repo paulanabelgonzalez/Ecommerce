@@ -14,7 +14,7 @@ export const CheckOut = () => {
 
 	const handlefinalizePurchase = () => {
 		finalizePurchase(cart, subtotal);
-		navigate("/");
+		navigate("/modal");
 		setCart([]);
 	};
 	return (

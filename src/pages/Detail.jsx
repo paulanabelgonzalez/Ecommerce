@@ -20,12 +20,36 @@ export const Detail = () => {
 		<Box sx={{ maxWidth: "1000px", margin: "auto", border: "1px solid" }}>
 			{product ? (
 				<>
-					<Button onClick={() => navigate("/")}>Volver</Button>
-					<Typography>{product.name}</Typography>
-					<img src={product.image} alt={product.name} />
-					<Typography>{product.description}</Typography>
-					<AddButton />
-					<Button>Comprar</Button>
+					<Box sx={{ display: "flex" }}>
+						<Box maxWidth={"300px"}>
+							<img
+								src={product.image}
+								alt={product.name}
+								style={{ width: "100%" }}
+							/>
+						</Box>
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "space-between",
+							}}
+						>
+							<Box>
+								<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+									<Button onClick={() => navigate("/")}>Volver</Button>
+								</Box>
+								<Box>
+									<Typography variant="h5">{product.name}</Typography>
+									<Typography>{product.description}</Typography>
+								</Box>
+							</Box>
+							<Box>
+								<AddButton />
+								<Button>Comprar</Button>
+							</Box>
+						</Box>
+					</Box>
 				</>
 			) : (
 				<Typography>Producto no encontrado</Typography>

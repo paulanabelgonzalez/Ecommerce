@@ -8,6 +8,7 @@ import { Login } from "../pages/Login";
 import { NotFound } from "../pages/404";
 import { Register } from "../pages/Register";
 import { FirebaseContext } from "../context/FirebaseContext";
+import { Modal } from "../components/Modal";
 
 export const Main = () => {
 	const { user } = useContext(FirebaseContext);
@@ -22,6 +23,7 @@ export const Main = () => {
 				path="CheckOut"
 				element={user ? <CheckOut /> : <Navigate to="/Login" />}
 			/>
+			<Route path="modal" element={<Modal />} />
 		</Routes>
 	);
 };
