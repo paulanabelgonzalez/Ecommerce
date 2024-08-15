@@ -45,7 +45,7 @@ export const Card = ({ filter }) => {
 						<Typography>{product.description}</Typography>
 						<Typography>$ {product.price}</Typography>
 						{/* <QuantityProducts key={product.id} product={product} /> */}
-						<Link to={`detail/${product.id}`}>ver más</Link>
+						<Link to={`/detail/${product.id}`}>ver más</Link>
 						<Button onClick={() => handleAdd(product)}>
 							Añadir al carrito
 						</Button>

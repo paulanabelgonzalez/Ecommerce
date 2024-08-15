@@ -10,12 +10,14 @@ import { Register } from "../pages/Register";
 import { FirebaseContext } from "../context/FirebaseContext";
 import { Modal } from "../components/Modal";
 import { OrderHistory } from "../pages/OrderHistory";
+import { Home } from "../pages/Home";
 
 export const Main = () => {
 	const { user } = useContext(FirebaseContext);
 	return (
 		<Routes>
-			<Route path="/" element={<CardsContainer />} />
+			<Route path="/" element={<Home />} />
+			<Route path="/Productos" element={<CardsContainer />} />
 			<Route path="login" element={<Login />} />
 			<Route path="register" element={<Register />} />
 			<Route path="detail/:id" element={<Detail />} />

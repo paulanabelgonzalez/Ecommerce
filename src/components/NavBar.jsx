@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 import { BiCartDownload } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
@@ -30,7 +31,7 @@ import { getAuth, signOut } from "firebase/auth";
 
 import { Cart } from "./Cart";
 
-const pages = ["Productos"];
+const pages = ["Inicio", "Productos"];
 const settings = ["Historial de Compras", "Cerrar Sesión"];
 // "Iniciar Sesión",
 
@@ -41,6 +42,9 @@ export const NavBar = () => {
 		right: false,
 	});
 	const navigate = useNavigate();
+
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const { quantity } = useContext(CartContext);
 
@@ -181,7 +185,10 @@ export const NavBar = () => {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
+								<MenuItem
+									key={page}
+									onClick={() => navigate(page === "Inicio" ? "/" : `/${page}`)}
+								>
 									<Typography textAlign="center">{page}</Typography>
 								</MenuItem>
 							))}
@@ -210,7 +217,7 @@ export const NavBar = () => {
 						{pages.map((page) => (
 							<Button
 								key={page}
-								onClick={handleCloseNavMenu}
+								onClick={() => navigate(page === "Inicio" ? "/" : `/${page}`)}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
 								{page}
