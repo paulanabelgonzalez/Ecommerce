@@ -1,47 +1,57 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import {
-	TextField,
-	Button,
-	Container,
-	InputAdornment,
-	IconButton,
-	Typography,
-} from "@mui/material";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { FirebaseContext } from "../context/FirebaseContext";
-import { FaEyeSlash } from "react-icons/fa6";
-import { IoEyeSharp } from "react-icons/io5";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
-import { IoMdClose } from "react-icons/io";
+
+import { useFormik } from "formik";
+
+import * as yup from "yup";
+
+import {
+	Button,
+	Container,
+	IconButton,
+	InputAdornment,
+	TextField,
+	Typography,
+} from "@mui/material";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 import { CartContext } from "../context/CartContext";
+import { FirebaseContext } from "../context/FirebaseContext";
+
+import { FaEyeSlash } from "react-icons/fa6";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoMdClose } from "react-icons/io";
 
 const validationSchema = yup.object({
 	email: yup
 		.string()
-		.email("Enter a valid email")
-		.required("Email is required"),
+		.email("La dirección de correo no es valida")
+		.required("La dirección de correo es obligatoria"),
 	password: yup
 		.string()
-		.min(8, "Password should be of minimum 8 characters length")
-		.required("Password is required"),
+		.min(8, "La contraseña debe tener un mínimo de 8 caracteres")
+		.required("La contraseña es obligatoria"),
 });
 
 export const Login = () => {
 	const { cart } = useContext(CartContext);
 	const { setUser, user } = useContext(FirebaseContext);
-	const navigate = useNavigate();
-	const auth = getAuth();
+
 	const [typePassword, setTypePassword] = useState("password");
+
+	const navigate = useNavigate();
+
+	const auth = getAuth();
 
 	const formik = useFormik({
 		initialValues: {
 			email: "",
 			password: "",
 		},
+
 		validationSchema: validationSchema,
+
 		onSubmit: async (values) => {
 			try {
 				setUser(null);
@@ -50,22 +60,25 @@ export const Login = () => {
 					values.email,
 					values.password
 				);
+
 				const loggedInUser = userCredential.user;
 
 				setUser({
 					id: loggedInUser.uid,
 					email: loggedInUser.email,
 				});
+
 				if (cart.length === 0) {
 					navigate("/");
 				} else {
 					navigate("/checkOut");
 				}
 			} catch (error) {
-				console.error("Error during login:", error.code, error.message);
+				console.error("Error al iniciar sesión:", error.code, error.message);
 			}
 		},
 	});
+
 	const handleEmailChange = (event) => {
 		// Limpiar el usuario anterior al cambiar el campo de correo electrónico
 		setUser(null);

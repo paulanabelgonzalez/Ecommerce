@@ -13,10 +13,11 @@ import {
 	Toolbar,
 	Tooltip,
 	Typography,
+	useTheme,
 } from "@mui/material";
 
 import { styled, alpha } from "@mui/material/styles";
-import { useMediaQuery, useTheme } from "@mui/material";
+// import { useTheme } from "@mui/material";
 
 import { BiCartDownload } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
@@ -33,7 +34,6 @@ import { Cart } from "./Cart";
 
 const pages = ["Inicio", "Productos"];
 const settings = ["Historial de Compras", "Cerrar Sesión"];
-// "Iniciar Sesión",
 
 export const NavBar = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
@@ -44,7 +44,7 @@ export const NavBar = () => {
 	const navigate = useNavigate();
 
 	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+	// const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const { quantity } = useContext(CartContext);
 

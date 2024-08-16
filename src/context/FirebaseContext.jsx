@@ -14,6 +14,7 @@ import {
 export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
+	const [fromLoginPage, setFromLoginPage] = useState(true);
 	const [products, setProducts] = useState([]);
 	const [user, setUser] = useState(null);
 
@@ -89,7 +90,14 @@ export const FirebaseProvider = ({ children }) => {
 
 	return (
 		<FirebaseContext.Provider
-			value={{ products, user, setUser, finalizePurchase }}
+			value={{
+				products,
+				user,
+				setUser,
+				finalizePurchase,
+				fromLoginPage,
+				setFromLoginPage,
+			}}
 		>
 			{children}
 		</FirebaseContext.Provider>

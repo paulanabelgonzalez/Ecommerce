@@ -1,13 +1,25 @@
 import { createContext, useEffect, useState } from "react";
 
-import { getAddedProducts, setCartLS } from "../LocalStorage";
+import {
+	clearCartAfterTimeout,
+	getAddedProducts,
+	setCartLS,
+} from "../LocalStorage";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-	const [cart, setCart] = useState(getAddedProducts("cart") || []);
+	const [cart, setCart] = useState(getAddedProducts());
 	const [quantity, setQuantity] = useState(1);
 	const [subtotal, setSubtotal] = useState(0);
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			clearCartAfterTimeout(setCart);
+		}, 60 * 1000);
+
+		return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar
+	}, []);
 
 	useEffect(() => {
 		const initialSubtotal = cart.reduce((acc, product) => {
@@ -27,28 +39,22 @@ export const CartProvider = ({ children }) => {
 		console.log(initialNotification);
 	}, [cart]);
 
-	useEffect(() => {
-		setCartLS(JSON.stringify(cart));
-		console.log("sin bucle");
-
-		const timeoutId = setTimeout(() => {
-			handleDeleteAll();
-			console.log("Carrito borrado después de 9 segundos");
-		}, 86400000);
-
-		return () => clearTimeout(timeoutId);
-	}, [cart]);
+	const currentCart = (newCart) => {
+		setCart(newCart);
+		setCartLS(newCart);
+	};
 
 	const handleAdd = (product) => {
 		const existingProduct = cart.find((item) => item.id === product.id);
-		if (existingProduct) {
-			const updatedCart = cart.map((item) =>
-				item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-			);
-			setCart(updatedCart);
-		} else {
-			setCart([...cart, { ...product, quantity: 1 }]);
-		}
+		const newCart = existingProduct
+			? cart.map((item) =>
+					item.id === product.id
+						? { ...item, quantity: item.quantity + 1 }
+						: item
+			  )
+			: [...cart, { ...product, quantity: 1 }];
+
+		currentCart(newCart);
 		console.log("Carrito añadido", cart);
 	};
 
@@ -56,11 +62,12 @@ export const CartProvider = ({ children }) => {
 		const deletedProduct = cart.filter(
 			(product) => product.id !== productToDelete.id
 		);
-		setCart(deletedProduct);
+		currentCart(deletedProduct);
 	};
 
 	const handleDeleteAll = () => {
 		setCart([]);
+		localStorage.clear();
 	};
 
 	const handleAddQuantity = (productToAdd) => {
@@ -69,7 +76,7 @@ export const CartProvider = ({ children }) => {
 				? { ...cartProduct, quantity: (cartProduct.quantity || 0) + 1 }
 				: cartProduct
 		);
-		setCart(newCart);
+		currentCart(newCart);
 		console.log(newCart, quantity);
 	};
 
@@ -84,7 +91,7 @@ export const CartProvider = ({ children }) => {
 			}
 			return cartProduct;
 		});
-		setCart(newCart);
+		currentCart(newCart);
 		console.log(newCart, quantity);
 	};
 
