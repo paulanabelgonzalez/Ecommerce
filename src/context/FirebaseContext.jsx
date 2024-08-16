@@ -14,10 +14,10 @@ import {
 export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
-	const [fromLoginPage, setFromLoginPage] = useState(true);
+	const [fromLoginPage, setFromLoginPage] = useState(false);
 	const [products, setProducts] = useState([]);
 	const [user, setUser] = useState(null);
-
+	console.log(fromLoginPage);
 	const auth = getAuth();
 
 	useEffect(() => {

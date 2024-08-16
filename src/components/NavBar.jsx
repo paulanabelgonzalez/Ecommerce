@@ -48,7 +48,7 @@ export const NavBar = () => {
 
 	const { quantity } = useContext(CartContext);
 
-	const { user } = useContext(FirebaseContext);
+	const { user, setFromLoginPage, FromLoginPage } = useContext(FirebaseContext);
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -112,6 +112,8 @@ export const NavBar = () => {
 		switch (page) {
 			case "Iniciar Sesión":
 				navigate("/Login");
+				setFromLoginPage(true);
+				console.log(FromLoginPage);
 				break;
 			case "Historial de Compras":
 				navigate("/OrderHistory");
@@ -130,6 +132,7 @@ export const NavBar = () => {
 		signOut(auth)
 			.then(() => {
 				navigate("/");
+				setFromLoginPage(false);
 				console.log("sin bucle infinito");
 			})
 			.catch((error) => {
@@ -254,7 +257,12 @@ export const NavBar = () => {
 								</Tooltip>
 							) : (
 								<Tooltip title="Inciar sesión">
-									<Button onClick={() => navigate("/Login")}>
+									<Button
+										onClick={() => {
+											navigate("/Login"), setFromLoginPage(true);
+											console.log(FromLoginPage);
+										}}
+									>
 										<FaUser style={{ fontSize: "20px", color: "white" }} />
 										<Typography sx={{ color: "white" }}>
 											Iniciar Sesión
