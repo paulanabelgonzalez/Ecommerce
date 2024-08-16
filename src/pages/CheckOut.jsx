@@ -9,11 +9,12 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const CheckOut = () => {
 	const { cart, subtotal, subTotalProduct, setCart } = useContext(CartContext);
-	const { finalizePurchase } = useContext(FirebaseContext);
+	const { finalizePurchase, setModal } = useContext(FirebaseContext);
 	const navigate = useNavigate();
 
 	const handlefinalizePurchase = () => {
 		finalizePurchase(cart, subtotal);
+		setModal(1);
 		navigate("/modal");
 		setCart([]);
 	};

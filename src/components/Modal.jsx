@@ -1,7 +1,13 @@
-import { Box, Button, Typography } from "@mui/material";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 
+import { Box, Button, Typography } from "@mui/material";
+
+import { FirebaseContext } from "../context/FirebaseContext";
+
 export const Modal = () => {
+	const { modal } = useContext(FirebaseContext);
+
 	const navigate = useNavigate();
 	return (
 		<>
@@ -41,9 +47,11 @@ export const Modal = () => {
 							},
 						}}
 					>
-						Regresar
+						{modal === 0 && "Aceptar"}
+						{modal === 1 && "Regresar"}
 					</Button>
 				</Box>
+
 				<Typography
 					sx={{
 						fontSize: 24,
@@ -52,26 +60,31 @@ export const Modal = () => {
 						color: "#5c07a6",
 					}}
 				>
-					GRACIAS POR SU COMPRA!!
+					{modal === 0 && "Se ha registrado correctamente"}
+					{modal === 1 && "GRACIAS POR SU COMPRA!!"}
 				</Typography>
-				<Typography
-					sx={{
-						fontSize: 20,
-						textAlign: "center",
-						fontWeight: 500,
-					}}
-				>
-					Su pedido llegará en 48hs
-				</Typography>
-				<Typography
-					sx={{
-						fontSize: 20,
-						textAlign: "center",
-						fontWeight: 500,
-					}}
-				>
-					Aproveche nuestras promociones
-				</Typography>
+				{modal === 1 && (
+					<>
+						<Typography
+							sx={{
+								fontSize: 20,
+								textAlign: "center",
+								fontWeight: 500,
+							}}
+						>
+							Su pedido llegará en 48hs.
+						</Typography>
+						<Typography
+							sx={{
+								fontSize: 20,
+								textAlign: "center",
+								fontWeight: 500,
+							}}
+						>
+							Aproveche nuestras promociones!!
+						</Typography>
+					</>
+				)}
 			</Box>
 		</>
 	);

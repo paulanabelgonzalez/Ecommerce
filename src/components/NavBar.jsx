@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-
 import { useNavigate } from "react-router";
 
 import {
@@ -15,9 +14,10 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-
 import { styled, alpha } from "@mui/material/styles";
 // import { useTheme } from "@mui/material";
+
+import { getAuth, signOut } from "firebase/auth";
 
 import { BiCartDownload } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
@@ -27,8 +27,6 @@ import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
-
-import { getAuth, signOut } from "firebase/auth";
 
 import { Cart } from "./Cart";
 
@@ -121,7 +119,7 @@ export const NavBar = () => {
 				handleSignOut();
 				break;
 			default:
-				navigate("/"); // Navegar a la página principal por defecto
+				navigate("/");
 		}
 		handleCloseUserMenu(); // Cierra el menú después de la selección
 	};
@@ -136,7 +134,7 @@ export const NavBar = () => {
 				console.log("sin bucle infinito");
 			})
 			.catch((error) => {
-				// An error happened.
+				console.log(error);
 			});
 	};
 

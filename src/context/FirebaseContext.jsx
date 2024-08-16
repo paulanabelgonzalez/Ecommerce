@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-
 import { useNavigate } from "react-router";
 
 import { db } from "../../firebase";
@@ -7,7 +6,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
 	collection,
 	doc,
-	getDoc,
+	// getDoc,
 	onSnapshot,
 	updateDoc,
 	arrayUnion,
@@ -17,6 +16,7 @@ export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
 	const [fromLoginPage, setFromLoginPage] = useState(false);
+	const [modal, setModal] = useState(0);
 	const [products, setProducts] = useState([]);
 	const [user, setUser] = useState(null);
 
@@ -108,6 +108,8 @@ export const FirebaseProvider = ({ children }) => {
 				fromLoginPage,
 				// setFromLoginPage,
 				handleFromLoginPage,
+				modal,
+				setModal,
 			}}
 		>
 			{children}

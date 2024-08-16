@@ -2,7 +2,6 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 
 import { useFormik } from "formik";
-
 import * as yup from "yup";
 
 import {
@@ -16,22 +15,22 @@ import {
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-import { CartContext } from "../context/CartContext";
-import { FirebaseContext } from "../context/FirebaseContext";
-
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 
+import { CartContext } from "../context/CartContext";
+import { FirebaseContext } from "../context/FirebaseContext";
+
 const validationSchema = yup.object({
 	email: yup
 		.string()
-		.email("La dirección de correo no es valida")
-		.required("La dirección de correo es obligatoria"),
+		.email("La dirección del correo no es valida.")
+		.required("La dirección del correo es obligatoria."),
 	password: yup
 		.string()
-		.min(8, "La contraseña debe tener un mínimo de 8 caracteres")
-		.required("La contraseña es obligatoria"),
+		.min(8, "La contraseña debe tener un mínimo de 8 caracteres.")
+		.required("La contraseña es obligatoria."),
 });
 
 export const Login = () => {

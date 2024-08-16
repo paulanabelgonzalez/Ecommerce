@@ -1,42 +1,58 @@
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
+
 import {
-	TextField,
 	Button,
 	Container,
-	Typography,
-	InputAdornment,
 	IconButton,
+	InputAdornment,
+	TextField,
+	Typography,
 } from "@mui/material";
+
+import { db } from "../../firebase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import { IoMdClose } from "react-icons/io";
 
+import { FirebaseContext } from "../context/FirebaseContext";
+
 const validationSchema = yup.object({
+	name: yup
+		.string()
+		.min(3, "El nombre debe tener un mínimo de 3 caracteres.")
+		.required(" El nombre es obligatorio."),
 	email: yup
-		.string("Enter your email")
-		.email("Enter a valid email")
-		.required("Email is required"),
+		.string()
+		.email("La dirección del correo no es valida.")
+		.required("La dirección del correo es obligatoria."),
 	password: yup
-		.string("Enter your password")
-		.min(8, "Password should be of minimum 8 characters length")
-		.required("Password is required"),
+		.string()
+		.min(8, "La contraseña debe tener un mínimo de 8 caracteres.")
+		.required("La contraseña es obligatoria."),
 });
 
 export const Register = ({}) => {
-	const navigate = useNavigate();
-	const auth = getAuth();
+	const { setModal } = useContext(FirebaseContext);
+
 	const [typePassword, setTypePassword] = useState("password");
+
+	const navigate = useNavigate();
+
+	const auth = getAuth();
+
 	const formik = useFormik({
 		initialValues: {
-			nombre: "pepito",
-			email: "foobar@example.com",
-			password: "foobar",
+			name: "Ingresa un nombre",
+			email: "Ingresa tu correo electrónico",
+			password: "contraseña 123",
+			address: "Opcional,solo para envios",
 		},
 
 		validationSchema: validationSchema,
@@ -50,16 +66,17 @@ export const Register = ({}) => {
 				);
 
 				const user = {
-					username: values.nombre,
+					username: values.name,
 					mail: values.email,
 					orders: [],
 					id: userCredential.user.uid,
 				};
 				await setDoc(doc(db, "users", user.id), user);
 				console.log(user);
-				navigate("/");
+				setModal(0);
+				navigate("/modal");
 			} catch (error) {
-				console.error("Error during registration: ", error.code, error.message);
+				console.error("Error durante el registro: ", error.code, error.message);
 			}
 		},
 	});
@@ -70,13 +87,13 @@ export const Register = ({}) => {
 			<TextField
 				fullWidth
 				id="nombre"
-				name="nombre"
-				label="nombre"
-				value={formik.values.nombre}
+				name="name"
+				label="Nombre"
+				value={formik.values.name}
 				onChange={formik.handleChange}
 				onBlur={formik.handleBlur}
-				error={formik.touched.nombre && Boolean(formik.errors.nombre)}
-				helperText={formik.touched.nombre && formik.errors.nombre}
+				error={formik.touched.name && Boolean(formik.errors.name)}
+				helperText={formik.touched.name && formik.errors.name}
 			/>
 			<TextField
 				fullWidth
@@ -117,6 +134,17 @@ export const Register = ({}) => {
 						</InputAdornment>
 					),
 				}}
+			/>
+			<TextField
+				fullWidth
+				id="address"
+				name="address"
+				label="Dirección"
+				value={formik.values.address}
+				onChange={formik.handleChange}
+				onBlur={formik.handleBlur}
+				error={formik.touched.address && Boolean(formik.errors.address)}
+				helperText={formik.touched.address && formik.errors.address}
 			/>
 			<Button color="primary" variant="contained" fullWidth type="submit">
 				Registrarse
