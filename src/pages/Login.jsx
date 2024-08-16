@@ -36,8 +36,8 @@ const validationSchema = yup.object({
 
 export const Login = () => {
 	const { cart } = useContext(CartContext);
-	const { setUser, user, fromLoginPage } = useContext(FirebaseContext);
-	console.log(fromLoginPage);
+	const { setUser, user, fromLoginPage, handleFromLoginPage } =
+		useContext(FirebaseContext);
 
 	const [typePassword, setTypePassword] = useState("password");
 
@@ -96,7 +96,7 @@ export const Login = () => {
 
 	return (
 		<Container as="form" onSubmit={formik.handleSubmit}>
-			<IoMdClose onClick={() => navigate("/")} />
+			<IoMdClose onClick={() => handleFromLoginPage("/", false)} />
 			<TextField
 				fullWidth
 				id="email"
