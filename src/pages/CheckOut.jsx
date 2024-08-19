@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { useNavigate } from "react-router";
 
@@ -18,6 +18,13 @@ export const CheckOut = () => {
 		navigate("/modal");
 		setCart([]);
 	};
+
+	useEffect(() => {
+		if (cart.length === 0) {
+			navigate("/");
+		}
+	}, [cart, navigate]);
+
 	return (
 		<Box sx={{ backgroundColor: "white" }}>
 			<Button onClick={() => navigate("/")}>Regresar</Button>

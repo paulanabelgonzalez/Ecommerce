@@ -46,8 +46,7 @@ export const NavBar = () => {
 
 	const { quantity } = useContext(CartContext);
 
-	const { user, handleFromLoginPage, fromLoginPage } =
-		useContext(FirebaseContext);
+	const { user, handleFromLoginPage } = useContext(FirebaseContext);
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -234,7 +233,7 @@ export const NavBar = () => {
 					</Box>
 
 					<Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
-						<Tooltip title="Mi compra">
+						<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
 							<Button onClick={toggleDrawer("right", true)} sx={{ p: 0 }}>
 								<BiCartDownload style={{ fontSize: "30px", color: "white" }} />
 								<span style={{ color: "pink" }}>

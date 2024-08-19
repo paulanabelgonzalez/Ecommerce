@@ -63,6 +63,7 @@ export const Modal = () => {
 					{modal === 0 && "Se ha registrado correctamente"}
 					{modal === 1 && "GRACIAS POR SU COMPRA!!"}
 				</Typography>
+
 				{modal === 1 && (
 					<>
 						<Typography

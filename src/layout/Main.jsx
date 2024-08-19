@@ -8,7 +8,7 @@ import { Login } from "../pages/Login";
 import { NotFound } from "../pages/404";
 import { Register } from "../pages/Register";
 import { FirebaseContext } from "../context/FirebaseContext";
-import { Modal } from "../components/Modal";
+import { Modal } from "../pages/Modal";
 import { OrderHistory } from "../pages/OrderHistory";
 import { Home } from "../pages/Home";
 
