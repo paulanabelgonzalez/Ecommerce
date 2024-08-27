@@ -19,9 +19,7 @@ import visa from "../assets/imgFooter/visa.png";
 
 export const Footer = () => {
 	const navigate = useNavigate();
-
 	const theme = useTheme();
-
 	const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
 	const menuStyles = {
@@ -54,10 +52,10 @@ export const Footer = () => {
 		},
 	};
 
-	const TypographyStyles = {
+	const textStyles = {
 		color: "white",
-		width: "auto",
 		fontWeight: 700,
+		fontSize: "11px",
 	};
 
 	const linkStyles = {
@@ -70,7 +68,7 @@ export const Footer = () => {
 		transition: "color 0.3s ease",
 	};
 
-	const hoverStyles = {
+	const hoverEffectStyles = {
 		"&:hover": { color: "#795548b8" },
 		"&:hover img": { transform: "scale(1.1)" },
 	};
@@ -132,7 +130,7 @@ export const Footer = () => {
 			>
 				<Typography
 					sx={{
-						...TypographyStyles,
+						...textStyles,
 						fontSize: "15px",
 						textAlign: "center",
 						textDecoration: "underline",
@@ -151,8 +149,7 @@ export const Footer = () => {
 					<Box>
 						<Typography
 							sx={{
-								...TypographyStyles,
-								fontSize: "11px",
+								...textStyles,
 								textAlign: "center",
 								paddingTop: "6px",
 							}}
@@ -161,8 +158,7 @@ export const Footer = () => {
 						</Typography>
 						<Typography
 							sx={{
-								...TypographyStyles,
-								fontSize: "11px",
+								...textStyles,
 								textAlign: { md: "start" },
 								marginTop: "5px",
 							}}
@@ -172,7 +168,7 @@ export const Footer = () => {
 					</Box>
 					<Button
 						sx={{
-							...hoverStyles,
+							...hoverEffectStyles,
 							display: "flex",
 							flexDirection: "column",
 							justifyContent: " flex-start",
@@ -188,26 +184,17 @@ export const Footer = () => {
 							}}
 						/>
 
-						<Typography
-							sx={{
-								color: "white",
-								fontWeight: 700,
-								fontSize: "11px",
-							}}
-						>
-							mercado pago
-						</Typography>
+						<Typography sx={{ ...textStyles }}>MERCADO PAGO</Typography>
 					</Button>
-					<Button sx={{ ...hoverStyles }}>
+					<Button sx={{ ...hoverEffectStyles }}>
 						<Box>
 							<Typography
 								sx={{
-									...TypographyStyles,
-									fontSize: "11px",
+									...textStyles,
 									textAlign: "center",
 								}}
 							>
-								Tarjetas de Credito
+								Tarjetas de Crédito
 							</Typography>
 							<Box
 								sx={{
