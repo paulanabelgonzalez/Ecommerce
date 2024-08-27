@@ -8,7 +8,8 @@ import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
 
 export const CheckOut = () => {
-	const { cart, subtotal, subTotalProduct, setCart } = useContext(CartContext);
+	const { cart, subtotal, subTotalProduct, handledeleteAll } =
+		useContext(CartContext);
 	const { finalizePurchase, setModal } = useContext(FirebaseContext);
 	const navigate = useNavigate();
 
@@ -16,7 +17,7 @@ export const CheckOut = () => {
 		finalizePurchase(cart, subtotal);
 		setModal(1);
 		navigate("/modal");
-		setCart([]);
+		handledeleteAll();
 	};
 
 	useEffect(() => {

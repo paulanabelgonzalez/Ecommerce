@@ -137,6 +137,11 @@ export const NavBar = () => {
 			});
 	};
 
+	const handleNavMenuItemClick = (page) => {
+		navigate(page === "Inicio" ? "/" : `/${page}`);
+		handleCloseNavMenu();
+	};
+
 	return (
 		<AppBar position="static">
 			<Container maxWidth="xl">
@@ -187,7 +192,7 @@ export const NavBar = () => {
 							{pages.map((page) => (
 								<MenuItem
 									key={page}
-									onClick={() => navigate(page === "Inicio" ? "/" : `/${page}`)}
+									onClick={() => handleNavMenuItemClick(page)}
 								>
 									<Typography textAlign="center">{page}</Typography>
 								</MenuItem>
