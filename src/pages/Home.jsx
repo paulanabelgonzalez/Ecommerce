@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "../components/Carousel";
 
-import videoInicio from "../../src/assets/video.mp4";
+import videoHome from "../../src/assets/videoHome.mp4";
 
 export const Home = () => {
 	const [videoError, setVideoError] = useState(false);
@@ -69,7 +69,7 @@ export const Home = () => {
 								}}
 								onError={() => setVideoError(true)}
 							>
-								<source src={videoInicio} type="video/mp4" />
+								<source src={videoHome} type="video/mp4" />
 							</video>
 						</Box>
 
@@ -95,7 +95,7 @@ export const Home = () => {
 								}}
 								onError={() => setVideoError(true)}
 							>
-								<source src={videoInicio} type="video/mp4" />
+								<source src={videoHome} type="video/mp4" />
 							</video>
 						</Box>
 					</>
