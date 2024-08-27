@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "../components/Carousel";
 
-import videoHome from "../../src/assets/videoHome.mp4";
+import videoHome from "../../src/assets/videoHome2.mp4";
 
 export const Home = () => {
 	const [videoError, setVideoError] = useState(false);
