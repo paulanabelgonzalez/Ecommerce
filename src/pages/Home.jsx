@@ -9,6 +9,12 @@ import videoHome from "../../src/assets/videoHome2.mp4";
 export const Home = () => {
 	const [videoError, setVideoError] = useState(false);
 
+	const videoStyles = {
+		width: "100%",
+		height: "100%",
+		objectFit: "cover",
+	};
+
 	return (
 		<>
 			{/* <Box sx={{ maxWidth: "300px", margin: "auto" }}>
@@ -29,32 +35,32 @@ export const Home = () => {
 			{/* <Carousel /> */}
 			<Box
 				sx={{
-					position: "relative", // Contenedor principal para el video de primer plano
+					position: "relative",
 					width: "100%",
 					height: {
-						xs: "400px", // Altura del contenedor en pantallas pequeñas
-						md: "600px", // Altura del contenedor en pantallas medianas y grandes
+						xs: "400px",
+						md: "600px",
 					},
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					overflow: "hidden", // Ocultar el desbordamiento
+					overflow: "hidden",
 					marginBlock: "20px",
 				}}
 			>
-				{!videoError ? (
+				{!videoError && (
 					<>
 						<Box
 							sx={{
-								position: "absolute", // El video de fondo es absoluto para ocupar todo el ancho del contenedor principal
-								top: "50%", // Centra el video verticalmente
-								left: "50%", // Centra el video horizontalmente
-								transform: "translate(-50%, -50%)", // Ajusta el centrado
-								width: "100vw", // Ocupa el 100% del ancho de la pantalla
-								height: "auto", // Mantiene la altura automática basada en el ancho
+								position: "absolute",
+								top: "50%",
+								left: "50%",
+								transform: "translate(-50%, -50%)",
+								width: "100vw",
+								height: "auto",
 								zIndex: 1,
-								opacity: 0.7, // Transparencia del video de fondo
-								filter: "blur(5px)", // Desenfoque opcional
+								opacity: 0.7,
+								filter: "blur(5px)",
 								objectFit: "cover",
 							}}
 						>
@@ -62,11 +68,7 @@ export const Home = () => {
 								autoPlay
 								loop
 								muted
-								style={{
-									width: "100%",
-									height: "100%",
-									objectFit: "cover", // Asegura que el video cubra completamente el fondo en ancho
-								}}
+								style={videoStyles}
 								onError={() => setVideoError(true)}
 							>
 								<source src={videoHome} type="video/mp4" />
@@ -75,11 +77,11 @@ export const Home = () => {
 
 						<Box
 							sx={{
-								position: "relative", // El video de primer plano es relativo al contenedor
-								zIndex: 2, // Por encima del video de fondo
+								position: "relative",
+								zIndex: 2,
 								width: "100%",
 								maxWidth: "1100px",
-								height: "400px", // Mantener la altura fija del video de primer plano
+								height: "400px",
 								objectFit: "cover",
 								boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
 							}}
@@ -88,28 +90,13 @@ export const Home = () => {
 								autoPlay
 								loop
 								muted
-								style={{
-									width: "100%",
-									height: "100%",
-									objectFit: "cover",
-								}}
+								style={videoStyles}
 								onError={() => setVideoError(true)}
 							>
 								<source src={videoHome} type="video/mp4" />
 							</video>
 						</Box>
 					</>
-				) : (
-					<Typography
-						sx={{
-							position: "relative",
-							fontSize: "30px",
-							color: "red",
-							fontWeight: "bold",
-						}}
-					>
-						Su navegador no soporta el video.
-					</Typography>
 				)}
 			</Box>
 		</>

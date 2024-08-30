@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 import {
 	Box,
-	Button,
 	Container,
 	Typography,
 	useMediaQuery,
@@ -18,7 +17,6 @@ import master from "../assets/imgFooter/mastercard.png";
 import visa from "../assets/imgFooter/visa.png";
 
 export const Footer = () => {
-	const navigate = useNavigate();
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -61,7 +59,6 @@ export const Footer = () => {
 	const linkStyles = {
 		color: "white",
 		marginTop: "1px",
-		textDecoration: "none",
 		"&:hover": {
 			color: "#77787a",
 		},
@@ -71,11 +68,6 @@ export const Footer = () => {
 	const hoverEffectStyles = {
 		"&:hover": { color: "#795548b8" },
 		"&:hover img": { transform: "scale(1.1)" },
-	};
-
-	const imgStyles = {
-		whiteSpace: "100%",
-		transition: "transform 0.3s ease",
 	};
 
 	return (
@@ -96,21 +88,22 @@ export const Footer = () => {
 						gap: { xs: "8px", sm: "15px" },
 						marginBlock: { xs: "8px", sm: "15px" },
 						justifyContent: "center",
+						alignItems: "center",
 					}}
 				>
-					<Button onClick={() => navigate("/")} sx={menuStyles}>
-						Inicio
-					</Button>
-					<Button onClick={() => navigate("/Productos")} sx={menuStyles}>
-						Productos
-					</Button>
-					<Button onClick={() => navigate("/Login")} sx={menuStyles}>
-						Iniciar Sesión
-					</Button>
+					<Link to="/" style={{ textDecoration: "none" }}>
+						<Box sx={menuStyles}>INICIO</Box>
+					</Link>
+					<Link to="/Productos" style={{ textDecoration: "none" }}>
+						<Box sx={menuStyles}>PRODUCTOS</Box>
+					</Link>
+					<Link to="/Login" style={{ textDecoration: "none" }}>
+						<Box sx={menuStyles}>INICIAR SESIÓN</Box>
+					</Link>
 					{isDesktop && (
-						<Button onClick={() => navigate("/Register")} sx={menuStyles}>
-							Crear cuenta
-						</Button>
+						<Link to="/register" style={{ textDecoration: "none" }}>
+							<Box sx={menuStyles}>CREAR CUENTA</Box>
+						</Link>
 					)}
 				</Box>
 			</Box>
@@ -151,7 +144,6 @@ export const Footer = () => {
 							sx={{
 								...textStyles,
 								textAlign: "center",
-								paddingTop: "6px",
 							}}
 						>
 							TRANFERENCIA BANCARIA
@@ -166,70 +158,75 @@ export const Footer = () => {
 							EFECTIVO
 						</Typography>
 					</Box>
-					<Button
-						sx={{
-							...hoverEffectStyles,
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: " flex-start",
-							gap: "7px",
-						}}
-					>
-						<img
-							src={mercadoPago}
-							alt="logo mercadoPago"
-							style={{
-								...imgStyles,
-								height: "30px",
+					<Link to="/ruta-deseada" style={{ textDecoration: "none" }}>
+						<Box
+							sx={{
+								...hoverEffectStyles,
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "flex-start",
+								alignItems: "center",
+								gap: "7px",
+								paddingTop: "2px",
 							}}
-						/>
+						>
+							<img
+								src={mercadoPago}
+								alt="logo mercadoPago"
+								style={{
+									width: "50px",
+									height: "30px",
+									transition: "transform 0.3s ease",
+								}}
+							/>
 
-						<Typography sx={{ ...textStyles }}>MERCADO PAGO</Typography>
-					</Button>
-					<Button sx={{ ...hoverEffectStyles }}>
-						<Box>
+							<Typography sx={{ ...textStyles }}>MERCADO PAGO</Typography>
+						</Box>
+					</Link>
+					<Link to="/ruta-deseada" style={{ textDecoration: "none" }}>
+						<Box sx={{ ...hoverEffectStyles }}>
 							<Typography
 								sx={{
 									...textStyles,
 									textAlign: "center",
 								}}
 							>
-								Tarjetas de Crédito
+								TARJETAS DE CRÉDITO
 							</Typography>
 							<Box
 								sx={{
 									display: "flex",
 									alignItems: "center",
-									gap: { sm: "5px" },
+									gap: "5px",
 								}}
 							>
 								<img
 									src={visa}
 									alt="logo visa"
 									style={{
-										...imgStyles,
 										height: "50px",
+										transition: "transform 0.3s ease",
 									}}
 								/>
 								<img
 									src={master}
 									alt="logo masterCard"
 									style={{
-										...imgStyles,
 										height: "32px",
+										transition: "transform 0.3s ease",
 									}}
 								/>
 								<img
 									src={american}
 									alt="logo amrican express"
 									style={{
-										...imgStyles,
 										height: "51px",
+										transition: "transform 0.3s ease",
 									}}
 								/>
 							</Box>
 						</Box>
-					</Button>
+					</Link>
 				</Box>
 			</Box>
 			<Box
