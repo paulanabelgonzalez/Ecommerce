@@ -20,12 +20,6 @@ export const Home = () => {
 			{/* <Box sx={{ maxWidth: "300px", margin: "auto" }}>
 				<img
 					width="300px"
-					src="https://www.gifsanimados.org/data/media/1829/soldador-imagen-animada-0014.gif"
-					border="0"
-					alt="soldador-imagen-animada-0014"
-				/>
-				<img
-					width="300px"
 					src="https://www.gifsanimados.org/data/media/1829/soldador-imagen-animada-0011.gif"
 					border="0"
 					alt="soldador-imagen-animada-0011"
