@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "../components/Carousel";
+import { ListTypes } from "../components/ListTypes";
 
-import videoHome from "../../src/assets/videoHome2.mp4";
+import videoHome from "../../src/assets/videoHome.mp4";
 
 export const Home = () => {
 	const [videoError, setVideoError] = useState(false);
@@ -27,7 +28,7 @@ export const Home = () => {
 			</Box> */}
 
 			{/* <Carousel /> */}
-			<Box
+			{/* <Box
 				sx={{
 					position: "relative",
 					width: "100%",
@@ -92,6 +93,9 @@ export const Home = () => {
 						</Box>
 					</>
 				)}
+			</Box> */}
+			<Box>
+				<ListTypes />
 			</Box>
 		</>
 	);
