@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { Carousel } from "../components/Carousel";
-import { ListTypes } from "../components/ListTypes";
+import { ListCategories } from "../components/ListCategories";
 
 import videoHome from "../../src/assets/videoHome.mp4";
 
@@ -95,7 +95,7 @@ export const Home = () => {
 				)}
 			</Box> */}
 			<Box>
-				<ListTypes />
+				<ListCategories />
 			</Box>
 		</>
 	);

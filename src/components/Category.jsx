@@ -1,10 +1,12 @@
 import { Box, Typography } from "@mui/material";
 
-export const Type = ({ imgType, name }) => {
+export const Category = ({ imgCategory, name }) => {
 	return (
 		<Box
 			sx={{
-				width: { xs: "100%", md: "47%" },
+				width: { xs: "100%", md: "49%" },
+				maxWidth: { xs: "355px", sm: "581px", md: "881px" },
+				margin: "auto",
 				background: "#9e9e9ead",
 				boxShadow: "0 0 10px black",
 				padding: "16px",
@@ -22,7 +24,7 @@ export const Type = ({ imgType, name }) => {
 						color: "grey",
 						transform: {
 							xs: "translate(-45%)",
-							sm: "translate(-20%)",
+							sm: "translate(-40%)",
 							md: "translate(-33%) scale(1.2)",
 						},
 					},
@@ -30,8 +32,8 @@ export const Type = ({ imgType, name }) => {
 						borderRadius: "50%",
 						transform: {
 							xs: "translateX(250%) scale(1.8)",
-							sm: "translateX(550%) scale(1.8)",
-							md: "translateX(410%) scale(1.8)",
+							sm: "translateX(490%) scale(1.8)",
+							md: "translateX(350%) scale(1.8)",
 						},
 					},
 				},
@@ -50,7 +52,7 @@ export const Type = ({ imgType, name }) => {
 				}}
 			>
 				<img
-					src={imgType}
+					src={imgCategory}
 					alt={`logo ${name}`}
 					style={{
 						width: "100%",
