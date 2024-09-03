@@ -40,8 +40,8 @@ export const Card = ({ filter }) => {
 						}}
 					>
 						<img src={product.image} alt={product.name} width={"300px"} />
-						{/* <Typography>{product.id}</Typography> */}
 						<Typography variant="h5">{product.name}</Typography>
+						<Typography>{product.category}</Typography>
 						<Typography>{product.description}</Typography>
 						<Typography>$ {product.price}</Typography>
 						{/* <QuantityProducts key={product.id} product={product} /> */}
