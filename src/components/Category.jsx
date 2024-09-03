@@ -1,27 +1,11 @@
-import { useContext, useState } from "react";
-
-import { useNavigate } from "react-router";
+import { useContext } from "react";
 
 import { Box, Typography } from "@mui/material";
 
-import { FirebaseContext } from "../context/FirebaseContext";
+import { FilterContext } from "../context/FilterContext";
 
 export const Category = ({ imgCategory, name, categoryName }) => {
-	const { products } = useContext(FirebaseContext);
-
-	const navigate = useNavigate();
-
-	const [arrayCategory, setArrayCategory] = useState([]);
-	console.log(arrayCategory);
-
-	const handleCategory = (categoryName) => {
-		const productsForCategories = products.filter(
-			(product) => product.category === categoryName
-		);
-		setArrayCategory(productsForCategories);
-		// navigate("Productos");
-		console.log("sin bucle");
-	};
+	const { handleCategory } = useContext(FilterContext);
 	return (
 		<Box
 			as="button"

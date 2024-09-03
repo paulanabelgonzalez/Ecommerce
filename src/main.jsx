@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { CartProvider } from "./context/CartContext.jsx";
 import { FirebaseProvider } from "./context/FirebaseContext.jsx";
+import { FilterProvider } from "./context/FilterContext.jsx";
 
 import { CssBaseline } from "@mui/material";
 
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 			<BrowserRouter>
 				<CartProvider>
 					<FirebaseProvider>
-						<App />
+						<FilterProvider>
+							<App />
+						</FilterProvider>
 					</FirebaseProvider>
 				</CartProvider>
 			</BrowserRouter>
