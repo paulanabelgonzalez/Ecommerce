@@ -7,7 +7,7 @@ import { FirebaseContext } from "./FirebaseContext";
 export const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-	const { products: allProducts } = useContext(FirebaseContext);
+	const { products } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
 
@@ -17,12 +17,13 @@ export const FilterProvider = ({ children }) => {
 	const [filterFromCategory, setFilterFromCategory] = useState(false);
 
 	console.log(productsFilteredByCategory);
-	const handleCategory = (categoryName) => {
-		console.log("Category - handleCategory called with:", categoryName);
+	const handleCategory = (name) => {
+		console.log("Category - handleCategory called with:", name);
 
 		setFilteredProductsByCategory(
-			allProducts?.filter((product) => product.category === categoryName)
+			products?.filter((product) => product.category === name)
 		);
+		console.log(productsFilteredByCategory);
 		setFilterFromCategory(true);
 		navigate("/Productos");
 	};

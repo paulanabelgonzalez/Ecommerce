@@ -4,12 +4,12 @@ import { Box, Typography } from "@mui/material";
 
 import { FilterContext } from "../context/FilterContext";
 
-export const Category = ({ imgCategory, name, categoryName }) => {
+export const Category = ({ imgCategory, name }) => {
 	const { handleCategory } = useContext(FilterContext);
 	return (
 		<Box
 			as="button"
-			onClick={() => handleCategory(categoryName)}
+			onClick={() => handleCategory(name)}
 			sx={{
 				width: { xs: "100%", md: "49%" },
 				maxWidth: { xs: "355px", sm: "581px", md: "881px" },

@@ -19,12 +19,8 @@ export const ListCategories = () => {
 				margin: "auto",
 			}}
 		>
-			<Category categoryName={"smithy"} name="Herreria" imgCategory={smithy} />
-			<Category
-				categoryName={"industrial"}
-				name="Muebles Industriales"
-				imgCategory={industrial}
-			/>
+			<Category name={"Herreria"} imgCategory={smithy} />
+			<Category name={"Muebles Industriales"} imgCategory={industrial} />
 		</Box>
 	);
 };
