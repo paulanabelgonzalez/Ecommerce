@@ -15,19 +15,29 @@ export const FilterProvider = ({ children }) => {
 
 	const [filteredProductsByCategory, setfilteredProductsByCategory] =
 		useState(products);
-	// const [filterFromCategory, setFilterFromCategory] = useState(false);
 
 	console.log(filteredProductsByCategory);
-	const handleCategory = (categoryName) => {
-		console.log("Category - handleCategory llamado con:", categoryName);
 
+	const handleCategory = (categoryName) => {
 		setfilteredProductsByCategory(
 			products?.filter((product) => product.category === categoryName)
 		);
 		console.log(filteredProductsByCategory);
-		// setFilterFromCategory(true);
+
 		console.log("no me hace bucle el cambiar de categoria");
 		navigate(`/Category/${categoryName}`);
+	};
+
+	const useFilter = (array, filter) => {
+		return filter
+			? array.filter(
+					(product) =>
+						product.name.toLowerCase().includes(filter.toLowerCase()) ||
+						product.category.toLowerCase().includes(filter.toLowerCase())
+			  )
+			: array;
+		// setFilteredProducts(filtered);
+		// console.log(filteredProducts);
 	};
 
 	return (
@@ -39,6 +49,7 @@ export const FilterProvider = ({ children }) => {
 				filteredProductsByCategory,
 				filter,
 				setFilter,
+				useFilter,
 			}}
 		>
 			{children}
