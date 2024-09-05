@@ -39,6 +39,23 @@ export const CategoryCards = () => {
 					marginBlock: "20px",
 				}}
 			>
+				<Box>
+					<Link to="/Productos" style={{ textDecoration: "none" }}>
+						<Box sx={{ color: "black" }}>Todos los Productos</Box>
+					</Link>
+					{name === "Herreria" ? (
+						<Link
+							to="/Category/Muebles Industriales"
+							style={{ textDecoration: "none" }}
+						>
+							<Box sx={{ color: "black" }}>Muebles Industriales</Box>
+						</Link>
+					) : (
+						<Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
+							<Box sx={{ color: "black" }}>Herreria</Box>
+						</Link>
+					)}
+				</Box>
 				{filteredProducts.length > 0 ? (
 					filteredProducts.map((product) => (
 						<Box

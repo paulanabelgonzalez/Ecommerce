@@ -10,7 +10,7 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Card = () => {
 	const { handleAdd } = useContext(CartContext);
-	const { filter, useFilter } = useContext(FilterContext);
+	const { filter, useFilter, handleCategory } = useContext(FilterContext);
 	const { products } = useContext(FirebaseContext);
 
 	const filteredProducts = useFilter(products, filter);
@@ -25,13 +25,18 @@ export const Card = () => {
 				marginBlock: "20px",
 			}}
 		>
-			{/* {filterFromCategory && (
-				<Box>
-					<Button onClick={handleFilterFromCategory} sx={{ color: "black" }}>
-						Todos los productos
-					</Button>
-				</Box>
-			)} */}
+			<Box>
+				<Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
+					<Box sx={{ color: "black" }}>Herreria</Box>
+				</Link>
+				<Link
+					to="/Category/Muebles Industriales"
+					style={{ textDecoration: "none" }}
+				>
+					<Box sx={{ color: "black" }}>Muebles Industriales</Box>
+				</Link>
+			</Box>
+
 			{filteredProducts.length > 0 ? (
 				filteredProducts.map((product) => (
 					<Box
