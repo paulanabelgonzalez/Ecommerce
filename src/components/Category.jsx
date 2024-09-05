@@ -6,6 +6,7 @@ import { FilterContext } from "../context/FilterContext";
 
 export const Category = ({ imgCategory, name }) => {
 	const { handleCategory } = useContext(FilterContext);
+
 	return (
 		<Box
 			as="button"

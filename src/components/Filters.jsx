@@ -1,6 +1,12 @@
+import { useContext } from "react";
+
 import { Box, TextField } from "@mui/material";
 
-export const Filters = ({ setFilter }) => {
+import { FilterContext } from "../context/FilterContext";
+
+export const Filters = () => {
+	const { setFilter } = useContext(FilterContext);
+
 	const handleChange = (event) => {
 		setFilter(event.target.value);
 	};

@@ -1,9 +1,11 @@
 import { useContext } from "react";
+
 import { Routes, Route } from "react-router-dom";
 
 import { FirebaseContext } from "../context/FirebaseContext";
 
 import { CardsContainer } from "../components/CardsContainer";
+import { CategoryCards } from "../pages/CategoryCards";
 import { CheckOut } from "../pages/CheckOut";
 import { Detail } from "../pages/Detail";
 import { Home } from "../pages/Home";
@@ -15,11 +17,13 @@ import { Register } from "../pages/Register";
 
 export const Main = () => {
 	const { user } = useContext(FirebaseContext);
+
 	return (
 		<>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/Productos" element={<CardsContainer />} />
+				<Route path="/Category/:name" element={<CategoryCards />} />
 				<Route path="login" element={<Login />} />
 				<Route path="register" element={<Register />} />
 				<Route path="detail/:id" element={<Detail />} />

@@ -5,13 +5,13 @@ import { useNavigate } from "react-router";
 import { Box, Button, Drawer, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
-import { QuantityProducts } from "./QuantityProducts";
 import { FirebaseContext } from "../context/FirebaseContext";
+
+import { QuantityProducts } from "./QuantityProducts";
 
 export const Cart = ({ state, toggleDrawer }) => {
 	const { cart, handleDelete, subtotal, subTotalProduct, handleDeleteAll } =
 		useContext(CartContext);
-
 	const { user } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
@@ -21,7 +21,6 @@ export const Cart = ({ state, toggleDrawer }) => {
 			anchor="right"
 			open={state.right}
 			onClose={toggleDrawer("right", false)}
-			aria-hidden={!state.right}
 		>
 			<Box
 				onClick={(event) => event.stopPropagation()} // Evita que se cierre al hacer clic dentro

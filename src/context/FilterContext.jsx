@@ -11,30 +11,34 @@ export const FilterProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 
-	const [productsFilteredByCategory, setFilteredProductsByCategory] = useState(
-		[]
-	);
-	const [filterFromCategory, setFilterFromCategory] = useState(false);
+	const [filter, setFilter] = useState("");
 
-	console.log(productsFilteredByCategory);
-	const handleCategory = (name) => {
-		console.log("Category - handleCategory called with:", name);
+	const [filteredProductsByCategory, setfilteredProductsByCategory] =
+		useState(products);
+	// const [filterFromCategory, setFilterFromCategory] = useState(false);
 
-		setFilteredProductsByCategory(
-			products?.filter((product) => product.category === name)
+	console.log(filteredProductsByCategory);
+	const handleCategory = (categoryName) => {
+		console.log("Category - handleCategory llamado con:", categoryName);
+
+		setfilteredProductsByCategory(
+			products?.filter((product) => product.category === categoryName)
 		);
-		console.log(productsFilteredByCategory);
-		setFilterFromCategory(true);
-		navigate("/Productos");
+		console.log(filteredProductsByCategory);
+		// setFilterFromCategory(true);
+		console.log("no me hace bucle el cambiar de categoria");
+		navigate(`/Category/${categoryName}`);
 	};
 
 	return (
 		<FilterContext.Provider
 			value={{
 				handleCategory,
-				filterFromCategory,
-				setFilterFromCategory,
-				productsFilteredByCategory,
+				// filterFromCategory,
+				// setFilterFromCategory,
+				filteredProductsByCategory,
+				filter,
+				setFilter,
 			}}
 		>
 			{children}

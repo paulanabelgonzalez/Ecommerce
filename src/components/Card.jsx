@@ -15,7 +15,7 @@
 // 	const { products } = useContext(FirebaseContext);
 // 	const {
 // 		filterFromCategory,
-// 		productsFilteredByCategory,
+// 		filteredProductsByCategory,
 // 		setFilterFromCategory,
 // 	} = useContext(FilterContext);
 
@@ -27,7 +27,7 @@
 // 		console.log("sin bucle");
 // 		const productsToFilter = !filterFromCategory
 // 			? products
-// 			: productsFilteredByCategory;
+// 			: filteredProductsByCategory;
 
 // 		const filtered = filter
 // 			? productsToFilter.filter(
@@ -42,7 +42,7 @@
 // 		filter,
 // 		filterFromCategory,
 // 		products,
-// 		productsFilteredByCategory,
+// 		filteredProductsByCategory,
 // 		setFilterFromCategory,
 // 	]);
 
@@ -111,43 +111,51 @@ import { FilterContext } from "../context/FilterContext";
 export const Card = ({ filter }) => {
 	const { handleAdd } = useContext(CartContext);
 	const { products } = useContext(FirebaseContext);
-	const {
-		filterFromCategory,
-		productsFilteredByCategory,
-		setFilterFromCategory,
-	} = useContext(FilterContext);
+	// const {
+	// 	filterFromCategory,
+	// 	filteredProductsByCategory,
+	// 	setFilterFromCategory,
+	// } = useContext(FilterContext);
 
 	const navigate = useNavigate();
 
 	// Estado para manejar los productos filtrados
-	const [filteredProducts, setFilteredProducts] = useState(products);
+	// const [filteredProducts, setFilteredProducts] = useState(products);
 
-	useEffect(() => {
-		const productsToFilter = !filterFromCategory
-			? products
-			: productsFilteredByCategory;
+	// useEffect(() => {
+	// 	const productsToFilter = !filterFromCategory
+	// 		? products
+	// 		: filteredProductsByCategory;
 
-		const filtered = filter
-			? productsToFilter.filter(
-					(product) =>
-						product.name.toLowerCase().includes(filter.toLowerCase()) ||
-						product.category.toLowerCase().includes(filter.toLowerCase())
-			  )
-			: productsToFilter;
+	// 	const filtered = filter
+	// 		? productsToFilter.filter(
+	// 				(product) =>
+	// 					product.name.toLowerCase().includes(filter.toLowerCase()) ||
+	// 					product.category.toLowerCase().includes(filter.toLowerCase())
+	// 		  )
+	// 		: productsToFilter;
 
-		setFilteredProducts(filtered);
-	}, [
-		filter,
-		filterFromCategory,
-		products,
-		productsFilteredByCategory,
-		setFilterFromCategory,
-	]);
+	// 	setFilteredProducts(filtered);
+	// }, [
+	// 	filter,
+	// 	filterFromCategory,
+	// 	products,
+	// 	filteredProductsByCategory,
+	// 	setFilterFromCategory,
+	// ]);
 
-	const handleFilterFromCategory = () => {
-		setFilterFromCategory(false);
-		navigate("/Productos");
-	};
+	// const handleFilterFromCategory = () => {
+	// 	setFilterFromCategory(false);
+	// 	navigate("/Productos");
+	// };
+
+	const filteredProducts = filter
+		? products.filter(
+				(product) =>
+					product.name.toLowerCase().includes(filter.toLowerCase()) ||
+					product.category.toLowerCase().includes(filter.toLowerCase())
+		  )
+		: products;
 
 	return (
 		<Container
@@ -159,13 +167,13 @@ export const Card = ({ filter }) => {
 				marginBlock: "20px",
 			}}
 		>
-			{filterFromCategory && (
+			{/* {filterFromCategory && (
 				<Box>
 					<Button onClick={handleFilterFromCategory} sx={{ color: "black" }}>
 						Todos los productos
 					</Button>
 				</Box>
-			)}
+			)} */}
 			{filteredProducts.length > 0 ? (
 				filteredProducts.map((product) => (
 					<Box
