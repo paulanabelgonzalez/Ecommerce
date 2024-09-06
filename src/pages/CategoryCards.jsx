@@ -7,6 +7,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { FilterContext } from "../context/FilterContext";
 
 import { Filters } from "../components/Filters";
+import { CartContext } from "../context/CartContext";
 
 export const CategoryCards = () => {
 	const { name } = useParams();
@@ -16,7 +17,9 @@ export const CategoryCards = () => {
 		handleCategory,
 		setFilter,
 		useFilter,
+		categoryButtons,
 	} = useContext(FilterContext);
+	const { handleAdd } = useContext(CartContext);
 
 	console.log(`categoria:`, name);
 
@@ -25,7 +28,7 @@ export const CategoryCards = () => {
 	}, [name]);
 
 	const filteredProducts = useFilter(filteredProductsByCategory, filter);
-
+	const showButtons = categoryButtons(name);
 	return (
 		<Container>
 			<Filters setFilter={setFilter} />
@@ -41,9 +44,19 @@ export const CategoryCards = () => {
 			>
 				<Box>
 					<Link to="/Productos" style={{ textDecoration: "none" }}>
-						<Box sx={{ color: "black" }}>Todos los Productos</Box>
+						<Button sx={{ color: "black" }}>Todos los productos</Button>
 					</Link>
-					{name === "Herreria" ? (
+					{showButtons.map((category, index) => (
+						<Box key={index}>
+							<Link
+								to={`/Category/${category}`}
+								style={{ textDecoration: "none" }}
+							>
+								<Button sx={{ color: "black" }}>{category}</Button>
+							</Link>
+						</Box>
+					))}
+					{/* {name === "Herreria" ? (
 						<Link
 							to="/Category/Muebles Industriales"
 							style={{ textDecoration: "none" }}
@@ -54,7 +67,7 @@ export const CategoryCards = () => {
 						<Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
 							<Box sx={{ color: "black" }}>Herreria</Box>
 						</Link>
-					)}
+					)} */}
 				</Box>
 				{filteredProducts.length > 0 ? (
 					filteredProducts.map((product) => (

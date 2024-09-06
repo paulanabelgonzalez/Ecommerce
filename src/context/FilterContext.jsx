@@ -40,6 +40,13 @@ export const FilterProvider = ({ children }) => {
 		// console.log(filteredProducts);
 	};
 
+	const categoryButtons = (currentCategory) => {
+		const uniqueCategories = [
+			...new Set(products.map((product) => product.category)),
+		];
+		return uniqueCategories.filter((category) => category !== currentCategory);
+	};
+
 	return (
 		<FilterContext.Provider
 			value={{
@@ -50,6 +57,7 @@ export const FilterProvider = ({ children }) => {
 				filter,
 				setFilter,
 				useFilter,
+				categoryButtons,
 			}}
 		>
 			{children}

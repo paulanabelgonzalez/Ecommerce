@@ -10,11 +10,13 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Card = () => {
 	const { handleAdd } = useContext(CartContext);
-	const { filter, useFilter, handleCategory } = useContext(FilterContext);
+	const { filter, useFilter } = useContext(FilterContext);
 	const { products } = useContext(FirebaseContext);
 
 	const filteredProducts = useFilter(products, filter);
-
+	const uniqueCategories = [
+		...new Set(products.map((product) => product.category)),
+	];
 	return (
 		<Container
 			sx={{
@@ -26,7 +28,17 @@ export const Card = () => {
 			}}
 		>
 			<Box>
-				<Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
+				{uniqueCategories.map((category, index) => (
+					<Box key={index}>
+						<Link
+							to={`/Category/${category}`}
+							style={{ textDecoration: "none" }}
+						>
+							<Button sx={{ color: "black" }}>{category}</Button>
+						</Link>
+					</Box>
+				))}
+				{/* <Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
 					<Box sx={{ color: "black" }}>Herreria</Box>
 				</Link>
 				<Link
@@ -34,7 +46,7 @@ export const Card = () => {
 					style={{ textDecoration: "none" }}
 				>
 					<Box sx={{ color: "black" }}>Muebles Industriales</Box>
-				</Link>
+				</Link> */}
 			</Box>
 
 			{filteredProducts.length > 0 ? (
