@@ -36,8 +36,6 @@ export const FilterProvider = ({ children }) => {
 						product.category.toLowerCase().includes(filter.toLowerCase())
 			  )
 			: array;
-		// setFilteredProducts(filtered);
-		// console.log(filteredProducts);
 	};
 
 	const categoryButtons = (currentCategory) => {
@@ -50,14 +48,12 @@ export const FilterProvider = ({ children }) => {
 	return (
 		<FilterContext.Provider
 			value={{
-				handleCategory,
-				// filterFromCategory,
-				// setFilterFromCategory,
-				filteredProductsByCategory,
+				categoryButtons,
 				filter,
+				filteredProductsByCategory,
+				handleCategory,
 				setFilter,
 				useFilter,
-				categoryButtons,
 			}}
 		>
 			{children}

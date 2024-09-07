@@ -4,23 +4,46 @@ import { Link, useParams } from "react-router-dom";
 
 import { Box, Button, Container, Typography } from "@mui/material";
 
+import { CartContext } from "../context/CartContext";
 import { FilterContext } from "../context/FilterContext";
 
 import { Filters } from "../components/Filters";
-import { CartContext } from "../context/CartContext";
 
 export const CategoryCards = () => {
 	const { name } = useParams();
+	const { handleAdd } = useContext(CartContext);
 	const {
+		categoryButtons,
 		filter,
 		filteredProductsByCategory,
 		handleCategory,
 		setFilter,
 		useFilter,
-		categoryButtons,
 	} = useContext(FilterContext);
-	const { handleAdd } = useContext(CartContext);
 
+	const styles = {
+		width: "49%",
+		background: "#9e9e9ead",
+		boxShadow: "0 0 10px black",
+		borderRadius: "5px",
+		transition: "all .75s ease-out",
+		"&:hover": {
+			sm: {
+				background: "white",
+				boxShadow: "0 0 50px white",
+				"& .text": {
+					color: "grey",
+					transform: "scaleX(1.1)",
+				},
+			},
+		},
+	};
+
+	const buttonStyles = {
+		color: "white",
+		width: "100%",
+		height: "100%",
+	};
 	console.log(`categoria:`, name);
 
 	useEffect(() => {
@@ -29,10 +52,49 @@ export const CategoryCards = () => {
 
 	const filteredProducts = useFilter(filteredProductsByCategory, filter);
 	const showButtons = categoryButtons(name);
+
 	return (
 		<Container>
 			<Filters setFilter={setFilter} />
 
+			<Box
+				sx={{
+					width: "93%",
+					maxWidth: "1000px",
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+					margin: "auto",
+					gap: "7px",
+				}}
+			>
+				<Box sx={{ ...styles }}>
+					<Link to="/Productos" style={{ textDecoration: "none" }}>
+						<Button sx={{ ...buttonStyles }}>
+							<span className="text" style={{ transition: "all .5s ease-out" }}>
+								Todos los productos
+							</span>
+						</Button>
+					</Link>
+				</Box>
+				{showButtons?.map((category, index) => (
+					<Box sx={{ ...styles }} key={index}>
+						<Link
+							to={`/Category/${category}`}
+							style={{ textDecoration: "none" }}
+						>
+							<Button sx={{ ...buttonStyles }}>
+								<span
+									className="text"
+									style={{ transition: "all .5s ease-out" }}
+								>
+									{category}
+								</span>
+							</Button>
+						</Link>
+					</Box>
+				))}
+			</Box>
 			<Box
 				sx={{
 					display: "flex",
@@ -42,33 +104,6 @@ export const CategoryCards = () => {
 					marginBlock: "20px",
 				}}
 			>
-				<Box>
-					<Link to="/Productos" style={{ textDecoration: "none" }}>
-						<Button sx={{ color: "black" }}>Todos los productos</Button>
-					</Link>
-					{showButtons.map((category, index) => (
-						<Box key={index}>
-							<Link
-								to={`/Category/${category}`}
-								style={{ textDecoration: "none" }}
-							>
-								<Button sx={{ color: "black" }}>{category}</Button>
-							</Link>
-						</Box>
-					))}
-					{/* {name === "Herreria" ? (
-						<Link
-							to="/Category/Muebles Industriales"
-							style={{ textDecoration: "none" }}
-						>
-							<Box sx={{ color: "black" }}>Muebles Industriales</Box>
-						</Link>
-					) : (
-						<Link to="/Category/Herreria" style={{ textDecoration: "none" }}>
-							<Box sx={{ color: "black" }}>Herreria</Box>
-						</Link>
-					)} */}
-				</Box>
 				{filteredProducts.length > 0 ? (
 					filteredProducts.map((product) => (
 						<Box
