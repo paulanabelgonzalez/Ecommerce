@@ -45,6 +45,10 @@ export const FilterProvider = ({ children }) => {
 		return uniqueCategories.filter((category) => category !== currentCategory);
 	};
 
+	const handleCategoryClick = () => {
+		setFilter("");
+	};
+
 	return (
 		<FilterContext.Provider
 			value={{
@@ -52,6 +56,7 @@ export const FilterProvider = ({ children }) => {
 				filter,
 				filteredProductsByCategory,
 				handleCategory,
+				handleCategoryClick,
 				setFilter,
 				useFilter,
 			}}

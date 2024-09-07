@@ -17,6 +17,7 @@ export const CategoryCards = () => {
 		filter,
 		filteredProductsByCategory,
 		handleCategory,
+		handleCategoryClick,
 		setFilter,
 		useFilter,
 	} = useContext(FilterContext);
@@ -70,7 +71,7 @@ export const CategoryCards = () => {
 			>
 				<Box sx={{ ...styles }}>
 					<Link to="/Productos" style={{ textDecoration: "none" }}>
-						<Button sx={{ ...buttonStyles }}>
+						<Button onClick={handleCategoryClick} sx={{ ...buttonStyles }}>
 							<span className="text" style={{ transition: "all .5s ease-out" }}>
 								Todos los productos
 							</span>
@@ -83,7 +84,7 @@ export const CategoryCards = () => {
 							to={`/Category/${category}`}
 							style={{ textDecoration: "none" }}
 						>
-							<Button sx={{ ...buttonStyles }}>
+							<Button onClick={handleCategoryClick} sx={{ ...buttonStyles }}>
 								<span
 									className="text"
 									style={{ transition: "all .5s ease-out" }}
@@ -127,7 +128,9 @@ export const CategoryCards = () => {
 						</Box>
 					))
 				) : (
-					<Typography variant="h6">No se encontraron productos</Typography>
+					<Typography sx={{ paddingBlock: "19%" }} variant="h6">
+						No se encontraron productos
+					</Typography>
 				)}
 			</Box>
 		</Container>

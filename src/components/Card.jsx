@@ -10,7 +10,7 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Card = () => {
 	const { handleAdd } = useContext(CartContext);
-	const { filter, useFilter } = useContext(FilterContext);
+	const { filter, handleCategoryClick, useFilter } = useContext(FilterContext);
 	const { products } = useContext(FirebaseContext);
 
 	const filteredProducts = useFilter(products, filter);
@@ -56,6 +56,7 @@ export const Card = () => {
 							style={{ textDecoration: "none" }}
 						>
 							<Button
+								onClick={handleCategoryClick}
 								sx={{
 									color: "white",
 									width: "100%",
@@ -105,7 +106,9 @@ export const Card = () => {
 						</Box>
 					))
 				) : (
-					<Typography variant="h6">No se encontraron productos</Typography>
+					<Typography sx={{ paddingBlock: "19%" }} variant="h6">
+						No se encontraron productos
+					</Typography>
 				)}
 			</Box>
 		</Box>

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router-dom";
+// import {  } from "react-router";
 
 import { Box, Button, Typography } from "@mui/material";
 
