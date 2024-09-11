@@ -11,7 +11,7 @@ import {
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 import american from "../assets/imgFooter/american.png";
-import backgroundFooter from "../assets/imgBackground/backgroundFooter.jpeg";
+import backgroundFooter from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
 import mercadoPago from "../assets/imgFooter/mp.png";
 import master from "../assets/imgFooter/mastercard.png";
 import visa from "../assets/imgFooter/visa.png";
@@ -92,7 +92,7 @@ export const Footer = () => {
 					}}
 				>
 					<Link to="/" style={{ textDecoration: "none" }}>
-						<Box sx={menuStyles}>INICIO</Box>
+						<Box sx={menuStyles}>HOME</Box>
 					</Link>
 					<Link to="/Productos" style={{ textDecoration: "none" }}>
 						<Box sx={menuStyles}>PRODUCTOS</Box>

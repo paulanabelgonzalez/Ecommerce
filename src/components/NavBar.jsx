@@ -1,12 +1,11 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
 	AppBar,
 	Box,
 	Button,
 	Container,
-	InputBase,
 	Menu,
 	MenuItem,
 	Toolbar,
@@ -14,15 +13,12 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
-// import { useTheme } from "@mui/material";
+
+import "../../src/index.css";
 
 import { getAuth, signOut } from "firebase/auth";
 
-import { BiCartDownload } from "react-icons/bi";
 import { FaUser } from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { IoIosSearch } from "react-icons/io";
 import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
@@ -30,12 +26,20 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 import { Cart } from "./Cart";
 
-const pages = ["Inicio", "Productos"];
+import backgroundHeader from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
+import backgroundButton from "../assets/imgBackground/backgroundMetal.jpg";
+import backgroundMenu from "../assets/imgBackground/backgroundMenu.jpg";
+import cart from "../assets/cart.png";
+import casco from "../assets/casco.png";
+import logo from "../assets/logo.png";
+
+const pages = ["Home", "Productos"];
 const settings = ["Historial de Compras", "Cerrar Sesión"];
 
 export const NavBar = () => {
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
+	const [menuOpen, setMenuOpen] = useState(false);
 	const [state, setState] = useState({
 		right: false,
 	});
@@ -60,6 +64,7 @@ export const NavBar = () => {
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
+		setMenuOpen(true);
 	};
 
 	const handleOpenUserMenu = (event) => {
@@ -68,43 +73,12 @@ export const NavBar = () => {
 
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
+		setMenuOpen(false);
 	};
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
-
-	const Search = styled("div")(({ theme }) => ({
-		position: "relative",
-		borderRadius: theme.shape.borderRadius,
-		backgroundColor: alpha(theme.palette.common.white, 0.15),
-		"&:hover": {
-			backgroundColor: alpha(theme.palette.common.white, 0.25),
-		},
-		marginLeft: 0,
-		width: "100%",
-		[theme.breakpoints.up("sm")]: {
-			marginLeft: theme.spacing(1),
-			width: "auto",
-		},
-	}));
-
-	const StyledInputBase = styled(InputBase)(({ theme }) => ({
-		color: "inherit",
-		width: "100%",
-		"& .MuiInputBase-input": {
-			padding: theme.spacing(1, 1, 1, 0),
-			// vertical padding + font size from searchIcon
-			paddingLeft: ` calc(1em + ${theme.spacing(4)})`,
-			transition: theme.transitions.create("width"),
-			[theme.breakpoints.up("sm")]: {
-				width: "12ch",
-				"&:focus": {
-					width: "20ch",
-				},
-			},
-		},
-	}));
 
 	const handleMenuItemClick = (page) => {
 		switch (page) {
@@ -128,8 +102,6 @@ export const NavBar = () => {
 		signOut(auth)
 			.then(() => {
 				handleFromLoginPage("/", false);
-				// navigate("/");
-				// setFromLoginPage(false);
 				console.log("sin bucle infinito");
 			})
 			.catch((error) => {
@@ -138,39 +110,85 @@ export const NavBar = () => {
 	};
 
 	const handleNavMenuItemClick = (page) => {
-		navigate(page === "Inicio" ? "/" : `/${page}`);
+		navigate(page === "Home" ? "/" : `/${page}`);
 		handleCloseNavMenu();
 	};
 
 	return (
-		<AppBar position="static">
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
-					<Button sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-					<Typography
-						variant="h6"
-						noWrap
-						component="a"
-						href="#app-bar-with-responsive-menu"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						BOUTIQUE
-					</Typography>
-					<Typography>Bienvenido {user?.username}</Typography>
+		<AppBar
+			sx={{ backgroundImage: `url(${backgroundHeader})` }}
+			position="static"
+		>
+			<Container maxWidth="xl" sx={{ paddingLeft: "7px", paddingRight: "5px" }}>
+				<Toolbar
+					disableGutters
+					sx={{
+						display: { xs: "flex" },
+						justifyContent: { xs: "space-between" },
+					}}
+				>
+					{/* Desktop - Estilo para pantallas grandes */}
+					<Button sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+						<img width={"200px"} src={logo} alt="Logo Steel Nayev" />
+						<Typography
+							variant="h6"
+							noWrap
+							component="a"
+							href="#app-bar-with-responsive-menu"
+							sx={{
+								mr: 2,
+								display: { xs: "none", md: "flex" },
+								fontFamily: "monospace",
+								fontWeight: 700,
+								letterSpacing: ".3rem",
+								color: "inherit",
+								textDecoration: "none",
+							}}
+						>
+							BOUTIQUE
+						</Typography>
+						{/* <Typography>Bienvenido {user?.username}</Typography> para poner el nombre de usuario */}
+					</Button>
 
-					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-						<GiHamburgerMenu
-							style={{ fontSize: "25px" }}
+					{/* Mobile - Estilo para pantallas pequeñas */}
+					<Box sx={{ display: { xs: "flex", md: "none" } }}>
+						<Box
 							onClick={handleOpenNavMenu}
-						/>
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								cursor: "pointer",
+								position: "relative",
+							}}
+						>
+							<span
+								className="span-toggle"
+								style={{
+									transition: "all 0.3s ease",
+									transform: menuOpen
+										? "rotate(45deg) translate(5px, 4px)"
+										: "none",
+								}}
+							></span>
+							<span
+								className="span-toggle"
+								style={{
+									transition: "all 0.3s ease",
+									opacity: menuOpen ? 0 : 1,
+								}}
+							></span>
+							<span
+								className="span-toggle"
+								style={{
+									transformOrigin: "5px 0px",
+									transition: "all 0.3s ease",
+									transform: menuOpen
+										? "rotate(-45deg) translate(4px, -2px)"
+										: "none",
+								}}
+							></span>
+						</Box>
+
 						<Menu
 							id="menu-appbar"
 							anchorEl={anchorElNav}
@@ -187,82 +205,213 @@ export const NavBar = () => {
 							onClose={handleCloseNavMenu}
 							sx={{
 								display: { xs: "block", md: "none" },
+								position: "fixed",
+								top: "29px",
+
+								left: "0px",
+								right: "0px",
+
+								width: "100vw",
+								height: "100vh",
+								zIndex: 1,
+								"& .MuiPaper-root": {
+									width: "100vw",
+									minWidth: "100vw",
+									left: "0 !important",
+									right: "0 !important",
+									bottom: "0 !important",
+									minHeight: "88%",
+									height: "100vh",
+									borderRadius: 0,
+									boxShadow: "none",
+									backgroundImage: `url(${backgroundMenu})`,
+									backgroundSize: "cover",
+									padding: 0,
+									margin: 0,
+								},
 							}}
 						>
 							{pages.map((page) => (
 								<MenuItem
 									key={page}
 									onClick={() => handleNavMenuItemClick(page)}
+									sx={{
+										display: "inline-block",
+										width: "100%",
+										textAlign: "center",
+										py: 2,
+										color: "#cecdcd",
+									}}
 								>
-									<Typography textAlign="center">{page}</Typography>
+									<Typography variant="h6" sx={{ fontWeight: "700" }}>
+										{page}
+									</Typography>
 								</MenuItem>
 							))}
 						</Menu>
 					</Box>
-					<Button sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-					<Typography
-						variant="h5"
-						// noWrap
-						// component="a"
-						// href="#app-bar-with-responsive-menu"
-						sx={{
-							mr: 2,
-							display: { xs: "flex", md: "none" },
-							flexGrow: 1,
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "inherit",
+
+					{/* Mobile - Texto y logo para pantallas pequeñas */}
+					<Link
+						to="/"
+						style={{
 							textDecoration: "none",
+							display: { xs: "flex", md: "none" },
+							paddingBlock: "5px", //si es el logo esta al principio
 						}}
 					>
-						BOUTIQUE
-					</Typography>
-					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+						<Box sx={{ display: "flex", paddingBlock: "3px" }}>
+							<img src={casco} style={{ width: "70px" }} alt="Logo" />
+							<Typography
+								variant="h5"
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									fontWeight: "700",
+								}}
+							>
+								<span className="silver-text" style={{ display: "block" }}>
+									NAYEV
+								</span>
+								<span className="silver-text">Steel Design</span>
+							</Typography>
+						</Box>
+						{/* <Box sx={{ paddingBlock: "3px" }}>
+							<Typography
+								variant="h6"
+								sx={{
+									display: "flex",
+									alignItems: "center",
+									fontWeight: "700",
+								}}
+							>
+								<span className="silver-text">NAYEV</span>
+								Imagen entre los span 
+								<img
+									src={casco}
+									alt="Logo"
+									style={{
+										// Para que se mantenga en su propio bloque
+										margin: "5px auto", // Centra la imagen
+										width: "50px", // Ajusta el tamaño de la imagen según lo que necesites
+										height: "auto", // Mantiene la proporción
+									}}
+								/>
+								<span className="silver-text">Steel Design</span>
+							</Typography>
+						</Box>*/}
+					</Link>
+
+					{/* Desktop - Menú principal para pantallas grandes */}
+					<Box sx={{ display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
 							<Button
 								key={page}
-								onClick={() => navigate(page === "Inicio" ? "/" : `/${page}`)}
+								onClick={() => navigate(page === "Home" ? "/" : `/${page}`)}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
 								{page}
 							</Button>
 						))}
-						<Search sx={{ display: "flex", alignItems: "center" }}>
-							<IoIosSearch style={{ fontSize: "30px" }} />
-							<StyledInputBase
-								placeholder="Buscar…"
-								inputProps={{ "aria-label": "buscar" }}
-							/>
-						</Search>
 					</Box>
 
+					{/* Íconos y menú de usuario, visible en ambas vistas */}
 					<Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
 						<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
-							<Button onClick={toggleDrawer("right", true)} sx={{ p: 0 }}>
-								<BiCartDownload style={{ fontSize: "30px", color: "white" }} />
-								<span style={{ color: "pink" }}>
-									{quantity > 0 ? quantity : ""}
-								</span>
+							<Button
+								onClick={toggleDrawer("right", true)}
+								sx={{
+									p: 0,
+									"&:hover": {
+										boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+										transition: "all 0.3s ease",
+									},
+								}}
+							>
+								<Box
+									sx={{
+										width: { xs: "50px", md: "56px" },
+										height: { xs: "50px", md: "56px" },
+										border: " 3px solid #999999",
+										borderRadius: "50%",
+										display: "flex",
+										alignItems: "center",
+										justifyContent: "center",
+										backgroundImage: `url(${backgroundButton})`,
+										backgroundPosition: "right",
+										position: "relative",
+										"&:hover": {
+											filter: "brightness(1.2)",
+											boxShadow: "0 0 6px rgb(255 255 255)",
+											transition: "all 0.3s ease",
+										},
+									}}
+								>
+									<img
+										src={cart}
+										alt="logo de carrito de compras"
+										style={{
+											width: "70%",
+											position: "relative",
+										}}
+									/>
+									{quantity > 0 ? (
+										<span
+											style={{
+												color: "white",
+												position: "absolute",
+												top: { xs: "-3px", md: "-1px" },
+												right: { xs: "-3px", md: "-1px" },
+												border: "2px solid #4d4b4b",
+												borderRadius: " 50%",
+												width: "18px",
+												height: "18px",
+												display: "flex",
+												alignItems: "center",
+												justifyContent: "center",
+												fontSize: "10px",
+												backgroundColor: "#292929",
+											}}
+										>
+											{quantity > 0 ? quantity : ""}
+										</span>
+									) : (
+										""
+									)}
+								</Box>
 							</Button>
 						</Tooltip>
+
 						<Cart state={state} toggleDrawer={toggleDrawer} />
-						<Box>
+
+						{/* Usuario logueado */}
+						<Box sx={{ display: { xs: "none", md: "flex" } }}>
 							{user ? (
-								<Tooltip title="Mi usuario">
-									<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<FaUser style={{ fontSize: "20px", color: "white" }} />
-										<Typography variant="p" sx={{ color: "white" }}>
-											{user.username}
-										</Typography>
-									</Button>
-								</Tooltip>
+								<Box>
+									<Tooltip title="Mi usuario">
+										<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+											<FaUser style={{ fontSize: "20px", color: "white" }} />
+											<Typography variant="p" sx={{ color: "white" }}>
+												{user.username}
+											</Typography>
+										</Button>
+									</Tooltip>
+									<Tooltip title="Cerrar sesión">
+										<Box>
+											<Button onClick={handleSignOut} sx={{ p: 0 }}>
+												<TbLogout
+													style={{ fontSize: "27px", color: "white" }}
+												/>
+											</Button>
+										</Box>
+									</Tooltip>
+								</Box>
 							) : (
 								<Tooltip title="Inciar sesión">
 									<Button
 										onClick={() => {
 											handleFromLoginPage("/Login", true);
-											// navigate("/Login"), setFromLoginPage(true);
 										}}
 									>
 										<FaUser style={{ fontSize: "20px", color: "white" }} />
@@ -298,13 +447,6 @@ export const NavBar = () => {
 								</MenuItem>
 							))}
 						</Menu>
-						<Tooltip title="Cerrar sesión">
-							<Box>
-								<Button onClick={handleSignOut} sx={{ p: 0 }}>
-									<TbLogout style={{ fontSize: "27px", color: "white" }} />
-								</Button>
-							</Box>
-						</Tooltip>
 					</Box>
 				</Toolbar>
 			</Container>

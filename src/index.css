@@ -63,3 +63,20 @@
 .icon-close:hover {
 	color: #9b12a6;
 } */
+
+.silver-text {
+	color: #8c8c8c;
+	background: linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+}
+
+.span-toggle {
+	display: inline-block;
+	width: 30px;
+	height: 4px;
+	margin-bottom: 5px;
+	border-radius: 2px;
+	background: linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b);
+}
