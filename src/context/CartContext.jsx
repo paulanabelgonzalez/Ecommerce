@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
 	clearCartAfterTimeout,
@@ -10,8 +11,11 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState(getAddedProducts());
+	const [cartInProducts, setCartInProducts] = useState(false);
 	const [quantity, setQuantity] = useState(1);
 	const [subtotal, setSubtotal] = useState(0);
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
@@ -99,19 +103,32 @@ export const CartProvider = ({ children }) => {
 		return product.price * product.quantity;
 	};
 
+	const handlePositionFixed = (boolean) => {
+		setCartInProducts(boolean);
+	};
+
+	const handleNavigation = (boolean, page) => {
+		handlePositionFixed(boolean); // Puedes agregar la lógica que necesitas
+		navigate(page); // Navega a la ruta deseada
+	};
+
 	return (
 		<CartContext.Provider
 			value={{
-				handleAdd,
 				cart,
-				handleDelete,
+				cartInProducts,
+				handleAdd,
 				handleAddQuantity,
-				quantity,
-				handleRemoveQuantity,
-				subTotalProduct,
-				subtotal,
-				setCart,
+				handleDelete,
 				handleDeleteAll,
+				handleNavigation,
+				handlePositionFixed,
+				handleRemoveQuantity,
+				quantity,
+				setCart,
+				setCartInProducts,
+				subtotal,
+				subTotalProduct,
 			}}
 		>
 			{children}

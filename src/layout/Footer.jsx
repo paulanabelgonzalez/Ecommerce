@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import {
 	Box,
+	Button,
 	Container,
 	Typography,
 	useMediaQuery,
@@ -15,8 +16,12 @@ import backgroundFooter from "../assets/imgBackground/backgroundHeaderAndFooter.
 import mercadoPago from "../assets/imgFooter/mp.png";
 import master from "../assets/imgFooter/mastercard.png";
 import visa from "../assets/imgFooter/visa.png";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export const Footer = () => {
+	const { handleNavigation } = useContext(CartContext);
+
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -91,15 +96,24 @@ export const Footer = () => {
 						alignItems: "center",
 					}}
 				>
-					<Link to="/" style={{ textDecoration: "none" }}>
-						<Box sx={menuStyles}>HOME</Box>
-					</Link>
-					<Link to="/Productos" style={{ textDecoration: "none" }}>
-						<Box sx={menuStyles}>PRODUCTOS</Box>
-					</Link>
-					<Link to="/Login" style={{ textDecoration: "none" }}>
-						<Box sx={menuStyles}>INICIAR SESIÓN</Box>
-					</Link>
+					<Button sx={menuStyles} onClick={() => handleNavigation(false, "/")}>
+						HOME
+					</Button>
+
+					<Button
+						sx={menuStyles}
+						onClick={() => handleNavigation(true, "/Productos")}
+					>
+						PRODUCTOS
+					</Button>
+
+					<Button
+						sx={menuStyles}
+						onClick={() => handleNavigation(false, "/Login")}
+					>
+						INICIAR SESIÓN
+					</Button>
+
 					{isDesktop && (
 						<Link to="/register" style={{ textDecoration: "none" }}>
 							<Box sx={menuStyles}>CREAR CUENTA</Box>

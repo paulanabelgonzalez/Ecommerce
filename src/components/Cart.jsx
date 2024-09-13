@@ -13,11 +13,31 @@ import backgroundDrawer from "../assets/imgBackground/backgroundMetal.jpg";
 import letrero from "../assets/letrero.png";
 
 export const Cart = ({ state, toggleDrawer }) => {
-	const { cart, handleDelete, subtotal, subTotalProduct, handleDeleteAll } =
-		useContext(CartContext);
+	const {
+		cart,
+		handleDelete,
+		handleDeleteAll,
+		handlePositionFixed,
+		subtotal,
+		subTotalProduct,
+	} = useContext(CartContext);
 	const { user } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
+
+	const handleStartShopping = (page) => {
+		handlePositionFixed(false);
+		navigate(page);
+	};
+
+	const handleUserStartShopping = () => {
+		toggleDrawer("right", false)({});
+		if (user) {
+			handleStartShopping("/CheckOut");
+		} else {
+			handleStartShopping("/Login");
+		}
+	};
 
 	return (
 		<Drawer
@@ -32,8 +52,6 @@ export const Cart = ({ state, toggleDrawer }) => {
 			}}
 		>
 			<Box
-				onClick={(event) => event.stopPropagation()} // Evita que se cierre al hacer clic dentro
-				onKeyDown={(event) => event.stopPropagation()}
 				sx={{
 					height: "100%",
 					overflowY: "scroll",
@@ -139,13 +157,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 			{cart.length > 0 && (
 				<Box>
 					<Typography>Subtotal: $ {subtotal} </Typography>
-					<Button
-						onClick={
-							user ? () => navigate("/CheckOut") : () => navigate("/Login")
-						}
-					>
-						Comprar
-					</Button>
+					<Button onClick={() => handleUserStartShopping()}>Comprar</Button>
 				</Box>
 			)}
 		</Drawer>

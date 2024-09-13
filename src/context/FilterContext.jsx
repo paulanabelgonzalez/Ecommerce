@@ -3,22 +3,24 @@ import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { FirebaseContext } from "./FirebaseContext";
+import { CartContext } from "./CartContext";
 
 export const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
+	const { handlePositionFixed } = useContext(CartContext);
 	const { products } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
 
 	const [filter, setFilter] = useState("");
-
 	const [filteredProductsByCategory, setfilteredProductsByCategory] =
 		useState(products);
 
 	console.log(filteredProductsByCategory);
 
 	const handleCategory = (categoryName) => {
+		handlePositionFixed(true);
 		setfilteredProductsByCategory(
 			products?.filter((product) => product.category === categoryName)
 		);
