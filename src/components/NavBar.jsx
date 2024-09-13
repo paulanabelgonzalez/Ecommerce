@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -26,8 +26,8 @@ import { FirebaseContext } from "../context/FirebaseContext";
 
 import { Cart } from "./Cart";
 
-import backgroundHeader from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
 import backgroundButton from "../assets/imgBackground/backgroundMetal.jpg";
+import backgroundHeader from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
 import backgroundMenu from "../assets/imgBackground/backgroundMenu.jpg";
 import cart from "../assets/cart.png";
 import casco from "../assets/casco.png";
@@ -124,7 +124,8 @@ export const NavBar = () => {
 					disableGutters
 					sx={{
 						display: { xs: "flex" },
-						justifyContent: { xs: "space-between" },
+						gap: { xs: "10%" },
+						position: "relative", // Mantenemos relativo el toolbar
 					}}
 				>
 					{/* Desktop - Estilo para pantallas grandes */}
@@ -259,7 +260,12 @@ export const NavBar = () => {
 							paddingBlock: "5px", //si es el logo esta al principio
 						}}
 					>
-						<Box sx={{ display: "flex", paddingBlock: "3px" }}>
+						<Box
+							sx={{
+								display: "flex",
+								paddingBlock: "3px",
+							}}
+						>
 							<img src={casco} style={{ width: "60px" }} alt="Logo" />
 							<Typography
 								variant="h5"
@@ -325,6 +331,11 @@ export const NavBar = () => {
 								onClick={toggleDrawer("right", true)}
 								sx={{
 									p: 0,
+									position: "fixed",
+									top: "14px",
+									right: "5px",
+									zIndex: 1, // Asegúrate de que esté encima de otros elementos
+									transition: "all 0.3s ease", //
 									"&:hover": {
 										boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
 										transition: "all 0.3s ease",
@@ -451,6 +462,94 @@ export const NavBar = () => {
 						</Menu>
 					</Box>
 				</Toolbar>
+				{/* <Box
+					sx={{
+						display: { xs: "flex", sm: "none" },
+						position: "fixed",
+						right: 0,
+						bottom: 0,
+						left: 0,
+						zIndex: 350,
+						// display: "flex",
+						alignItems: "center",
+						justifyContent: "space-between",
+						overflowX: "auto",
+						overflowY: "hidden",
+						padding: "5px",
+						height: "65px",
+						// backgroundImage: `url(${backgroundFixed})`,
+						backgroundImage: `url(${backgroundHeader})`,
+						backgroundPosition: "bottom",
+						boxShadow: "0 0 4px rgb(255 255 255)",
+					}}
+				>
+					<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
+						<Button
+							onClick={toggleDrawer("right", true)}
+							sx={{
+								p: 0,
+								"&:hover": {
+									boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+									transition: "all 0.3s ease",
+								},
+							}}
+						>
+							<Box
+								sx={{
+									width: { xs: "50px", md: "56px" },
+									height: { xs: "50px", md: "56px" },
+									border: " 3px solid #999999",
+									borderRadius: "50%",
+									display: "flex",
+									alignItems: "center",
+									justifyContent: "center",
+									backgroundImage: `url(${backgroundButton})`,
+									backgroundPosition: "right",
+									position: "relative",
+									"&:hover": {
+										filter: "brightness(1.2)",
+										boxShadow: "0 0 6px rgb(255 255 255)",
+										transition: "all 0.3s ease",
+									},
+								}}
+							>
+								<img
+									src={cart}
+									alt="logo de carrito de compras"
+									style={{
+										width: "70%",
+										position: "relative",
+									}}
+								/>
+								{quantity > 0 ? (
+									<span
+										style={{
+											color: "white",
+											position: "absolute",
+											top: "-3px",
+											right: "-3px",
+											border: "2px solid #4d4b4b",
+											borderRadius: " 50%",
+											width: "18px",
+											height: "18px",
+											display: "flex",
+											alignItems: "center",
+											justifyContent: "center",
+											fontSize: "10px",
+											backgroundColor: "#292929",
+										}}
+									>
+										{quantity > 0 ? quantity : ""}
+									</span>
+								) : (
+									""
+								)}
+							</Box>
+						</Button>
+					</Tooltip>
+
+					<Cart state={state} toggleDrawer={toggleDrawer} />
+				</Box> */}
 			</Container>
 		</AppBar>
 	);
