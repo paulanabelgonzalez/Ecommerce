@@ -220,7 +220,7 @@ export const NavBar = () => {
 									left: "0 !important",
 									right: "0 !important",
 									bottom: "0 !important",
-									minHeight: "88%",
+									minHeight: "90%",
 									height: "100vh",
 									borderRadius: 0,
 									boxShadow: "none",
@@ -236,9 +236,8 @@ export const NavBar = () => {
 									key={page}
 									onClick={() => handleNavMenuItemClick(page)}
 									sx={{
-										display: "inline-block",
-										width: "100%",
-										textAlign: "center",
+										display: "flex",
+										justifyContent: "center",
 										py: 2,
 										color: "#cecdcd",
 									}}
@@ -261,7 +260,7 @@ export const NavBar = () => {
 						}}
 					>
 						<Box sx={{ display: "flex", paddingBlock: "3px" }}>
-							<img src={casco} style={{ width: "70px" }} alt="Logo" />
+							<img src={casco} style={{ width: "60px" }} alt="Logo" />
 							<Typography
 								variant="h5"
 								sx={{
@@ -271,7 +270,10 @@ export const NavBar = () => {
 									fontWeight: "700",
 								}}
 							>
-								<span className="silver-text" style={{ display: "block" }}>
+								<span
+									className="silver-text"
+									style={{ display: "block", textShadow: "" }}
+								>
 									NAYEV
 								</span>
 								<span className="silver-text">Steel Design</span>
@@ -361,8 +363,8 @@ export const NavBar = () => {
 											style={{
 												color: "white",
 												position: "absolute",
-												top: { xs: "-3px", md: "-1px" },
-												right: { xs: "-3px", md: "-1px" },
+												top: "-3px",
+												right: "-3px",
 												border: "2px solid #4d4b4b",
 												borderRadius: " 50%",
 												width: "18px",
