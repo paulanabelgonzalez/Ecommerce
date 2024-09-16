@@ -33,7 +33,13 @@ import cart from "../assets/cart.png";
 import casco from "../assets/casco.png";
 import logo from "../assets/logo.png";
 
-const pages = ["Home", "Productos"];
+// const pages = [
+// 	"Home",
+// 	"Productos",
+// 	"Iniciar Sesión",
+// 	"Historial de Compras",
+// 	"Cerrar Sesión",
+// ];
 const settings = ["Historial de Compras", "Cerrar Sesión"];
 
 export const NavBar = () => {
@@ -112,7 +118,23 @@ export const NavBar = () => {
 	};
 
 	const handleNavMenuItemClick = (page) => {
-		navigate(page === "Home" ? "/" : `/${page}`);
+		switch (page) {
+			case "Productos":
+				navigate("/Productos");
+				break;
+			case "Iniciar Sesión":
+				navigate("/Login");
+				break;
+			case "Historial de Compras":
+				navigate("/OrderHistory");
+				break;
+			case "Cerrar Sesión":
+				handleSignOut();
+				break;
+			default:
+				navigate("/");
+		}
+		// navigate(page === "Home" ? "/" : `/${page}`);
 		if (page === "Productos") {
 			handlePositionFixed(true);
 		} else {
@@ -121,7 +143,10 @@ export const NavBar = () => {
 		handleCloseNavMenu();
 	};
 
-	console.log(cartInProducts);
+	const pages = user
+		? ["Home", "Productos", "Historial de Compras", "Cerrar Sesión"]
+		: ["Home", "Productos", "Iniciar Sesión"];
+	// console.log(cartInProducts);
 	return (
 		<AppBar
 			sx={{ backgroundImage: `url(${backgroundHeader})` }}
@@ -217,10 +242,8 @@ export const NavBar = () => {
 								display: { xs: "block", md: "none" },
 								position: "fixed",
 								top: "29px",
-
 								left: "0px",
 								right: "0px",
-
 								width: "100vw",
 								height: "100vh",
 								zIndex: 1,
@@ -292,7 +315,10 @@ export const NavBar = () => {
 							>
 								<span
 									className="silver-text"
-									style={{ display: "block", textAlign: "start" }}
+									style={{
+										display: "block",
+										textAlign: "start",
+									}}
 								>
 									NAYEV
 								</span>

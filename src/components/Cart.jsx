@@ -96,7 +96,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 						sx={{
 							maxWidth: "96%",
 							margin: "auto",
-							borderTop: "2px solid black",
+							borderTop: "2px solid #242424",
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
