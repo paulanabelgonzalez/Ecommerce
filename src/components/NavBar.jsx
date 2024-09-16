@@ -100,7 +100,8 @@ export const NavBar = () => {
 				handleSignOut();
 				break;
 			default:
-				navigate("/");
+				// navigate("/");
+				navigate(page === "Home" ? "/" : `/${page}`);
 		}
 		handleCloseUserMenu(); // Cierra el menú después de la selección
 	};
@@ -118,29 +119,30 @@ export const NavBar = () => {
 	};
 
 	const handleNavMenuItemClick = (page) => {
-		switch (page) {
-			case "Productos":
-				navigate("/Productos");
-				break;
-			case "Iniciar Sesión":
-				navigate("/Login");
-				break;
-			case "Historial de Compras":
-				navigate("/OrderHistory");
-				break;
-			case "Cerrar Sesión":
-				handleSignOut();
-				break;
-			default:
-				navigate("/");
-		}
+		handleMenuItemClick(page);
+		// switch (page) {
+		// 	case "Productos":
+		// 		navigate("/Productos");
+		// 		break;
+		// 	case "Iniciar Sesión":
+		// 		navigate("/Login");
+		// 		break;
+		// 	case "Historial de Compras":
+		// 		navigate("/OrderHistory");
+		// 		break;
+		// 	case "Cerrar Sesión":
+		// 		handleSignOut();
+		// 		break;
+		// 	default:
+		// 		navigate("/");
+		// }
 		// navigate(page === "Home" ? "/" : `/${page}`);
+		handleCloseNavMenu();
 		if (page === "Productos") {
 			handlePositionFixed(true);
 		} else {
 			handlePositionFixed(false);
 		}
-		handleCloseNavMenu();
 	};
 
 	const pages = user
