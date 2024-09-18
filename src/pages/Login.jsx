@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import {
+	Box,
 	Button,
 	Container,
 	IconButton,
@@ -18,6 +19,8 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
+
+import "../index.css";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
@@ -35,14 +38,14 @@ const validationSchema = yup.object({
 
 export const Login = () => {
 	const { cart } = useContext(CartContext);
-	const { setUser, user, fromLoginPage, handleFromLoginPage } =
+	const { fromLoginPage, handleFromLoginPage, setModal, setUser, user } =
 		useContext(FirebaseContext);
 
-	const [typePassword, setTypePassword] = useState("password");
+	const auth = getAuth();
 
 	const navigate = useNavigate();
 
-	const auth = getAuth();
+	const [typePassword, setTypePassword] = useState("password");
 
 	const formik = useFormik({
 		initialValues: {
@@ -83,6 +86,8 @@ export const Login = () => {
 				}
 			} catch (error) {
 				console.error("Error al iniciar sesión:", error.code, error.message);
+				setModal(2);
+				navigate("/modal");
 			}
 		},
 	});
@@ -93,63 +98,154 @@ export const Login = () => {
 		formik.handleChange(event);
 	};
 
+	const boxInput = { width: "95%", maxWidth: "1100px", margin: "20px auto" };
+
+	const inputProps = {
+		color: "white",
+		backgroundColor: "#9e9e9ead",
+		boxShadow: "0 0 10px black",
+
+		"&:focus-within .MuiOutlinedInput-notchedOutline": {
+			borderColor: "#faf6f6eb",
+			boxShadow: "0 0 10px white",
+		},
+	};
+
+	const InputLabelProps = {
+		color: "black",
+		"&.Mui-focused": {
+			color: "white",
+		},
+	};
+
 	return (
 		<Container as="form" onSubmit={formik.handleSubmit}>
-			<IoMdClose onClick={() => handleFromLoginPage("/", false)} />
-			<TextField
-				fullWidth
-				id="email"
-				name="email"
-				label="Email"
-				autoComplete="email"
-				value={formik.values.email}
-				onChange={handleEmailChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.email && Boolean(formik.errors.email)}
-				helperText={formik.touched.email && formik.errors.email}
-			/>
-
-			<TextField
-				fullWidth
-				id="password"
-				name="password"
-				label="Password"
-				autoComplete="password"
-				type={typePassword}
-				value={formik.values.password}
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.password && Boolean(formik.errors.password)}
-				helperText={formik.touched.password && formik.errors.password}
-				InputProps={{
-					endAdornment: (
-						<InputAdornment position="end">
-							<IconButton
-								aria-label="toggle password visibility"
-								onClick={() =>
-									setTypePassword(
-										typePassword === "password" ? "text" : "password"
-									)
-								}
-								edge="end"
-							>
-								{typePassword === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
-							</IconButton>
-						</InputAdornment>
-					),
+			<Box sx={{ textAlign: "end" }}>
+				<Button
+					onClick={() => handleFromLoginPage("/", false)}
+					sx={{
+						// color: "white",
+						color: "#4c4c4c",
+						// display: "inline-flex",
+						// alignItems: "flex-start",
+						// gap: "5px",
+					}}
+				>
+					<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
+						Cerrar x
+					</Typography>
+					{/* <IoMdClose
+						style={{
+							fontSize: "22px",
+							textShadow: "1px 1px 2px rgb(255 250 250)",
+						}}
+					/> */}
+				</Button>
+			</Box>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "16px",
+					//background: " linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b)",
 				}}
-			/>
+			>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="email"
+						name="email"
+						label="Email"
+						autoComplete="email"
+						value={formik.values.email}
+						onChange={handleEmailChange}
+						onBlur={formik.handleBlur}
+						error={formik.touched.email && Boolean(formik.errors.email)}
+						helperText={formik.touched.email && formik.errors.email}
+						FormHelperTextProps={{
+							sx: { textShadow: "1px 1px 2px rgb(255 250 250)" },
+						}}
+						InputProps={{ sx: { ...inputProps } }}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
 
-			<Button color="primary" variant="contained" fullWidth type="submit">
-				Iniciar sesión
-			</Button>
-			<Typography>
-				Si no tienes cuenta,
-				<Button onClick={() => navigate("/Register")}>REGISTRATE</Button>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="password"
+						name="password"
+						label="Password"
+						autoComplete="password"
+						type={typePassword}
+						value={formik.values.password}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						error={formik.touched.password && Boolean(formik.errors.password)}
+						helperText={formik.touched.password && formik.errors.password}
+						FormHelperTextProps={{
+							sx: { textShadow: "1px 1px 2px rgb(255 250 250)" },
+						}}
+						InputProps={{
+							sx: { ...inputProps },
+							endAdornment: (
+								<InputAdornment position="end" style={{ borderTop: "none" }}>
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={() =>
+											setTypePassword(
+												typePassword === "password" ? "text" : "password"
+											)
+										}
+										edge="end"
+									>
+										{typePassword === "password" ? (
+											<IoEyeSharp />
+										) : (
+											<FaEyeSlash />
+										)}
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
+
+				<Button
+					variant="contained"
+					type="submit"
+					sx={{
+						width: "95%",
+						maxWidth: "1100px",
+						margin: "auto",
+						border: "3px solid #999999",
+						color: "#999999",
+						fontWeight: "600",
+						backgroundImage:
+							"url(/src/assets/imgBackground/backgroundMetal.jpg)",
+						backgroundPosition: "top",
+					}}
+				>
+					Iniciar sesión
+				</Button>
+			</Box>
+			<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
+				¿No tienes cuenta?
+				<Button
+					sx={{
+						color: "#4c4c4c",
+						fontWeight: "600",
+						textShadow: "1px 1px 2px rgb(255 250 250)",
+					}}
+					onClick={() => navigate("/Register")}
+				>
+					Crear Cuenta
+				</Button>
 			</Typography>
-			<Typography>Bienvenido {user?.username}</Typography>
+			{/* <Typography>Bienvenido {user?.username}</Typography>
 			<Typography>Id {user?.id}</Typography>
-			<Typography>Email {user?.mail}</Typography>
+			<Typography>Email {user?.mail}</Typography> */}
 		</Container>
 	);
 };

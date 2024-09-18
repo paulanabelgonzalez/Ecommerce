@@ -9,6 +9,7 @@ export const Modal = () => {
 	const { modal } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
+
 	return (
 		<>
 			<Box
@@ -84,6 +85,35 @@ export const Modal = () => {
 						>
 							Aproveche nuestras promociones!!
 						</Typography>
+					</>
+				)}
+				{modal === 2 && (
+					<>
+						<Typography
+							sx={{
+								fontSize: 24,
+								textAlign: "center",
+								fontWeight: 700,
+								color: "#5c07a6",
+							}}
+						>
+							Los datos no son correctos!!
+						</Typography>
+						<Button
+							onClick={() => navigate("/Login")}
+							sx={{
+								color: "#51074d",
+								width: "auto",
+								fontWeight: 700,
+								fontSize: 12,
+								display: "inline-block",
+								"&:hover": {
+									color: "#86067f",
+								},
+							}}
+						>
+							"Intenta de nuevo"
+						</Button>
 					</>
 				)}
 			</Box>

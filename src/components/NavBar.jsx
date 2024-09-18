@@ -274,7 +274,7 @@ export const NavBar = () => {
 										display: "flex",
 										justifyContent: "center",
 										py: 2,
-										color: "#cecdcd",
+										color: "#ebebeb",
 									}}
 								>
 									<Typography variant="h6" sx={{ fontWeight: "700" }}>
