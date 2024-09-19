@@ -217,11 +217,17 @@ export const Login = () => {
 						maxWidth: "1100px",
 						margin: "auto",
 						border: "3px solid #999999",
-						color: "#999999",
+						color: "#878686",
 						fontWeight: "600",
-						backgroundImage:
-							"url(/src/assets/imgBackground/backgroundMetal.jpg)",
-						backgroundPosition: "top",
+						background: "linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b )",
+						backgroundSize: "150% 150%",
+						transition: "background-position 0.5s ease",
+						"&:hover": {
+							backgroundPosition: "100% 0",
+						},
+						"&:active": {
+							boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.5)",
+						},
 					}}
 				>
 					Iniciar sesión
