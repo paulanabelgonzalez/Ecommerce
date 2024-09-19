@@ -18,9 +18,6 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
-
-import "../index.css";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
@@ -230,7 +227,13 @@ export const Login = () => {
 					Iniciar sesión
 				</Button>
 			</Box>
-			<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
+			<Typography
+				sx={{
+					textShadow: "1px 1px 2px rgb(255 250 250)",
+					marginBlock: "10px",
+					textAlign: "center",
+				}}
+			>
 				¿No tienes cuenta?
 				<Button
 					sx={{

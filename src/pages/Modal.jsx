@@ -6,7 +6,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { FirebaseContext } from "../context/FirebaseContext";
 
 export const Modal = () => {
-	const { modal } = useContext(FirebaseContext);
+	const { modal, user } = useContext(FirebaseContext);
 
 	const navigate = useNavigate();
 
@@ -15,7 +15,6 @@ export const Modal = () => {
 			<Box
 				sx={{
 					backgroundColor: "white",
-
 					margin: { xs: "20px", sm: "20px auto" },
 					padding: "10px",
 					borderRadius: 5,
@@ -58,11 +57,14 @@ export const Modal = () => {
 						fontSize: 24,
 						textAlign: "center",
 						fontWeight: 700,
-						color: "#5c07a6",
+						color: "#86067f",
 					}}
 				>
-					{modal === 0 && "Se ha registrado correctamente"}
+					{modal === 0 &&
+						`Bienvenido ${user?.username}, te has registrado correctamente.`}
 					{modal === 1 && "GRACIAS POR SU COMPRA!!"}
+					{modal === 2 && "Los datos no son correctos!!"}
+					{modal === 3 && "Este correo ya esta registrado"}
 				</Typography>
 
 				{modal === 1 && (
@@ -89,7 +91,7 @@ export const Modal = () => {
 				)}
 				{modal === 2 && (
 					<>
-						<Typography
+						{/* <Typography
 							sx={{
 								fontSize: 24,
 								textAlign: "center",
@@ -98,7 +100,7 @@ export const Modal = () => {
 							}}
 						>
 							Los datos no son correctos!!
-						</Typography>
+						</Typography> */}
 						<Button
 							onClick={() => navigate("/Login")}
 							sx={{
@@ -116,6 +118,7 @@ export const Modal = () => {
 						</Button>
 					</>
 				)}
+				{modal === 3}
 			</Box>
 		</>
 	);

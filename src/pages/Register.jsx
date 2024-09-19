@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 import {
+	Box,
 	Button,
 	Container,
 	IconButton,
@@ -19,7 +20,6 @@ import { doc, setDoc } from "firebase/firestore";
 
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
 
 import { FirebaseContext } from "../context/FirebaseContext";
 
@@ -41,18 +41,18 @@ const validationSchema = yup.object({
 export const Register = ({}) => {
 	const { setModal } = useContext(FirebaseContext);
 
-	const [typePassword, setTypePassword] = useState("password");
+	const auth = getAuth();
 
 	const navigate = useNavigate();
 
-	const auth = getAuth();
+	const [typePassword, setTypePassword] = useState("password");
 
 	const formik = useFormik({
 		initialValues: {
-			name: "Ingresa un nombre",
-			email: "Ingresa tu correo electrónico",
-			password: "contraseña 123",
-			address: "Opcional,solo para envios",
+			name: "",
+			email: "",
+			password: "",
+			address: "",
 		},
 
 		validationSchema: validationSchema,
@@ -77,81 +77,184 @@ export const Register = ({}) => {
 				navigate("/modal");
 			} catch (error) {
 				console.error("Error durante el registro: ", error.code, error.message);
+
+				if (error.code === "auth/email-already-in-use") {
+					setModal(3);
+					navigate("/modal");
+				} else {
+					console.error(
+						"Error durante el registro: ",
+						error.code,
+						error.message
+					);
+				}
 			}
 		},
 	});
 
+	const boxInput = { width: "95%", maxWidth: "1100px", margin: "20px auto" };
+
+	const inputProps = {
+		color: "white",
+		backgroundColor: "#9e9e9ead",
+		boxShadow: "0 0 10px black",
+
+		"&:focus-within .MuiOutlinedInput-notchedOutline": {
+			borderColor: "#faf6f6eb",
+			boxShadow: "0 0 10px white",
+		},
+	};
+
+	const InputLabelProps = {
+		color: "black",
+		"&.Mui-focused": {
+			color: "white",
+		},
+	};
+
 	return (
 		<Container as="form" onSubmit={formik.handleSubmit}>
-			<IoMdClose onClick={() => navigate("/")} />
-			<TextField
-				fullWidth
-				id="nombre"
-				name="name"
-				label="Nombre"
-				value={formik.values.name}
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.name && Boolean(formik.errors.name)}
-				helperText={formik.touched.name && formik.errors.name}
-			/>
-			<TextField
-				fullWidth
-				id="emailRegistro"
-				name="email"
-				label="Email"
-				value={formik.values.email}
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.email && Boolean(formik.errors.email)}
-				helperText={formik.touched.email && formik.errors.email}
-			/>
-			<TextField
-				fullWidth
-				id="passwordRegistro"
-				name="password"
-				label="Password"
-				type={typePassword}
-				value={formik.values.password}
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.password && Boolean(formik.errors.password)}
-				helperText={formik.touched.password && formik.errors.password}
-				InputProps={{
-					endAdornment: (
-						<InputAdornment position="end">
-							<IconButton
-								aria-label="toggle password visibility"
-								onClick={() =>
-									setTypePassword(
-										typePassword === "password" ? "text" : "password"
-									)
-								}
-								edge="end"
-							>
-								{typePassword === "password" ? <IoEyeSharp /> : <FaEyeSlash />}
-							</IconButton>
-						</InputAdornment>
-					),
+			<Box sx={{ textAlign: "end" }}>
+				<Button onClick={() => navigate("/")} sx={{ color: "#4c4c4c" }}>
+					<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
+						Cerrar x
+					</Typography>
+				</Button>
+			</Box>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "column",
+					gap: "4px",
 				}}
-			/>
-			<TextField
-				fullWidth
-				id="address"
-				name="address"
-				label="Dirección"
-				value={formik.values.address}
-				onChange={formik.handleChange}
-				onBlur={formik.handleBlur}
-				error={formik.touched.address && Boolean(formik.errors.address)}
-				helperText={formik.touched.address && formik.errors.address}
-			/>
-			<Button color="primary" variant="contained" fullWidth type="submit">
-				Registrarse
-			</Button>
-			<Typography>
+			>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="nombre"
+						name="name"
+						label="Nombre"
+						value={formik.values.name}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						error={formik.touched.name && Boolean(formik.errors.name)}
+						helperText={formik.touched.name && formik.errors.name}
+						FormHelperTextProps={{
+							sx: { textShadow: "1px 1px 2px rgb(255 250 250)" },
+						}}
+						InputProps={{ sx: { ...inputProps } }}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="emailRegistro"
+						name="email"
+						label="Email"
+						value={formik.values.email}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						error={formik.touched.email && Boolean(formik.errors.email)}
+						helperText={formik.touched.email && formik.errors.email}
+						FormHelperTextProps={{
+							sx: { textShadow: "1px 1px 2px rgb(255 250 250)" },
+						}}
+						InputProps={{ sx: { ...inputProps } }}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="passwordRegistro"
+						name="password"
+						label="Password"
+						type={typePassword}
+						value={formik.values.password}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						error={formik.touched.password && Boolean(formik.errors.password)}
+						helperText={formik.touched.password && formik.errors.password}
+						InputProps={{
+							sx: { ...inputProps },
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="toggle password visibility"
+										onClick={() =>
+											setTypePassword(
+												typePassword === "password" ? "text" : "password"
+											)
+										}
+										edge="end"
+									>
+										{typePassword === "password" ? (
+											<IoEyeSharp />
+										) : (
+											<FaEyeSlash />
+										)}
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
+				<Box sx={boxInput}>
+					<TextField
+						fullWidth
+						id="address"
+						name="address"
+						label="Dirección"
+						value={formik.values.address}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						helperText="Opcional, solo para envios"
+						FormHelperTextProps={{
+							sx: { textShadow: "1px 1px 2px rgb(255 250 250)" },
+						}}
+						InputProps={{ sx: { ...inputProps } }}
+						InputLabelProps={{ sx: { ...InputLabelProps } }}
+					/>
+				</Box>
+				<Button
+					variant="contained"
+					type="submit"
+					sx={{
+						width: "95%",
+						maxWidth: "1100px",
+						margin: "auto",
+						border: "3px solid #999999",
+						color: "#999999",
+						fontWeight: "600",
+						// backgroundImage:
+						// 	"url(/src/assets/imgBackground/backgroundMetal.jpg)",
+						background: " linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b)",
+						backgroundPosition: "top",
+					}}
+				>
+					Registrate
+				</Button>
+			</Box>
+			<Typography
+				sx={{
+					textShadow: "1px 1px 2px rgb(255 250 250)",
+					marginBlock: "10px",
+					textAlign: "center",
+				}}
+			>
 				Si ya tienes cuenta,{" "}
-				<Button onClick={() => navigate("/Login")}>inicia sesión</Button>
+				<Button
+					sx={{
+						color: "#4c4c4c",
+						fontWeight: "600",
+						textShadow: "1px 1px 2px rgb(255 250 250)",
+					}}
+					onClick={() => navigate("/Login")}
+				>
+					inicia sesión
+				</Button>
 			</Typography>
 		</Container>
 	);
