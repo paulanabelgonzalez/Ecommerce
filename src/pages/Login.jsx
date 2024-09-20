@@ -120,23 +120,11 @@ export const Login = () => {
 			<Box sx={{ textAlign: "end" }}>
 				<Button
 					onClick={() => handleFromLoginPage("/", false)}
-					sx={{
-						// color: "white",
-						color: "#4c4c4c",
-						// display: "inline-flex",
-						// alignItems: "flex-start",
-						// gap: "5px",
-					}}
+					sx={{ color: "#4c4c4c" }}
 				>
 					<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
 						Cerrar x
 					</Typography>
-					{/* <IoMdClose
-						style={{
-							fontSize: "22px",
-							textShadow: "1px 1px 2px rgb(255 250 250)",
-						}}
-					/> */}
 				</Button>
 			</Box>
 			<Box
@@ -217,6 +205,7 @@ export const Login = () => {
 						maxWidth: "1100px",
 						margin: "auto",
 						border: "3px solid #999999",
+						borderRadius: "23px",
 						color: "#878686",
 						fontWeight: "600",
 						background: "linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b )",
@@ -252,9 +241,6 @@ export const Login = () => {
 					Crear Cuenta
 				</Button>
 			</Typography>
-			{/* <Typography>Bienvenido {user?.username}</Typography>
-			<Typography>Id {user?.id}</Typography>
-			<Typography>Email {user?.mail}</Typography> */}
 		</Container>
 	);
 };

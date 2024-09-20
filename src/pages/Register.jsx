@@ -81,6 +81,9 @@ export const Register = ({}) => {
 				if (error.code === "auth/email-already-in-use") {
 					setModal(3);
 					navigate("/modal");
+				} else if (error.code === "auth/invalid-email") {
+					setModal(4);
+					navigate("/modal");
 				} else {
 					console.error(
 						"Error durante el registro: ",
@@ -226,6 +229,7 @@ export const Register = ({}) => {
 						maxWidth: "1100px",
 						margin: "auto",
 						border: "3px solid #999999",
+						borderRadius: "23px",
 						color: "#878686",
 						fontWeight: "600",
 						background: "linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b )",
