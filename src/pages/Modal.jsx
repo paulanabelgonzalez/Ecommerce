@@ -5,7 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 
 import { FirebaseContext } from "../context/FirebaseContext";
 
-import placa from "../assets/placa.png";
+import placa from "../assets/imgLetreros/placa.png";
 
 export const Modal = () => {
 	const { modal, user } = useContext(FirebaseContext);

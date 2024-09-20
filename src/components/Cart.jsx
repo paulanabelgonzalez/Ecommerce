@@ -10,7 +10,7 @@ import { FirebaseContext } from "../context/FirebaseContext";
 import { QuantityProducts } from "./QuantityProducts";
 
 import backgroundDrawer from "../assets/imgBackground/backgroundMetal.jpg";
-import letrero from "../assets/letrero.png";
+import letrero from "../assets/imgLetreros/letrero.png";
 
 export const Cart = ({ state, toggleDrawer }) => {
 	const {
