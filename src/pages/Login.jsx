@@ -116,7 +116,7 @@ export const Login = () => {
 	};
 
 	return (
-		<Container as="form" onSubmit={formik.handleSubmit}>
+		<Container maxWidth="md" as="form" onSubmit={formik.handleSubmit}>
 			<Box sx={{ textAlign: "end" }}>
 				<Button
 					onClick={() => handleFromLoginPage("/", false)}

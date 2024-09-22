@@ -116,7 +116,7 @@ export const Register = ({}) => {
 	};
 
 	return (
-		<Container as="form" onSubmit={formik.handleSubmit}>
+		<Container maxWidth="md" as="form" onSubmit={formik.handleSubmit}>
 			<Box sx={{ textAlign: "end" }}>
 				<Button onClick={() => navigate("/")} sx={{ color: "#4c4c4c" }}>
 					<Typography sx={{ textShadow: "1px 1px 2px rgb(255 250 250)" }}>
