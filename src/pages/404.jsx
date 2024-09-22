@@ -13,7 +13,6 @@ export const NotFound = () => {
 				margin: "auto",
 				height: { xs: "375px", sm: "520px" },
 				maxHeight: "520px",
-				margin: { sm: "auto" },
 				backgroundImage: `url(${notFound})`,
 				backgroundSize: "contain",
 				position: "relative",

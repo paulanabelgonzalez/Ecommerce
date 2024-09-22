@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -18,7 +18,6 @@ import "../../src/index.css";
 
 import { getAuth, signOut } from "firebase/auth";
 
-import { FaUser } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
@@ -29,23 +28,19 @@ import { Cart } from "./Cart";
 import backgroundButton from "../assets/imgBackground/backgroundMetal.jpg";
 import backgroundHeader from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
 import backgroundMenu from "../assets/imgBackground/backgroundMenu.jpg";
-import cart from "../assets/cart.png";
+import cart from "../assets/imgNav/cart.png";
 import casco from "../assets/casco.png";
 import logo from "../assets/logo.png";
+import userImg from "../assets/imgNav/user.png";
 
-// const pages = [
-// 	"Home",
-// 	"Productos",
-// 	"Iniciar Sesión",
-// 	"Historial de Compras",
-// 	"Cerrar Sesión",
-// ];
 const settings = ["Historial de Compras", "Cerrar Sesión"];
 
 export const NavBar = () => {
-	const { quantity, cartInProducts, handlePositionFixed } =
+	const { cartInProducts, handlePositionFixed, quantity } =
 		useContext(CartContext);
-	const { user, handleFromLoginPage } = useContext(FirebaseContext);
+	const { handleFromLoginPage, user } = useContext(FirebaseContext);
+
+	const navigate = useNavigate();
 
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
@@ -53,11 +48,6 @@ export const NavBar = () => {
 	const [state, setState] = useState({
 		right: false,
 	});
-
-	const navigate = useNavigate();
-
-	const theme = useTheme();
-	// const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const toggleDrawer = (anchor, open) => (event) => {
 		if (
@@ -100,7 +90,6 @@ export const NavBar = () => {
 				handleSignOut();
 				break;
 			default:
-				// navigate("/");
 				navigate(page === "Home" ? "/" : `/${page}`);
 		}
 		handleCloseUserMenu(); // Cierra el menú después de la selección
@@ -120,23 +109,6 @@ export const NavBar = () => {
 
 	const handleNavMenuItemClick = (page) => {
 		handleMenuItemClick(page);
-		// switch (page) {
-		// 	case "Productos":
-		// 		navigate("/Productos");
-		// 		break;
-		// 	case "Iniciar Sesión":
-		// 		navigate("/Login");
-		// 		break;
-		// 	case "Historial de Compras":
-		// 		navigate("/OrderHistory");
-		// 		break;
-		// 	case "Cerrar Sesión":
-		// 		handleSignOut();
-		// 		break;
-		// 	default:
-		// 		navigate("/");
-		// }
-		// navigate(page === "Home" ? "/" : `/${page}`);
 		handleCloseNavMenu();
 		if (page === "Productos") {
 			handlePositionFixed(true);
@@ -145,45 +117,52 @@ export const NavBar = () => {
 		}
 	};
 
+	const buttonNavStyle = {
+		width: { xs: "50px", md: "56px" },
+		height: { xs: "50px", md: "56px" },
+		border: " 3px solid #999999",
+		borderRadius: "50%",
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		backgroundImage: `url(${backgroundButton})`,
+		backgroundPosition: "right",
+		position: "relative",
+		"&:hover": {
+			filter: "brightness(1.2)",
+			boxShadow: "0 0 6px rgb(255 255 255)",
+			transition: "all 0.3s ease",
+		},
+	};
+
 	const pages = user
 		? ["Home", "Productos", "Historial de Compras", "Cerrar Sesión"]
 		: ["Home", "Productos", "Iniciar Sesión"];
-	// console.log(cartInProducts);
+
 	return (
 		<AppBar
-			sx={{ backgroundImage: `url(${backgroundHeader})` }}
+			sx={{
+				backgroundImage: `url(${backgroundHeader})`,
+			}}
 			position="static"
 		>
-			<Container maxWidth="xl" sx={{ paddingRight: "5px" }}>
+			<Container sx={{ paddingRight: "5px" }}>
 				<Toolbar
 					disableGutters
 					sx={{
 						display: { xs: "flex" },
-						justifyContent: !cartInProducts && "space-between",
+						justifyContent: {
+							xs: !cartInProducts && "space-between",
+							md: "space-between",
+						},
 						gap: cartInProducts && { xs: "8%" },
-						// position: "relative", // Mantenemos relativo el toolbar
 					}}
 				>
 					{/* Desktop - Estilo para pantallas grandes */}
-					<Button sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-						<img width={"200px"} src={logo} alt="Logo Steel Nayev" />
-						<Typography
-							variant="h6"
-							noWrap
-							component="a"
-							href="#app-bar-with-responsive-menu"
-							sx={{
-								mr: 2,
-								display: { xs: "none", md: "flex" },
-								fontFamily: "monospace",
-								fontWeight: 700,
-								letterSpacing: ".3rem",
-								color: "inherit",
-								textDecoration: "none",
-							}}
-						>
-							BOUTIQUE
-						</Typography>
+					<Button
+						sx={{ display: { xs: "none", md: "flex" }, mr: 1, padding: "0px" }}
+					>
+						<img width={"173px"} src={logo} alt="Logo Steel Nayev" />
 						{/* <Typography>Bienvenido {user?.username}</Typography> para poner el nombre de usuario */}
 					</Button>
 
@@ -286,96 +265,158 @@ export const NavBar = () => {
 					</Box>
 
 					{/* Mobile - Texto y logo para pantallas pequeñas */}
-					<Link
-						to="/"
-						style={{
-							textDecoration: "none",
-							display: { xs: "flex", md: "none" },
-							paddingBlock: "8px", //si es el logo esta al principio
-						}}
-					>
-						<Box
-							as="button"
-							onClick={() => handlePositionFixed(false)}
-							sx={{
-								display: "flex",
-								paddingBlock: "3px",
-								background: "transparent",
-								border: "none",
-								padding: 0,
+					<Box sx={{ display: { xs: "flex", md: "none" } }}>
+						<Link
+							to="/"
+							style={{
+								textDecoration: "none",
+								paddingBlock: "8px",
 							}}
 						>
-							<img src={casco} style={{ width: "60px" }} alt="Logo" />
-							<Typography
-								variant="h5"
+							<Box
+								as="button"
+								onClick={() => handlePositionFixed(false)}
 								sx={{
 									display: "flex",
-									flexDirection: "column",
-									justifyContent: "center",
-									fontWeight: "700",
+									paddingBlock: "3px",
+									background: "transparent",
+									border: "none",
+									padding: 0,
 								}}
 							>
-								<span
-									className="silver-text"
-									style={{
-										display: "block",
-										textAlign: "start",
+								<img src={casco} style={{ width: "60px" }} alt="Logo" />
+								<Typography
+									variant="h5"
+									sx={{
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+										fontWeight: "700",
 									}}
 								>
-									NAYEV
-								</span>
-								<span className="silver-text">Steel Design</span>
-							</Typography>
-						</Box>
-						{/* <Box sx={{ paddingBlock: "3px" }}>
-							<Typography
-								variant="h6"
-								sx={{
-									display: "flex",
-									alignItems: "center",
-									fontWeight: "700",
-								}}
-							>
-								<span className="silver-text">NAYEV</span>
-								Imagen entre los span 
-								<img
-									src={casco}
-									alt="Logo"
-									style={{
-										// Para que se mantenga en su propio bloque
-										margin: "5px auto", // Centra la imagen
-										width: "50px", // Ajusta el tamaño de la imagen según lo que necesites
-										height: "auto", // Mantiene la proporción
-									}}
-								/>
-								<span className="silver-text">Steel Design</span>
-							</Typography>
-						</Box>*/}
-					</Link>
+									<span
+										className="silver-text"
+										style={{
+											display: "block",
+											textAlign: "start",
+										}}
+									>
+										NAYEV
+									</span>
+									<span className="silver-text">Steel Design</span>
+								</Typography>
+							</Box>
+						</Link>
+					</Box>
 
 					{/* Desktop - Menú principal para pantallas grandes */}
-					<Box sx={{ display: { xs: "none", md: "flex" } }}>
-						{pages.map((page) => (
-							<Button
-								key={page}
-								onClick={() => navigate(page === "Home" ? "/" : `/${page}`)}
-								sx={{ my: 2, color: "white", display: "block" }}
-							>
-								{page}
-							</Button>
-						))}
+					<Box
+						sx={{
+							display: { xs: "none", md: "flex" },
+							gap: "36px",
+						}}
+					>
+						{pages
+							.filter((page) => page != "Iniciar Sesión")
+							.map((page) => (
+								<Button
+									key={page}
+									onClick={() => handleNavMenuItemClick(page)}
+									sx={{ color: "white", display: "block" }}
+								>
+									{page}
+								</Button>
+							))}
 					</Box>
 
 					{/* Íconos y menú de usuario, visible en ambas vistas */}
-					<Box sx={{ flexGrow: 0, display: "flex", alignItems: "center" }}>
+					<Box
+						sx={{
+							flexGrow: 0,
+							display: "flex",
+							alignItems: "center",
+							gap: "15px",
+							//
+							minWidth: { md: "151px" },
+						}}
+					>
+						{/* Usuario logueado */}
+						<Box sx={{ display: { xs: "none", md: "flex" } }}>
+							{user ? (
+								<Box>
+									<Tooltip title="Mi usuario">
+										<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+											<Box sx={buttonNavStyle}>
+												<img
+													src={userImg}
+													alt="logo de usuario"
+													style={{ width: "75%" }}
+												/>
+											</Box>
+										</Button>
+									</Tooltip>
+									<Tooltip title="Cerrar sesión">
+										<Box>
+											<Button onClick={handleSignOut} sx={{ p: 0 }}>
+												<TbLogout
+													style={{ fontSize: "27px", color: "white" }}
+												/>
+											</Button>
+										</Box>
+									</Tooltip>
+								</Box>
+							) : (
+								<Tooltip title="Inciar sesión">
+									<Button
+										onClick={() => {
+											handleFromLoginPage("/Login", true);
+										}}
+									>
+										<Box sx={buttonNavStyle}>
+											<img
+												src={userImg}
+												alt="logo de usuario"
+												style={{ width: "75%" }}
+											/>
+										</Box>
+									</Button>
+								</Tooltip>
+							)}
+						</Box>
+						<Menu
+							sx={{ mt: "45px" }}
+							id="menu-appbar"
+							anchorEl={anchorElUser}
+							anchorOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							keepMounted
+							transformOrigin={{
+								vertical: "top",
+								horizontal: "right",
+							}}
+							open={Boolean(anchorElUser)}
+							onClose={handleCloseUserMenu}
+						>
+							{settings.map((setting) => (
+								<MenuItem
+									key={setting}
+									onClick={() => handleMenuItemClick(setting)}
+								>
+									<Typography textAlign="center">{setting}</Typography>
+								</MenuItem>
+							))}
+						</Menu>
+
 						<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
 							<Button
 								onClick={toggleDrawer("right", true)}
 								sx={{
 									p: 0,
 									position: cartInProducts ? "fixed" : "relative",
-									top: cartInProducts && "15px",
-									right: cartInProducts && "5px",
+									top: cartInProducts && { xs: "15px", md: "6.2%" },
+									right: cartInProducts && { xs: "15px", md: "4%", lg: "12%" },
 									zIndex: 1,
 									transition: "all 0.3s ease",
 									"&:hover": {
@@ -384,25 +425,7 @@ export const NavBar = () => {
 									},
 								}}
 							>
-								<Box
-									sx={{
-										width: { xs: "50px", md: "56px" },
-										height: { xs: "50px", md: "56px" },
-										border: " 3px solid #999999",
-										borderRadius: "50%",
-										display: "flex",
-										alignItems: "center",
-										justifyContent: "center",
-										backgroundImage: `url(${backgroundButton})`,
-										backgroundPosition: "right",
-										position: "relative",
-										"&:hover": {
-											filter: "brightness(1.2)",
-											boxShadow: "0 0 6px rgb(255 255 255)",
-											transition: "all 0.3s ease",
-										},
-									}}
-								>
+								<Box sx={buttonNavStyle}>
 									<img
 										src={cart}
 										alt="logo de carrito de compras"
@@ -437,71 +460,7 @@ export const NavBar = () => {
 								</Box>
 							</Button>
 						</Tooltip>
-
 						<Cart state={state} toggleDrawer={toggleDrawer} />
-
-						{/* Usuario logueado */}
-						<Box sx={{ display: { xs: "none", md: "flex" } }}>
-							{user ? (
-								<Box>
-									<Tooltip title="Mi usuario">
-										<Button onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-											<FaUser style={{ fontSize: "20px", color: "white" }} />
-											<Typography variant="p" sx={{ color: "white" }}>
-												{user.username}
-											</Typography>
-										</Button>
-									</Tooltip>
-									<Tooltip title="Cerrar sesión">
-										<Box>
-											<Button onClick={handleSignOut} sx={{ p: 0 }}>
-												<TbLogout
-													style={{ fontSize: "27px", color: "white" }}
-												/>
-											</Button>
-										</Box>
-									</Tooltip>
-								</Box>
-							) : (
-								<Tooltip title="Inciar sesión">
-									<Button
-										onClick={() => {
-											handleFromLoginPage("/Login", true);
-										}}
-									>
-										<FaUser style={{ fontSize: "20px", color: "white" }} />
-										<Typography sx={{ color: "white" }}>
-											Iniciar Sesión
-										</Typography>
-									</Button>
-								</Tooltip>
-							)}
-						</Box>
-						<Menu
-							sx={{ mt: "45px" }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "right",
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						>
-							{settings.map((setting) => (
-								<MenuItem
-									key={setting}
-									onClick={() => handleMenuItemClick(setting)}
-								>
-									<Typography textAlign="center">{setting}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
 					</Box>
 				</Toolbar>
 			</Container>
