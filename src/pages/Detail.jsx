@@ -19,36 +19,59 @@ export const Detail = () => {
 	return (
 		<Box
 			sx={{
-				maxWidth: "1000px",
-				margin: "auto",
-				border: "1px solid",
+				maxWidth: { xs: "350px", sm: "1000px" },
+				margin: "10px auto",
 			}}
 		>
 			{product ? (
 				<>
-					<Box sx={{ display: "flex" }}>
-						<Box maxWidth={"300px"}>
+					<Box
+						sx={{
+							display: { xs: "flex" },
+							flexDirection: { xs: "column", sm: "row" },
+							alignItems: { xs: "center" },
+							gap: { xs: "15px", sm: "50px" },
+							boxShadow:
+								"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
+							borderRadius: "10px",
+							sm: { padding: "15px" },
+						}}
+					>
+						<Box sx={{ height: "350px" }}>
 							<img
 								src={product.image}
 								alt={product.name}
-								style={{ width: "100%" }}
+								width={"350px"}
+								style={{
+									borderRadius: "6px",
+									aspectRatio: "5/5",
+									objectFit: "cover",
+								}}
 							/>
 						</Box>
 						<Box
 							sx={{
 								display: "flex",
 								flexDirection: "column",
-								justifyContent: "space-between",
+								alignItems: "center",
+								gap: { xs: "6px", sm: "80px" },
+								paddingBottom: "10px",
 							}}
 						>
 							<Box>
-								<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "flex-end",
+									}}
+								>
 									<Button
 										onClick={() => navigate("/")}
 										sx={{
 											textDecoration: "none",
 											color: "#fff",
 											fontSize: "12px",
+											marginInlineEnd: { sm: "15px" },
 											padding: "4px 24px",
 											borderRadius: "6px",
 											boxShadow:
@@ -64,19 +87,47 @@ export const Detail = () => {
 									</Button>
 								</Box>
 
-								<Box>
-									<Typography variant="h5" sx={{ textDecoration: "underline" }}>
+								<Box
+									sx={{
+										maxWidth: { xs: "330px", sm: "400px" },
+										marginTop: { xs: "5px" },
+									}}
+								>
+									<Typography
+										variant="h5"
+										sx={{
+											textDecoration: "underline",
+											color: "#e2e1e1",
+											textAlign: "center",
+										}}
+									>
 										{product.name}
 									</Typography>
-									<Typography>{product.description}</Typography>
-									<Typography>{product.descriptionDetail}</Typography>
+
+									<Typography
+										sx={{
+											textAlign: "center",
+											marginTop: { xs: "8px" },
+										}}
+									>
+										{product.descriptionDetail}
+									</Typography>
 								</Box>
 
-								<Typography variant="h5">${product.price}</Typography>
+								<Typography
+									variant="h5"
+									sx={{
+										fontWeight: "600",
+										textAlign: "center",
+										marginTop: "9px",
+									}}
+								>
+									$ {product.price}
+								</Typography>
 							</Box>
 							<Box>
 								<AddButton />
-								<Button>Comprar</Button>
+								{/* <Button>Comprar</Button> */}
 							</Box>
 						</Box>
 					</Box>

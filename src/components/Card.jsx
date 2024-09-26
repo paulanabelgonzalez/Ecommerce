@@ -28,7 +28,7 @@ export const Card = () => {
 			<Box
 				sx={{
 					width: "93%",
-					maxWidth: "1000px",
+					maxWidth: "900px",
 					display: "flex",
 					flexDirection: "row-reverse",
 					justifyContent: "space-between",
