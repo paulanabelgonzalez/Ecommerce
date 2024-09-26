@@ -135,6 +135,36 @@ export const NavBar = () => {
 		},
 	};
 
+	const menuStyles = {
+		color: "white",
+		width: "auto",
+		fontWeight: 700,
+		fontSize: 14,
+		padding: 0,
+		minWidth: 0,
+		display: "inline-block",
+		position: "relative",
+		"&:hover": {
+			color: "#77787a",
+		},
+		"&::after": {
+			content: `''`,
+			position: "absolute",
+			width: "100%",
+			height: "2px",
+			bottom: 0,
+			left: 0,
+			backgroundColor: "#77787a",
+			transform: "scaleX(0)",
+			transformOrigin: "bottom left",
+			transition: "transform 0.3s ease",
+		},
+		"&:hover:after": {
+			transform: "scaleX(1)",
+			transformOrigin: "bottom left",
+		},
+	};
+
 	const pages = user
 		? ["Home", "Productos", "Historial de Compras", "Cerrar Sesión"]
 		: ["Home", "Productos", "Iniciar Sesión"];
@@ -159,12 +189,23 @@ export const NavBar = () => {
 					}}
 				>
 					{/* Desktop - Estilo para pantallas grandes */}
-					<Button
-						sx={{ display: { xs: "none", md: "flex" }, mr: 1, padding: "0px" }}
+					<Box
+						sx={{
+							width: "173px",
+							display: { xs: "none", md: "flex" },
+							padding: "0px",
+							borderRadius: "50%",
+							cursor: "pointer",
+							"&:hover": {
+								filter: "brightness(1.2)",
+								boxShadow: "0 0 6px rgb(255 255 255)",
+								transition: "all 0.3s ease",
+							},
+						}}
 					>
-						<img width={"173px"} src={logo} alt="Logo Steel Nayev" />
+						<img src={logo} alt="Logo Steel Nayev" style={{ width: "100%" }} />
 						{/* <Typography>Bienvenido {user?.username}</Typography> para poner el nombre de usuario */}
-					</Button>
+					</Box>
 
 					{/* Mobile - Estilo para pantallas pequeñas */}
 					<Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -322,7 +363,7 @@ export const NavBar = () => {
 								<Button
 									key={page}
 									onClick={() => handleNavMenuItemClick(page)}
-									sx={{ color: "white", display: "block" }}
+									sx={menuStyles}
 								>
 									{page}
 								</Button>
