@@ -9,6 +9,8 @@ import { FilterContext } from "../context/FilterContext";
 
 import { Filters } from "../components/Filters";
 
+import letrero from "../assets/imgLetreros/letrero.png";
+
 export const CategoryCards = () => {
 	const { name } = useParams();
 	const { handleAdd } = useContext(CartContext);
@@ -110,27 +112,73 @@ export const CategoryCards = () => {
 						<Box
 							key={product.id}
 							sx={{
-								border: "2px solid",
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
+								boxShadow:
+									"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
+								borderRadius: "10px",
 							}}
 						>
-							<img src={product.image} alt={product.name} width={"300px"} />
-							<Typography variant="h5">{product.name}</Typography>
-							<Typography>{product.category}</Typography>
-							<Typography>{product.description}</Typography>
-							<Typography>$ {product.price}</Typography>
-							<Link to={`/detail/${product.id}`}>ver más</Link>
-							<Button onClick={() => handleAdd(product)}>
+							<Box
+								sx={{
+									width: "100%",
+									paddingBottom: "10px",
+								}}
+							>
+								<img
+									src={product.image}
+									alt={product.name}
+									width={"350px"}
+									style={{
+										borderRadius: "6px",
+										aspectRatio: "5/5",
+										objectFit: "cover",
+									}}
+								/>
+							</Box>
+							<Box
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									alignItems: "center",
+									gap: "6px",
+									paddingBottom: "10px",
+								}}
+							>
+								<Typography
+									variant="h5"
+									sx={{ textDecoration: "underline", color: "#e2e1e1" }}
+								>
+									{product.name}
+								</Typography>
+								<Typography>{product.category}</Typography>
+								<Typography>{product.description}</Typography>
+								<Typography sx={{ fontWeight: "600" }}>
+									$ {product.price}
+								</Typography>
+								<Link to={`/detail/${product.id}`} className="link-button">
+									ver más
+								</Link>
+								{/* <Button
+								onClick={() => handleAdd(product)}
+								sx={{
+									color: "black",
+									fontSize: "10px",
+									fontWeight: "600",
+									"&:hover": { color: "whitesmoke" },
+								}}
+							>
 								Añadir al carrito
-							</Button>
+							</Button> */}
+							</Box>
 						</Box>
 					))
 				) : (
-					<Typography sx={{ paddingBlock: "19%" }} variant="h6">
-						No se encontraron productos
-					</Typography>
+					<Box className="box-sign">
+						<img className="sign" src={letrero} alt="Letrero" />
+
+						<Typography className="typography-sign" sx={{ fontSize: "21px" }}>
+							No se encontraron productos.
+						</Typography>
+					</Box>
 				)}
 			</Box>
 		</Container>
