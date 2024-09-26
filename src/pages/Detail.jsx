@@ -17,7 +17,13 @@ export const Detail = () => {
 	const product = products.find((product) => product.id === id);
 
 	return (
-		<Box sx={{ maxWidth: "1000px", margin: "auto", border: "1px solid" }}>
+		<Box
+			sx={{
+				maxWidth: "1000px",
+				margin: "auto",
+				border: "1px solid",
+			}}
+		>
 			{product ? (
 				<>
 					<Box sx={{ display: "flex" }}>
@@ -37,12 +43,36 @@ export const Detail = () => {
 						>
 							<Box>
 								<Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-									<Button onClick={() => navigate("/")}>Volver</Button>
+									<Button
+										onClick={() => navigate("/")}
+										sx={{
+											textDecoration: "none",
+											color: "#fff",
+											fontSize: "12px",
+											padding: "4px 24px",
+											borderRadius: "6px",
+											boxShadow:
+												"0 25px 35px #53535333, inset 0 3px 14px 1px #fff",
+											"&:hover": {
+												color: "#999999",
+												background: "#ffffffa1",
+												boxShadow: "0 0 6px rgb(255 255 255)",
+											},
+										}}
+									>
+										Volver
+									</Button>
 								</Box>
+
 								<Box>
-									<Typography variant="h5">{product.name}</Typography>
+									<Typography variant="h5" sx={{ textDecoration: "underline" }}>
+										{product.name}
+									</Typography>
 									<Typography>{product.description}</Typography>
+									<Typography>{product.descriptionDetail}</Typography>
 								</Box>
+
+								<Typography variant="h5">${product.price}</Typography>
 							</Box>
 							<Box>
 								<AddButton />
