@@ -92,42 +92,19 @@ export const Cart = ({ state, toggleDrawer }) => {
 				</Box>
 
 				{cart.length === 0 ? (
-					<Box
-						sx={{
-							maxWidth: "96%",
-							margin: "auto",
-							borderTop: "2px solid #473f36",
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-							justifyContent: "center",
-							height: "345px",
-							position: "relative",
-						}}
-					>
+					<Box className="box-sign">
 						<img
+							className="sign"
 							src={letrero}
 							alt="Letrero"
 							style={{
-								width: "100%",
-								height: "100%",
-								objectFit: "cover",
 								position: "absolute",
 								top: 0,
 								left: 0,
 							}}
 						/>
 
-						<Typography
-							sx={{
-								position: "absolute",
-								zIndex: 1,
-								color: "#464646",
-								fontSize: "21px",
-								textAlign: "center",
-								top: "59%",
-							}}
-						>
+						<Typography className="typography-sign" sx={{ fontSize: "21px" }}>
 							No hay productos en el carrito
 						</Typography>
 					</Box>

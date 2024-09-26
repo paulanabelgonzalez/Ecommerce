@@ -152,10 +152,10 @@ export const Card = () => {
 						</Box>
 					))
 				) : (
-					<Box className="box-sign" sx={{ borderTop: "2px solid #555352" }}>
+					<Box className="box-sign">
 						<img className="sign" src={letrero} alt="Letrero" />
 
-						<Typography className="typography-sign">
+						<Typography className="typography-sign" sx={{ fontSize: "21px" }}>
 							No se encontraron productos.
 						</Typography>
 					</Box>
