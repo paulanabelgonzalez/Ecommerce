@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -17,13 +18,13 @@ export const CartProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			clearCartAfterTimeout(setCart);
-		}, 60 * 1000);
+	// useEffect(() => {
+	// 	const intervalId = setInterval(() => {
+	// 		clearCartAfterTimeout(setCart);
+	// 	}, 60 * 1000);
 
-		return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar
-	}, []);
+	// 	return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar
+	// }, []);
 
 	useEffect(() => {
 		const initialSubtotal = cart.reduce((acc, product) => {
@@ -103,6 +104,14 @@ export const CartProvider = ({ children }) => {
 		return product.price * product.quantity;
 	};
 
+	const formatNumber = (number) => {
+		return new Intl.NumberFormat("es-ES", {
+			style: "decimal",
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		}).format(number);
+	};
+
 	const handlePositionFixed = (boolean) => {
 		setCartInProducts(boolean);
 	};
@@ -117,6 +126,7 @@ export const CartProvider = ({ children }) => {
 			value={{
 				cart,
 				cartInProducts,
+				formatNumber,
 				handleAdd,
 				handleAddQuantity,
 				handleDelete,

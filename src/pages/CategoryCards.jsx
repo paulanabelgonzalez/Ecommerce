@@ -13,7 +13,7 @@ import letrero from "../assets/imgLetreros/letrero.png";
 
 export const CategoryCards = () => {
 	const { name } = useParams();
-	const { handleAdd } = useContext(CartContext);
+	const { formatNumber, handleAdd } = useContext(CartContext);
 	const {
 		categoryButtons,
 		filter,
@@ -152,7 +152,9 @@ export const CategoryCards = () => {
 								<Typography>{product.category}</Typography>
 								<Typography>{product.description}</Typography>
 								<Typography sx={{ fontWeight: "600" }}>
-									$ {product.price}
+									{isNaN(product.price)
+										? "Consultar precio"
+										: `$ ${formatNumber(product.price)}`}
 								</Typography>
 								<Link to={`/detail/${product.id}`} className="link-button">
 									ver más

@@ -1,28 +1,29 @@
 import { createContext, useEffect, useState } from "react";
+
 import { useNavigate } from "react-router";
 
 import { db } from "../../firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
+	arrayUnion,
 	collection,
 	doc,
 	// getDoc,
 	onSnapshot,
 	updateDoc,
-	arrayUnion,
 } from "firebase/firestore";
 
 export const FirebaseContext = createContext();
 
 export const FirebaseProvider = ({ children }) => {
+	const auth = getAuth();
+
+	const navigate = useNavigate();
+
 	const [fromLoginPage, setFromLoginPage] = useState(false);
 	const [modal, setModal] = useState(0);
 	const [products, setProducts] = useState([]);
 	const [user, setUser] = useState(null);
-
-	const auth = getAuth();
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getProducts = () => {
@@ -106,7 +107,6 @@ export const FirebaseProvider = ({ children }) => {
 				setUser,
 				finalizePurchase,
 				fromLoginPage,
-				// setFromLoginPage,
 				handleFromLoginPage,
 				modal,
 				setModal,

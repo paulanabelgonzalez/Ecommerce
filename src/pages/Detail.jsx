@@ -1,17 +1,20 @@
 import { useContext } from "react";
 
-import { useParams, useNavigate } from "react-router-dom";
-// import {  } from "react-router";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
 
+import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
 
 import { AddButton } from "../components/AddButton";
 
 export const Detail = () => {
+	const { formatNumber } = useContext(CartContext);
 	const { products } = useContext(FirebaseContext);
+
 	const { id } = useParams();
+
 	const navigate = useNavigate();
 
 	const product = products.find((product) => product.id === id);
@@ -54,7 +57,7 @@ export const Detail = () => {
 								display: "flex",
 								flexDirection: "column",
 								alignItems: "center",
-								gap: { xs: "6px", sm: "80px" },
+								gap: { xs: "8px", sm: "80px" },
 								paddingBottom: "10px",
 							}}
 						>
@@ -115,14 +118,14 @@ export const Detail = () => {
 								</Box>
 
 								<Typography
-									variant="h5"
 									sx={{
+										fontSize: "20px",
 										fontWeight: "600",
 										textAlign: "center",
 										marginTop: "9px",
 									}}
 								>
-									$ {product.price}
+									$ {formatNumber(product.price)}
 								</Typography>
 							</Box>
 							<Box>

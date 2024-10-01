@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
 
-// import { CartContext } from "../context/CartContext";
+import { CartContext } from "../context/CartContext";
 import { FilterContext } from "../context/FilterContext";
 import { FirebaseContext } from "../context/FirebaseContext";
 
@@ -13,7 +13,7 @@ import "../index.css";
 import letrero from "../assets/imgLetreros/letrero.png";
 
 export const Card = () => {
-	// const { handleAdd } = useContext(CartContext);
+	const { formatNumber, handleAdd } = useContext(CartContext);
 	const { filter, handleCategoryClick, useFilter } = useContext(FilterContext);
 	const { products } = useContext(FirebaseContext);
 
@@ -132,7 +132,9 @@ export const Card = () => {
 								<Typography>{product.category}</Typography>
 								<Typography>{product.description}</Typography>
 								<Typography sx={{ fontWeight: "600" }}>
-									$ {product.price}
+									{isNaN(product.price)
+										? "Consultar precio"
+										: `$ ${formatNumber(product.price)}`}
 								</Typography>
 								<Link to={`/detail/${product.id}`} className="link-button">
 									ver más
