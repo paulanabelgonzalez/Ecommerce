@@ -14,6 +14,7 @@ import {
 	Typography,
 	useTheme,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 import "../../src/index.css";
 
@@ -169,6 +170,21 @@ export const NavBar = () => {
 	const pages = user
 		? ["Home", "Productos", "Historial de Compras", "Cerrar Sesión"]
 		: ["Home", "Productos", "Iniciar Sesión"];
+
+	const CustomMenu = styled(Menu)(({ theme }) => ({
+		"& .MuiPaper-root": {
+			width: "15%",
+			marginTop: "70px",
+			marginLeft: "70px",
+			border: "3px solid #999999",
+			color: "#525252",
+			textAlign: "center",
+			fontWeight: 600,
+			background: "linear-gradient(216deg, #5e5b5b, #f2f2f2, #5e5b5b)",
+			backgroundSize: "150% 150%",
+			transition: "background-position 0.5s ease",
+		},
+	}));
 
 	return (
 		<AppBar
@@ -378,7 +394,6 @@ export const NavBar = () => {
 							display: "flex",
 							alignItems: "center",
 							gap: "15px",
-							//
 							minWidth: { md: "151px" },
 						}}
 					>
@@ -397,7 +412,7 @@ export const NavBar = () => {
 											</Box>
 										</Button>
 									</Tooltip>
-									<Tooltip title="Cerrar sesión">
+									{/* <Tooltip title="Cerrar sesión">
 										<Box>
 											<Button onClick={handleSignOut} sx={{ p: 0 }}>
 												<TbLogout
@@ -405,7 +420,7 @@ export const NavBar = () => {
 												/>
 											</Button>
 										</Box>
-									</Tooltip>
+									</Tooltip> */}
 								</Box>
 							) : (
 								<Tooltip title="Inciar sesión">
@@ -425,8 +440,29 @@ export const NavBar = () => {
 								</Tooltip>
 							)}
 						</Box>
-						<Menu
-							sx={{ mt: "45px" }}
+						<CustomMenu
+							// sx={{ mt: "60px", ml: "60px" }}
+							PaperProps={{
+								sx: {
+									textDecoration: "none",
+									width: "100%",
+									marginTop: "20px",
+									border: "3px solid #999999",
+									color: "#525252",
+									textAlign: "center",
+									fontWeight: 600,
+									background:
+										"linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b)",
+									backgroundSize: "150% 150%",
+									transition: "background-position 0.5s ease",
+									"&:hover": {
+										backgroundPosition: "100% 0",
+									},
+									"&:active": {
+										boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.5)",
+									},
+								},
+							}}
 							id="menu-appbar"
 							anchorEl={anchorElUser}
 							anchorOrigin={{
@@ -449,7 +485,7 @@ export const NavBar = () => {
 									<Typography textAlign="center">{setting}</Typography>
 								</MenuItem>
 							))}
-						</Menu>
+						</CustomMenu>
 
 						<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
 							<Button

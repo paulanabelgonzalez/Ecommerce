@@ -234,9 +234,14 @@ export const Cart = ({ state, toggleDrawer }) => {
 					>
 						Comprar
 					</Button>
-					<Box sx={{ marginTop: "18px", textAlign: "center" }}>
-						<Link to="/Productos" style={{ color: "#f1f1f1" }}>
-							Seguir Comprando
+					<Box sx={{ marginTop: "10px", textAlign: "center" }}>
+						<Link to="/Productos">
+							<Button
+								onClick={toggleDrawer("right", false)}
+								sx={{ textDecoration: "underline", color: "#f1f1f1" }}
+							>
+								Seguir Comprando
+							</Button>
 						</Link>
 					</Box>
 				</Box>

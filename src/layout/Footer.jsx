@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import { Link } from "react-router-dom";
 
 import {
@@ -11,16 +13,17 @@ import {
 
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
+import { CartContext } from "../context/CartContext";
+import { FirebaseContext } from "../context/FirebaseContext";
+
 import american from "../assets/imgFooter/american.png";
 import backgroundFooter from "../assets/imgBackground/backgroundHeaderAndFooter.jpeg";
 import mercadoPago from "../assets/imgFooter/mp.png";
 import master from "../assets/imgFooter/mastercard.png";
 import visa from "../assets/imgFooter/visa.png";
-import { useContext } from "react";
-import { CartContext } from "../context/CartContext";
-
 export const Footer = () => {
 	const { handleNavigation } = useContext(CartContext);
+	const { user } = useContext(FirebaseContext);
 
 	const theme = useTheme();
 	const isDesktop = useMediaQuery(theme.breakpoints.up("sm"));
@@ -107,17 +110,20 @@ export const Footer = () => {
 						PRODUCTOS
 					</Button>
 
-					<Button
-						sx={menuStyles}
-						onClick={() => handleNavigation(false, "/Login")}
-					>
-						INICIAR SESIÓN
-					</Button>
-
-					{isDesktop && (
-						<Link to="/register" style={{ textDecoration: "none" }}>
-							<Box sx={menuStyles}>CREAR CUENTA</Box>
-						</Link>
+					{!user && (
+						<>
+							<Button
+								sx={menuStyles}
+								onClick={() => handleNavigation(false, "/Login")}
+							>
+								INICIAR SESIÓN
+							</Button>
+							{isDesktop && (
+								<Link to="/register" style={{ textDecoration: "none" }}>
+									<Box sx={menuStyles}>CREAR CUENTA</Box>
+								</Link>
+							)}{" "}
+						</>
 					)}
 				</Box>
 			</Box>

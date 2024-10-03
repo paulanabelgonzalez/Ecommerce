@@ -84,6 +84,7 @@ export const FirebaseProvider = ({ children }) => {
 						total: subtotal,
 					}),
 				});
+
 				console.log("Compra finalizada y guardada en Firestore.");
 			} catch (error) {
 				console.error("Error al finalizar la compra:", error);

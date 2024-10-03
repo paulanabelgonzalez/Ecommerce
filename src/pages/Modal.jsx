@@ -28,8 +28,8 @@ export const Modal = () => {
 			<Box
 				sx={{
 					width: { sm: "100%" },
-					maxWidth: "800px",
-					height: { xs: "192px" },
+					maxWidth: "500px",
+					height: { xs: "192px", sm: "286px" },
 					backgroundImage: `url(${placa})`,
 					backgroundSize: "cover",
 					margin: { xs: "20px", sm: "20px auto" },
@@ -99,7 +99,7 @@ export const Modal = () => {
 						}}
 					>
 						{modal === 0 && "Aceptar"}
-						{modal === 1 && "Regresar"}
+						{modal === 1 && "Home"}
 						{modal === 2 && "Intenta de nuevo"}
 						{(modal === 3 || modal === 4) && "Ingresa otro E-mail"}
 					</Button>
