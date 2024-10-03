@@ -1,9 +1,10 @@
 import { useContext } from "react";
 
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 import { Box, Typography } from "@mui/material";
 
+import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
 
 import "../index.css";
@@ -11,63 +12,137 @@ import "../index.css";
 import letrero from "../assets/imgLetreros/letrero.png";
 
 export const OrderHistory = () => {
-	const navigate = useNavigate();
-
+	const { formatNumber } = useContext(CartContext);
 	const { user } = useContext(FirebaseContext);
 
 	const hasOrders = user?.orders?.length > 0;
 
+	const styleTypography = {
+		display: "flex",
+		justifyContent: "space-between",
+		width: "100%",
+		paddingInline: "5px",
+		color: "#f1f1f1",
+		paddingBottom: { sm: "5px" },
+	};
+
 	return (
 		<>
-			<Box sx={{ maxWidth: { xs: "360px", sm: "500px" }, margin: "auto" }}>
-				<Box sx={{ textAlign: "end", padding: "5px" }}>
-					<Box
-						as="button"
-						onClick={() => navigate("/")}
-						className="link-button"
-						sx={{ textAlign: "center" }}
-					>
-						<span> cerrar x</span>
-					</Box>
+			<Box
+				sx={{
+					width: "100%",
+					maxWidth: "800px",
+					margin: "auto",
+					padding: "10px",
+				}}
+			>
+				<Box sx={{ textAlign: "end", paddingBottom: "5px" }}>
+					<Link to="/" style={{ textDecoration: "none" }}>
+						<Box
+							as="button"
+							className="link-button"
+							sx={{
+								textAlign: "center",
+								width: { xs: "90px", sm: "120px" },
+								fontSize: { xs: "14px", sm: "16px" },
+							}}
+						>
+							cerrar x
+						</Box>
+					</Link>
 				</Box>
 				{hasOrders ? (
-					// Mostrar historial de órdenes
 					user.orders.map((order, index) => (
 						<Box
-							sx={{ border: "black 2px solid", marginBottom: "20px" }}
+							sx={{
+								border: "2px solid #f1f1f1",
+								padding: { sm: "15px" },
+								marginBottom: "20px",
+							}}
 							key={index}
 						>
-							<Typography sx={{ color: "black", fontWeight: "bold" }}>
-								Total: {order.total}
+							<Typography
+								sx={{
+									...styleTypography,
+									borderBottom: "1px solid #f1f1f1",
+									width: { xs: "95%", sm: "98%" },
+									margin: "auto",
+									fontWeight: "600",
+								}}
+							>
+								<span>Tu compra del:</span>
+								<span>{order.date}</span>
 							</Typography>
+
 							{order?.order?.map((product, index) => (
-								<Box key={index} sx={{ padding: "10px" }}>
-									<Typography sx={{ color: "black" }}>
-										Descripción: {product.description}
-									</Typography>
-									<Typography sx={{ color: "black" }}>
-										Cantidad: {product.quantity}
-									</Typography>
-									<Typography sx={{ color: "black" }}>
-										Nombre: {product.name}
-									</Typography>
-									<Typography sx={{ color: "black" }}>
-										Precio: {product.price}
-									</Typography>
-									<img
-										style={{ width: "300px", marginTop: "10px" }}
-										src={product.image}
-										alt={product.name}
-									/>
+								<Box key={index} sx={{ paddingInline: "10px" }}>
+									<Box
+										sx={{
+											borderBottom: "1px solid #f1f1f1",
+											display: { sm: "flex" },
+											gap: "15px",
+										}}
+									>
+										<Box
+											sx={{
+												maxWidth: "231px",
+												margin: { xs: "auto", sm: "0px" },
+												paddingBlock: "10px",
+											}}
+										>
+											<img
+												style={{
+													width: "231px",
+													aspectRatio: "5/5",
+													objectFit: "cover",
+													border: "1px solid #f1f1f1",
+												}}
+												src={product.image}
+												alt={product.name}
+											/>
+										</Box>
+										<Box
+											sx={{
+												paddingBlock: { xs: "10px", sm: "20px" },
+												width: "100%",
+											}}
+										>
+											<Typography
+												sx={{
+													color: "#f1f1f1",
+													textAlign: "center",
+													fontSize: "18px",
+												}}
+											>
+												{product.name}
+											</Typography>
+											<Typography sx={{ ...styleTypography }}>
+												<span>Precio por unidad:</span>
+												<span>${formatNumber(product.price)}</span>
+											</Typography>
+
+											<Typography sx={{ ...styleTypography }}>
+												<span>Cantidad:</span>
+												<span>{product.quantity}</span>
+											</Typography>
+										</Box>
+									</Box>
 								</Box>
 							))}
-							<Typography sx={{ color: "black" }}>
-								Fecha: {order.date}
+							<Typography
+								sx={{
+									...styleTypography,
+									width: "95%",
+									margin: "auto",
+									fontWeight: "bold",
+								}}
+							>
+								<span>Total:</span>
+								<span>${formatNumber(order.total)}</span>
 							</Typography>
 						</Box>
 					))
 				) : (
-					// Mostrar mensaje si no hay órdenes
 					<Box className="box-sign" sx={{ width: "360px" }}>
 						<img
 							className="sign"
