@@ -100,6 +100,10 @@ export const FirebaseProvider = ({ children }) => {
 		console.log(fromLoginPage);
 	};
 
+	const handleGoBack = () => {
+		navigate(-1); // Esto te lleva a la página anterior
+	};
+
 	return (
 		<FirebaseContext.Provider
 			value={{
@@ -109,6 +113,7 @@ export const FirebaseProvider = ({ children }) => {
 				finalizePurchase,
 				fromLoginPage,
 				handleFromLoginPage,
+				handleGoBack,
 				modal,
 				setModal,
 			}}

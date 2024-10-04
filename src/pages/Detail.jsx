@@ -11,7 +11,7 @@ import { AddButton } from "../components/AddButton";
 
 export const Detail = () => {
 	const { formatNumber } = useContext(CartContext);
-	const { products } = useContext(FirebaseContext);
+	const { products, handleGoBack } = useContext(FirebaseContext);
 
 	const { id } = useParams();
 
@@ -69,7 +69,7 @@ export const Detail = () => {
 									}}
 								>
 									<Button
-										onClick={() => navigate("/")}
+										onClick={handleGoBack}
 										sx={{
 											textDecoration: "none",
 											color: "#fff",

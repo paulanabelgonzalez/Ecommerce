@@ -257,9 +257,16 @@ export const Register = ({}) => {
 				Si ya tienes cuenta,{" "}
 				<Button
 					sx={{
+						ml: "5px",
 						color: "#4c4c4c",
 						fontWeight: "600",
 						textShadow: "1px 1px 2px rgb(255 250 250)",
+						transition: "all .5s ease-out",
+						"&:hover": {
+							color: "#999999",
+							background: "#ffffffa1",
+							boxShadow: "0 0 6px rgb(255 255 255)",
+						},
 					}}
 					onClick={() => navigate("/Login")}
 				>

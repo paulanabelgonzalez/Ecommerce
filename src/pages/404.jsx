@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+
+import { FirebaseContext } from "../context/FirebaseContext";
 
 import notFound from "../assets/notFound.jpg";
 
 export const NotFound = () => {
+	const { handleGoBack } = useContext(FirebaseContext);
+
 	return (
 		<Box
 			sx={{
@@ -33,9 +37,8 @@ export const NotFound = () => {
 				No se ha encontrado la página solicitada
 			</Typography>
 			<Box sx={{ textAlign: "end", padding: "10px 10px 0px 0px" }}>
-				<Box
-					component={Link}
-					to="/"
+				<Button
+					onClick={handleGoBack}
 					sx={{
 						textDecoration: "none",
 						color: "#fff",
@@ -51,7 +54,7 @@ export const NotFound = () => {
 					}}
 				>
 					Atras
-				</Box>
+				</Button>
 			</Box>
 		</Box>
 	);

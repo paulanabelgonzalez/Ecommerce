@@ -10,7 +10,8 @@ import { FirebaseContext } from "../context/FirebaseContext";
 export const CheckOut = () => {
 	const { cart, handleDeleteAll, formatNumber, subtotal, subTotalProduct } =
 		useContext(CartContext);
-	const { finalizePurchase, setModal } = useContext(FirebaseContext);
+	const { finalizePurchase, handleGoBack, setModal } =
+		useContext(FirebaseContext);
 
 	const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ export const CheckOut = () => {
 		>
 			<Box sx={{ textAlign: "end" }}>
 				<Button
-					onClick={() => navigate("/")}
+					onClick={handleGoBack}
 					sx={{
 						color: "#fff",
 						minWidth: "40px",

@@ -13,7 +13,7 @@ import letrero from "../assets/imgLetreros/letrero.png";
 
 export const OrderHistory = () => {
 	const { formatNumber } = useContext(CartContext);
-	const { user } = useContext(FirebaseContext);
+	const { user, handleGoBack } = useContext(FirebaseContext);
 
 	const hasOrders = user?.orders?.length > 0;
 
@@ -37,19 +37,18 @@ export const OrderHistory = () => {
 				}}
 			>
 				<Box sx={{ textAlign: "end", paddingBottom: "5px" }}>
-					<Link to="/" style={{ textDecoration: "none" }}>
-						<Box
-							as="button"
-							className="link-button"
-							sx={{
-								textAlign: "center",
-								width: { xs: "90px", sm: "120px" },
-								fontSize: { xs: "14px", sm: "16px" },
-							}}
-						>
-							cerrar x
-						</Box>
-					</Link>
+					<Box
+						as="button"
+						className="link-button"
+						onClick={handleGoBack}
+						sx={{
+							textAlign: "center",
+							width: { xs: "90px", sm: "120px" },
+							fontSize: { xs: "14px", sm: "16px" },
+						}}
+					>
+						cerrar x
+					</Box>
 				</Box>
 				{hasOrders ? (
 					user.orders.map((order, index) => (

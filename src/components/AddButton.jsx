@@ -20,6 +20,7 @@ export const AddButton = () => {
 			sx={{
 				textDecoration: "none",
 				margin: "auto",
+				padding: "0px 38px",
 				border: "3px solid #999999",
 				borderRadius: "23px",
 				color: "#525252",
