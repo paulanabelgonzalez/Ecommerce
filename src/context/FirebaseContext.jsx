@@ -21,12 +21,24 @@ export const FirebaseProvider = ({ children }) => {
 	const navigate = useNavigate();
 
 	const [fromLoginPage, setFromLoginPage] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [modal, setModal] = useState(0);
 	const [products, setProducts] = useState([]);
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 3000);
+
+		return () => clearTimeout(timer);
+	}, []);
+
+	useEffect(() => {
 		const getProducts = () => {
+			// Comenzar la carga
+			setLoading(true);
+
 			const collectionReference = collection(db, "products");
 			onSnapshot(collectionReference, (snapshot) => {
 				const productsArray = snapshot.docs.map((doc) => ({
@@ -34,6 +46,13 @@ export const FirebaseProvider = ({ children }) => {
 					...doc.data(),
 				}));
 				setProducts(productsArray);
+
+				// // Terminar la carga cuando se obtienen los productos
+				// setLoading(false);
+
+				setTimeout(() => {
+					setLoading(false);
+				}, 3000);
 			});
 		};
 
@@ -114,7 +133,9 @@ export const FirebaseProvider = ({ children }) => {
 				fromLoginPage,
 				handleFromLoginPage,
 				handleGoBack,
+				loading,
 				modal,
+				setLoading,
 				setModal,
 			}}
 		>

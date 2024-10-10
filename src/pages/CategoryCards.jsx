@@ -6,13 +6,16 @@ import { Box, Button, Container, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
 import { FilterContext } from "../context/FilterContext";
+import { FirebaseContext } from "../context/FirebaseContext";
 
 import { Filters } from "../components/Filters";
+import { Spinner } from "../components/Spinner";
 
 import letrero from "../assets/imgLetreros/letrero.png";
 
 export const CategoryCards = () => {
 	const { name } = useParams();
+
 	const { formatNumber, handleAdd } = useContext(CartContext);
 	const {
 		categoryButtons,
@@ -23,6 +26,7 @@ export const CategoryCards = () => {
 		setFilter,
 		useFilter,
 	} = useContext(FilterContext);
+	const { loading, setLoading } = useContext(FirebaseContext);
 
 	const styles = {
 		width: "49%",
@@ -50,116 +54,130 @@ export const CategoryCards = () => {
 	console.log(`categoria:`, name);
 
 	useEffect(() => {
+		setLoading(true);
 		handleCategory(name);
-	}, [name]);
+
+		setTimeout(() => {
+			setLoading(false);
+		}, 3000);
+	}, [name, setLoading]);
 
 	const filteredProducts = useFilter(filteredProductsByCategory, filter);
 	const showButtons = categoryButtons(name);
 
 	return (
 		<Container>
-			<Filters setFilter={setFilter} />
-
-			<Box
-				sx={{
-					width: "93%",
-					maxWidth: "1000px",
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					margin: "auto",
-					gap: "7px",
-				}}
-			>
-				<Box sx={{ ...styles }}>
-					<Link to="/Productos" style={{ textDecoration: "none" }}>
-						<Button onClick={handleCategoryClick} sx={{ ...buttonStyles }}>
-							<span className="text" style={{ transition: "all .5s ease-out" }}>
-								Todos los productos
-							</span>
-						</Button>
-					</Link>
-				</Box>
-				{showButtons?.map((category, index) => (
-					<Box sx={{ ...styles }} key={index}>
-						<Link
-							to={`/Category/${category}`}
-							style={{ textDecoration: "none" }}
-						>
-							<Button onClick={handleCategoryClick} sx={{ ...buttonStyles }}>
-								<span
-									className="text"
-									style={{ transition: "all .5s ease-out" }}
+			{loading ? (
+				<Spinner />
+			) : (
+				<>
+					<Filters setFilter={setFilter} />
+					<Box
+						sx={{
+							width: "93%",
+							maxWidth: "1000px",
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "space-between",
+							margin: "auto",
+							gap: "7px",
+						}}
+					>
+						<Box sx={{ ...styles }}>
+							<Link to="/Productos" style={{ textDecoration: "none" }}>
+								<Button onClick={handleCategoryClick} sx={{ ...buttonStyles }}>
+									<span
+										className="text"
+										style={{ transition: "all .5s ease-out" }}
+									>
+										Todos los productos
+									</span>
+								</Button>
+							</Link>
+						</Box>
+						{showButtons?.map((category, index) => (
+							<Box sx={{ ...styles }} key={index}>
+								<Link
+									to={`/Category/${category}`}
+									style={{ textDecoration: "none" }}
 								>
-									{category}
-								</span>
-							</Button>
-						</Link>
-					</Box>
-				))}
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					flexWrap: "wrap",
-					justifyContent: "center",
-					gap: "20px",
-					marginBlock: "20px",
-				}}
-			>
-				{filteredProducts.length > 0 ? (
-					filteredProducts.map((product) => (
-						<Box
-							key={product.id}
-							sx={{
-								boxShadow:
-									"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
-								borderRadius: "10px",
-							}}
-						>
-							<Box
-								sx={{
-									width: "100%",
-									paddingBottom: "10px",
-								}}
-							>
-								<img
-									src={product.image}
-									alt={product.name}
-									width={"350px"}
-									style={{
-										borderRadius: "6px",
-										aspectRatio: "5/5",
-										objectFit: "cover",
-									}}
-								/>
-							</Box>
-							<Box
-								sx={{
-									display: "flex",
-									flexDirection: "column",
-									alignItems: "center",
-									gap: "6px",
-									paddingBottom: "10px",
-								}}
-							>
-								<Typography
-									variant="h5"
-									sx={{ textDecoration: "underline", color: "#e2e1e1" }}
-								>
-									{product.name}
-								</Typography>
-								<Typography>{product.category}</Typography>
-								<Typography>{product.description}</Typography>
-								<Typography sx={{ fontWeight: "600" }}>
-									{isNaN(product.price)
-										? "Consultar precio"
-										: `$ ${formatNumber(product.price)}`}
-								</Typography>
-								<Link to={`/detail/${product.id}`} className="link-button">
-									ver más
+									<Button
+										onClick={handleCategoryClick}
+										sx={{ ...buttonStyles }}
+									>
+										<span
+											className="text"
+											style={{ transition: "all .5s ease-out" }}
+										>
+											{category}
+										</span>
+									</Button>
 								</Link>
-								{/* <Button
+							</Box>
+						))}
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexWrap: "wrap",
+							justifyContent: "center",
+							gap: "20px",
+							marginBlock: "20px",
+						}}
+					>
+						{filteredProducts.length > 0 ? (
+							filteredProducts.map((product) => (
+								<Box
+									key={product.id}
+									sx={{
+										boxShadow:
+											"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
+										borderRadius: "10px",
+									}}
+								>
+									<Box
+										sx={{
+											width: "100%",
+											paddingBottom: "10px",
+										}}
+									>
+										<img
+											src={product.image}
+											alt={product.name}
+											width={"350px"}
+											style={{
+												borderRadius: "6px",
+												aspectRatio: "5/5",
+												objectFit: "cover",
+											}}
+										/>
+									</Box>
+									<Box
+										sx={{
+											display: "flex",
+											flexDirection: "column",
+											alignItems: "center",
+											gap: "6px",
+											paddingBottom: "10px",
+										}}
+									>
+										<Typography
+											variant="h5"
+											sx={{ textDecoration: "underline", color: "#e2e1e1" }}
+										>
+											{product.name}
+										</Typography>
+										<Typography>{product.category}</Typography>
+										<Typography>{product.description}</Typography>
+										<Typography sx={{ fontWeight: "600" }}>
+											{isNaN(product.price)
+												? "Consultar precio"
+												: `$ ${formatNumber(product.price)}`}
+										</Typography>
+										<Link to={`/detail/${product.id}`} className="link-button">
+											ver más
+										</Link>
+										{/* <Button
 								onClick={() => handleAdd(product)}
 								sx={{
 									color: "black",
@@ -170,19 +188,24 @@ export const CategoryCards = () => {
 							>
 								Añadir al carrito
 							</Button> */}
-							</Box>
-						</Box>
-					))
-				) : (
-					<Box className="box-sign">
-						<img className="sign" src={letrero} alt="Letrero" />
+									</Box>
+								</Box>
+							))
+						) : (
+							<Box className="box-sign">
+								<img className="sign" src={letrero} alt="Letrero" />
 
-						<Typography className="typography-sign" sx={{ fontSize: "21px" }}>
-							No se encontraron productos.
-						</Typography>
+								<Typography
+									className="typography-sign"
+									sx={{ fontSize: "21px" }}
+								>
+									No se encontraron productos.
+								</Typography>
+							</Box>
+						)}
 					</Box>
-				)}
-			</Box>
+				</>
+			)}
 		</Container>
 	);
 };

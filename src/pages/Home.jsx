@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+
+import { FirebaseContext } from "../context/FirebaseContext";
 
 import { Carousel } from "../components/Carousel";
 import { ListCategories } from "../components/ListCategories";
 
 import videoHome from "../../src/assets/videoHome.mp4";
+import { Spinner } from "../components/Spinner";
 
 export const Home = () => {
+	const { loading } = useContext(FirebaseContext);
+
 	const [videoError, setVideoError] = useState(false);
 
 	const videoStyles = {
@@ -18,16 +23,13 @@ export const Home = () => {
 
 	return (
 		<>
-			{/* <Box sx={{ maxWidth: "300px", margin: "auto" }}>
-				<img
-					width="300px"
-					src="https://www.gifsanimados.org/data/media/1829/soldador-imagen-animada-0011.gif"
-					border="0"
-					alt="soldador-imagen-animada-0011"
-				/>
-			</Box> */}
-
-			{/* <Carousel /> */}
+			{loading ? (
+				<Spinner />
+			) : (
+				<Box>
+					<ListCategories />
+				</Box>
+			)}
 			{/* <Box
 				sx={{
 					position: "relative",
@@ -94,9 +96,10 @@ export const Home = () => {
 					</>
 				)}
 			</Box> */}
-			<Box>
+			{/* <Box>
 				<ListCategories />
-			</Box>
+			</Box> */}
+			{/* <Carousel /> */}
 		</>
 	);
 };

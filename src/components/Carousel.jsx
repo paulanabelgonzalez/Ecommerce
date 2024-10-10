@@ -1,10 +1,11 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { Box, Typography } from "@mui/material";
 
-import product1 from "../assets/producto1.avif";
-import product2 from "../assets/producto4.avif";
+import product1 from "../assets/smithy.jpeg";
+import product2 from "../assets/industrial.jpg";
 
 export const Carousel = () => {
 	const settings = {

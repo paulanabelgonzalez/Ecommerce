@@ -9,7 +9,7 @@
 
 .carrusel-container {
 	width: 100%;
-	max-width: 1100px;
+	max-width: 900px;
 	margin: auto;
 	position: relative;
 	overflow: hidden;
@@ -28,10 +28,10 @@
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* .slick-slide img {
+.slick-slide img {
 	width: 100%;
 	height: auto;
-} */
+}
 
 /* .slide-item img {
 	width: 100%;

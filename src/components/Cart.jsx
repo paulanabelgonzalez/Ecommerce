@@ -137,6 +137,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 					<>
 						{cart.map((product) => (
 							<Card
+								key={product.id}
 								sx={{
 									display: "flex",
 									flexDirection: "column",

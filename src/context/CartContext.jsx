@@ -25,6 +25,10 @@ export const CartProvider = ({ children }) => {
 
 	// 	return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar
 	// }, []);
+	useEffect(() => {
+		// Comprobar si han pasado 7 días desde la última actualización del carrito
+		checkCartExpiration();
+	}, []);
 
 	useEffect(() => {
 		const initialSubtotal = cart.reduce((acc, product) => {
@@ -44,9 +48,30 @@ export const CartProvider = ({ children }) => {
 		console.log(initialNotification);
 	}, [cart]);
 
+	const checkCartExpiration = () => {
+		const cartDate = localStorage.getItem("cartDate");
+
+		if (cartDate) {
+			const currentDate = new Date();
+			const savedDate = new Date(cartDate);
+
+			// Calcula la diferencia en milisegundos y conviértela a días
+			const differenceInDays =
+				(currentDate - savedDate) / (1000 * 60 * 60 * 24);
+
+			// Si han pasado más de 7 días, elimina el carrito
+			if (differenceInDays > 1) {
+				handleDeleteAll();
+				console.log("Carrito eliminado después de 7 días.");
+			}
+		}
+	};
+
 	const currentCart = (newCart) => {
 		setCart(newCart);
 		setCartLS(newCart);
+		// Guarda la fecha actual en el localStorage
+		localStorage.setItem("cartDate", new Date().toISOString());
 	};
 
 	const handleAdd = (product) => {
@@ -117,8 +142,8 @@ export const CartProvider = ({ children }) => {
 	};
 
 	const handleNavigation = (boolean, page) => {
-		handlePositionFixed(boolean); // Puedes agregar la lógica que necesitas
-		navigate(page); // Navega a la ruta deseada
+		handlePositionFixed(boolean);
+		navigate(page);
 	};
 
 	return (
