@@ -180,13 +180,20 @@ export const Cart = ({ state, toggleDrawer }) => {
 												objectFit: "cover",
 											}}
 										/>
-										<Box>
+										<Box sx={{ minWidth: "167px" }}>
 											<Typography>
-												Precio: $ {formatNumber(product.price)}
+												Precio:{" "}
+												{isNaN(product.price)
+													? " $ 0"
+													: `$ ${formatNumber(product.price)}`}
 											</Typography>
 											<QuantityProducts key={product.id} product={product} />
 											<Typography>
-												Subtotal: $ {formatNumber(subTotalProduct(product))}
+												Subtotal:
+												{isNaN(product.price)
+													? " $ 0"
+													: `$ ${formatNumber(subTotalProduct(product))}`}
+												{/* $ {formatNumber(subTotalProduct(product))} */}
 											</Typography>
 										</Box>
 									</Box>

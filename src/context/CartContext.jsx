@@ -32,9 +32,11 @@ export const CartProvider = ({ children }) => {
 
 	useEffect(() => {
 		const initialSubtotal = cart.reduce((acc, product) => {
-			return (
-				acc + (product.quantity > 0 ? product.price * product.quantity : 0)
-			);
+			const price =
+				isNaN(product.price) || product.price === "Consultar precio"
+					? 0
+					: product.price;
+			return acc + (product.quantity > 0 ? price * product.quantity : 0);
 		}, 0);
 		setSubtotal(initialSubtotal);
 		console.log(initialSubtotal);
@@ -55,12 +57,12 @@ export const CartProvider = ({ children }) => {
 			const currentDate = new Date();
 			const savedDate = new Date(cartDate);
 
-			// Calcula la diferencia en milisegundos y conviértela a días
+			// Calcula la diferencia en milisegundos y lo convierte en días
 			const differenceInDays =
 				(currentDate - savedDate) / (1000 * 60 * 60 * 24);
 
 			// Si han pasado más de 7 días, elimina el carrito
-			if (differenceInDays > 1) {
+			if (differenceInDays > 2) {
 				handleDeleteAll();
 				console.log("Carrito eliminado después de 7 días.");
 			}

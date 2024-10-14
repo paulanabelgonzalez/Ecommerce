@@ -125,7 +125,9 @@ export const Detail = () => {
 										marginTop: "9px",
 									}}
 								>
-									$ {formatNumber(product.price)}
+									{isNaN(product.price)
+										? "Consultar precio"
+										: `$ ${formatNumber(product.price)}`}
 								</Typography>
 							</Box>
 							<Box>
