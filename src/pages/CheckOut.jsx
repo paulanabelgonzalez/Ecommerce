@@ -10,7 +10,7 @@ import { FirebaseContext } from "../context/FirebaseContext";
 export const CheckOut = () => {
 	const { cart, handleDeleteAll, formatNumber, subtotal, subTotalProduct } =
 		useContext(CartContext);
-	const { finalizePurchase, handleGoBack, setModal } =
+	const { finalizePurchase, handleGoBack, setModal, user } =
 		useContext(FirebaseContext);
 
 	const navigate = useNavigate();
