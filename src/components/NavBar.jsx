@@ -203,7 +203,9 @@ export const NavBar = () => {
 				>
 					{/* Desktop - Estilo para pantallas grandes */}
 					<Box
+						as="button"
 						sx={{
+							all: "unset",
 							width: "173px",
 							display: { xs: "none", md: "flex" },
 							padding: "0px",
@@ -217,6 +219,7 @@ export const NavBar = () => {
 						}}
 					>
 						<img src={logo} alt="Logo Steel Nayev" style={{ width: "100%" }} />
+
 						{/* <Typography>Bienvenido {user?.username}</Typography> para poner el nombre de usuario */}
 					</Box>
 
@@ -392,6 +395,7 @@ export const NavBar = () => {
 							alignItems: "center",
 							justifyContent: "space-between",
 							minWidth: { xs: "64px", md: "140px" },
+							minHeight: "50px",
 							position: cartInProducts && "relative",
 						}}
 					>
@@ -496,7 +500,7 @@ export const NavBar = () => {
 										sm: "30px",
 										md: "3%",
 										lg: "5%",
-										xl: "20%",
+										xl: "16%",
 									},
 
 									zIndex: 1,
@@ -543,6 +547,7 @@ export const NavBar = () => {
 							</Button>
 						</Tooltip>
 						<Cart state={state} toggleDrawer={toggleDrawer} />
+						<h1 style={{ fontSize: "0px" }}>Steel Nayev</h1>
 					</Box>
 				</Toolbar>
 			</Container>
