@@ -198,11 +198,7 @@ export const NavBar = () => {
 					disableGutters
 					sx={{
 						display: { xs: "flex" },
-						justifyContent: {
-							xs: !cartInProducts && "space-between",
-							md: "space-between",
-						},
-						gap: cartInProducts && { xs: "8%" },
+						justifyContent: "space-between",
 					}}
 				>
 					{/* Desktop - Estilo para pantallas grandes */}
@@ -340,6 +336,7 @@ export const NavBar = () => {
 									background: "transparent",
 									border: "none",
 									padding: 0,
+									textAlign: "center",
 								}}
 							>
 								<img src={casco} style={{ width: "60px" }} alt="Logo" />
@@ -393,8 +390,9 @@ export const NavBar = () => {
 							flexGrow: 0,
 							display: "flex",
 							alignItems: "center",
-							gap: "15px",
-							minWidth: { md: "151px" },
+							justifyContent: "space-between",
+							minWidth: { xs: "64px", md: "140px" },
+							position: cartInProducts && "relative",
 						}}
 					>
 						{/* Usuario logueado */}
@@ -487,14 +485,20 @@ export const NavBar = () => {
 							))}
 						</CustomMenu>
 
-						<Tooltip title="El carrito se vaciara en 24 hs. o al finalizar la compra.">
+						<Tooltip title="El carrito se vaciará en 7 días o al finalizar la compra.">
 							<Button
 								onClick={toggleDrawer("right", true)}
 								sx={{
 									p: 0,
-									position: cartInProducts ? "fixed" : "relative",
-									top: cartInProducts && { xs: "15px", md: "6.2%" },
-									right: cartInProducts && { xs: "15px", md: "4%", lg: "12%" },
+									position: cartInProducts ? "fixed" : "relative", // Fijo en productos, relativo en otros
+									right: cartInProducts && {
+										xs: "5px",
+										sm: "30px",
+										md: "3%",
+										lg: "5%",
+										xl: "20%",
+									},
+
 									zIndex: 1,
 									transition: "all 0.3s ease",
 									"&:hover": {
@@ -509,7 +513,7 @@ export const NavBar = () => {
 										alt="logo de carrito de compras"
 										style={{
 											width: "70%",
-											position: "relative",
+											// position: "relative",
 										}}
 									/>
 									{quantity > 0 ? (
