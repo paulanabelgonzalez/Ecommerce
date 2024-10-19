@@ -26,9 +26,12 @@ export const Home = () => {
 			{loading ? (
 				<Spinner />
 			) : (
-				<Box>
-					<ListCategories />
-				</Box>
+				<>
+					<Carousel />
+					<Box>
+						<ListCategories />
+					</Box>
+				</>
 			)}
 			{/* <Box
 				sx={{

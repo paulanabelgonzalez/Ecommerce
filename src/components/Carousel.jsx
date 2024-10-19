@@ -40,26 +40,28 @@ export const Carousel = () => {
 								fontSize: "1.5rem",
 								fontWeight: "800",
 								textAlign: "center",
+								color: "#66129b",
 							}}
 						>
-							REBAJAS
+							<span>REBAJAS</span>
 							<span
 								style={{
-									fontWeight: "normal",
+									fontWeight: "600",
 									fontSize: "1.2rem",
 									paddingInline: 20,
+									textShadow: " 2px 2px 4px rgba(0, 0, 0, 0.5)",
 								}}
 							>
 								Hasta
 							</span>
-							-70%
+							<span>-70%</span>
 						</Typography>
 						<Typography
-							variant="body1"
 							sx={{
 								fontSize: "1.1rem",
-								fontWeight: "500",
+								fontWeight: "600",
 								textAlign: "center",
+								background: "#9e9e9ead",
 							}}
 						>
 							Envío en 24 Horas
@@ -71,6 +73,7 @@ export const Carousel = () => {
 					<Box
 						className="slide-text"
 						sx={{
+							width: "80%",
 							height: 300,
 							display: "flex",
 							flexDirection: "column",
@@ -82,18 +85,19 @@ export const Carousel = () => {
 								fontSize: "1.5rem",
 								fontWeight: "500",
 								textAlign: "center",
+								background: "#9e9e9ead",
 							}}
 						>
-							50% de Descuento
+							10% de Descuento
 						</Typography>
 						<Typography
 							style={{
 								fontSize: "1.2rem",
 								textAlign: "center",
-								fontWeight: "500",
+								fontWeight: "600",
 							}}
 						>
-							En la segunda pieza de joyería de igual o menor valor.
+							En tu primer compra!!!
 						</Typography>
 					</Box>
 				</Box>

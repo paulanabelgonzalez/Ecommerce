@@ -86,7 +86,7 @@ export const Detail = () => {
 											},
 										}}
 									>
-										Volver
+										Atrás
 									</Button>
 								</Box>
 

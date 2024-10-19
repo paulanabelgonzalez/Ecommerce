@@ -210,12 +210,6 @@ export const NavBar = () => {
 							display: { xs: "none", md: "flex" },
 							padding: "0px",
 							borderRadius: "50%",
-							cursor: "pointer",
-							"&:hover": {
-								filter: "brightness(1.2)",
-								boxShadow: "0 0 6px rgb(255 255 255)",
-								transition: "all 0.3s ease",
-							},
 						}}
 					>
 						<img src={logo} alt="Logo Steel Nayev" style={{ width: "100%" }} />
