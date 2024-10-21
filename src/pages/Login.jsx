@@ -74,13 +74,10 @@ export const Login = () => {
 					(!fromLoginPage && cart.length === 0)
 				) {
 					navigate("/");
-					console.log("si el carrito esta vacio va a home");
 				} else if (fromLoginPage && cart.length !== 0) {
 					navigate("/Productos");
-					console.log("se logea antes de finalizar la compra");
 				} else if (!fromLoginPage && cart.length !== 0) {
 					navigate("/checkOut");
-					console.log("se logea cuando finaliza la compra");
 				}
 			} catch (error) {
 				console.error("Error al iniciar sesión:", error.code, error.message);

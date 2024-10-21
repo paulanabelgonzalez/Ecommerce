@@ -27,7 +27,6 @@ export const CartProvider = ({ children }) => {
 			return acc + (product.quantity > 0 ? price * product.quantity : 0);
 		}, 0);
 		setSubtotal(initialSubtotal);
-		console.log(initialSubtotal);
 	}, [cart]);
 
 	useEffect(() => {
@@ -35,7 +34,6 @@ export const CartProvider = ({ children }) => {
 			return acc + (product.quantity > 0 ? product.quantity : 0);
 		}, 0);
 		setQuantity(initialNotification);
-		console.log(initialNotification);
 	}, [cart]);
 
 	const checkCartExpiration = () => {
@@ -51,7 +49,6 @@ export const CartProvider = ({ children }) => {
 
 			if (differenceInDays > 7) {
 				handleDeleteAll();
-				console.log("Carrito eliminado después de 7 días.");
 			}
 		}
 	};
@@ -74,7 +71,6 @@ export const CartProvider = ({ children }) => {
 			: [...cart, { ...product, quantity: 1 }];
 
 		currentCart(newCart);
-		console.log("Carrito añadido", cart);
 	};
 
 	const handleDelete = (productToDelete) => {
@@ -96,7 +92,6 @@ export const CartProvider = ({ children }) => {
 				: cartProduct
 		);
 		currentCart(newCart);
-		console.log(newCart, quantity);
 	};
 
 	const handleRemoveQuantity = (productToRemove) => {
@@ -111,7 +106,6 @@ export const CartProvider = ({ children }) => {
 			return cartProduct;
 		});
 		currentCart(newCart);
-		console.log(newCart, quantity);
 	};
 
 	const subTotalProduct = (product) => {

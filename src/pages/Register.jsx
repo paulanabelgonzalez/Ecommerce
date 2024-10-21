@@ -73,7 +73,6 @@ export const Register = ({}) => {
 					id: userCredential.user.uid,
 				};
 				await setDoc(doc(db, "users", user.id), user);
-				console.log(user);
 				setModal(0);
 				navigate("/modal");
 			} catch (error) {

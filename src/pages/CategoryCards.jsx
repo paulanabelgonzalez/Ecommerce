@@ -51,7 +51,6 @@ export const CategoryCards = () => {
 		width: "100%",
 		height: "100%",
 	};
-	console.log(`categoria:`, name);
 
 	useEffect(() => {
 		setLoading(true);

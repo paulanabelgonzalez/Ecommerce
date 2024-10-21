@@ -17,16 +17,11 @@ export const FilterProvider = ({ children }) => {
 	const [filteredProductsByCategory, setfilteredProductsByCategory] =
 		useState(products);
 
-	console.log(filteredProductsByCategory);
-
 	const handleCategory = (categoryName) => {
 		handlePositionFixed(true);
 		setfilteredProductsByCategory(
 			products?.filter((product) => product.category === categoryName)
 		);
-		console.log(filteredProductsByCategory);
-
-		console.log("no me hace bucle el cambiar de categoria");
 		navigate(`/Category/${categoryName}`);
 	};
 

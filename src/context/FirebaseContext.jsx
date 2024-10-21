@@ -88,8 +88,6 @@ export const FirebaseProvider = ({ children }) => {
 						total: subtotal,
 					}),
 				});
-
-				console.log("Compra finalizada y guardada en Firestore.");
 			} catch (error) {
 				console.error("Error al finalizar la compra:", error);
 			}
@@ -101,7 +99,6 @@ export const FirebaseProvider = ({ children }) => {
 	const handleFromLoginPage = (page, boolean) => {
 		navigate(page);
 		setFromLoginPage(boolean);
-		console.log(fromLoginPage);
 	};
 
 	const handleGoBack = () => {
