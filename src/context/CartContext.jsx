@@ -2,11 +2,7 @@ import { createContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import {
-	clearCartAfterTimeout,
-	getAddedProducts,
-	setCartLS,
-} from "../LocalStorage";
+import { getAddedProducts, setCartLS } from "../LocalStorage";
 
 export const CartContext = createContext();
 
@@ -18,15 +14,7 @@ export const CartProvider = ({ children }) => {
 
 	const navigate = useNavigate();
 
-	// useEffect(() => {
-	// 	const intervalId = setInterval(() => {
-	// 		clearCartAfterTimeout(setCart);
-	// 	}, 60 * 1000);
-
-	// 	return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar
-	// }, []);
 	useEffect(() => {
-		// Comprobar si han pasado 7 días desde la última actualización del carrito
 		checkCartExpiration();
 	}, []);
 
@@ -61,8 +49,7 @@ export const CartProvider = ({ children }) => {
 			const differenceInDays =
 				(currentDate - savedDate) / (1000 * 60 * 60 * 24);
 
-			// Si han pasado más de 7 días, elimina el carrito
-			if (differenceInDays > 2) {
+			if (differenceInDays > 7) {
 				handleDeleteAll();
 				console.log("Carrito eliminado después de 7 días.");
 			}

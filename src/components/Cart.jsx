@@ -193,7 +193,6 @@ export const Cart = ({ state, toggleDrawer }) => {
 												{isNaN(product.price)
 													? " $ 0"
 													: `$ ${formatNumber(subTotalProduct(product))}`}
-												{/* $ {formatNumber(subTotalProduct(product))} */}
 											</Typography>
 										</Box>
 									</Box>

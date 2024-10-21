@@ -12,15 +12,12 @@ import {
 	Toolbar,
 	Tooltip,
 	Typography,
-	useTheme,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import "../../src/index.css";
 
 import { getAuth, signOut } from "firebase/auth";
-
-import { TbLogout } from "react-icons/tb";
 
 import { CartContext } from "../context/CartContext";
 import { FirebaseContext } from "../context/FirebaseContext";
@@ -102,7 +99,6 @@ export const NavBar = () => {
 		signOut(auth)
 			.then(() => {
 				handleFromLoginPage("/", false);
-				console.log("sin bucle infinito");
 			})
 			.catch((error) => {
 				console.log(error);
@@ -171,7 +167,7 @@ export const NavBar = () => {
 		? ["Home", "Productos", "Historial de Compras", "Cerrar Sesión"]
 		: ["Home", "Productos", "Iniciar Sesión"];
 
-	const CustomMenu = styled(Menu)(({ theme }) => ({
+	const CustomMenu = styled(Menu)({
 		"& .MuiPaper-root": {
 			width: "15%",
 			marginTop: "70px",
@@ -184,7 +180,7 @@ export const NavBar = () => {
 			backgroundSize: "150% 150%",
 			transition: "background-position 0.5s ease",
 		},
-	}));
+	});
 
 	return (
 		<AppBar
@@ -408,15 +404,6 @@ export const NavBar = () => {
 											</Box>
 										</Button>
 									</Tooltip>
-									{/* <Tooltip title="Cerrar sesión">
-										<Box>
-											<Button onClick={handleSignOut} sx={{ p: 0 }}>
-												<TbLogout
-													style={{ fontSize: "27px", color: "white" }}
-												/>
-											</Button>
-										</Box>
-									</Tooltip> */}
 								</Box>
 							) : (
 								<Tooltip title="Inciar sesión">
@@ -437,7 +424,6 @@ export const NavBar = () => {
 							)}
 						</Box>
 						<CustomMenu
-							// sx={{ mt: "60px", ml: "60px" }}
 							PaperProps={{
 								sx: {
 									textDecoration: "none",
@@ -488,7 +474,7 @@ export const NavBar = () => {
 								onClick={toggleDrawer("right", true)}
 								sx={{
 									p: 0,
-									position: cartInProducts ? "fixed" : "relative", // Fijo en productos, relativo en otros
+									position: cartInProducts ? "fixed" : "relative",
 									right: cartInProducts && {
 										xs: "5px",
 										sm: "30px",
@@ -511,7 +497,6 @@ export const NavBar = () => {
 										alt="logo de carrito de compras"
 										style={{
 											width: "70%",
-											// position: "relative",
 										}}
 									/>
 									{quantity > 0 ? (

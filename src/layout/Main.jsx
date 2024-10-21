@@ -24,9 +24,7 @@ export const Main = () => {
 				<Route path="/" element={<Home />} />
 				<Route path="/Productos" element={<CardsContainer />} />
 				<Route path="/Category/:name" element={<CategoryCards />} />
-				{/* <Route path="login" element={<Login />} /> */}
-				<Route path="login" element={!user ? <Login /> : <Home />} />{" "}
-				{/*probando si funciona */}
+				<Route path="login" element={!user ? <Login /> : <Home />} />
 				<Route path="register" element={<Register />} />
 				<Route path="detail/:id" element={<Detail />} />
 				<Route path="*" element={<NotFound />} />

@@ -8,7 +8,6 @@ import {
 	arrayUnion,
 	collection,
 	doc,
-	// getDoc,
 	onSnapshot,
 	updateDoc,
 } from "firebase/firestore";
@@ -36,7 +35,6 @@ export const FirebaseProvider = ({ children }) => {
 
 	useEffect(() => {
 		const getProducts = () => {
-			// Comenzar la carga
 			setLoading(true);
 
 			const collectionReference = collection(db, "products");
@@ -47,9 +45,6 @@ export const FirebaseProvider = ({ children }) => {
 				}));
 				setProducts(productsArray);
 
-				// // Terminar la carga cuando se obtienen los productos
-				// setLoading(false);
-
 				setTimeout(() => {
 					setLoading(false);
 				}, 3000);
@@ -58,16 +53,6 @@ export const FirebaseProvider = ({ children }) => {
 
 		getProducts();
 	}, []);
-
-	// const getUserInfo = async (uid) => {
-	// 	try {
-	// 		const docRef = doc(db, "users", uid);
-	// 		const document = await getDoc(docRef);
-	// 		return document.data();
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
 
 	useEffect(() => {
 		const isAuth = () => {
@@ -120,7 +105,7 @@ export const FirebaseProvider = ({ children }) => {
 	};
 
 	const handleGoBack = () => {
-		navigate(-1); // Esto te lleva a la página anterior
+		navigate(-1);
 	};
 
 	return (

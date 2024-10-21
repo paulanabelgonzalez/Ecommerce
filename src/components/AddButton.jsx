@@ -36,6 +36,8 @@ export const AddButton = () => {
 					boxShadow: "inset 0 4px 8px rgba(0, 0, 0, 0.5)",
 				},
 			}}
+			aria-label="Añadir al carrito"
+			title="Añadir al carrito"
 		>
 			Añadir al carrito
 		</Button>

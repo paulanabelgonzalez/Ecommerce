@@ -27,45 +27,13 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: white;
-	/* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
 }
-
-/* .slick-slide img {
-	width: 100%;
-	height: auto;
-} */
 
 .slide-item img {
 	width: 100%;
 	height: 550px;
 	object-fit: cover;
 }
-/*
-.slick-dots {
-	bottom: 10px;
-}
-
-.slick-dots li button:before {
-	color: #fff;
-	font-size: 12px;
-}
-
-.slick-dots li.slick-active button:before {
-	color: #51074d;
-}
-*/
-
-/* .icon-close {
-	font-size: 25px;
-	text-align: center;
-	font-weight: 700;
-	color: #66129b;
-	cursor: pointer;
-}
-
-.icon-close:hover {
-	color: #9b12a6;
-} */
 
 .silver-text {
 	color: #8c8c8c;

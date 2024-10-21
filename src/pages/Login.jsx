@@ -144,7 +144,6 @@ export const Login = () => {
 					display: "flex",
 					flexDirection: "column",
 					gap: "16px",
-					//background: " linear-gradient(120deg, #5e5b5b, #f2f2f2, #5e5b5b)",
 				}}
 			>
 				<Box sx={boxInput}>

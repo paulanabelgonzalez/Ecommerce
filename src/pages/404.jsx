@@ -53,7 +53,7 @@ export const NotFound = () => {
 						},
 					}}
 				>
-					Atras
+					Atrás
 				</Button>
 			</Box>
 		</Box>

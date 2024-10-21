@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { Box, Button, Typography } from "@mui/material";
 
@@ -14,8 +14,6 @@ export const Detail = () => {
 	const { products, handleGoBack } = useContext(FirebaseContext);
 
 	const { id } = useParams();
-
-	const navigate = useNavigate();
 
 	const product = products.find((product) => product.id === id);
 
@@ -132,7 +130,6 @@ export const Detail = () => {
 							</Box>
 							<Box>
 								<AddButton />
-								{/* <Button>Comprar</Button> */}
 							</Box>
 						</Box>
 					</Box>

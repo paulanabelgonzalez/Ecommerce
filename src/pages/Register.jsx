@@ -284,7 +284,7 @@ export const Register = ({}) => {
 					}}
 					onClick={() => navigate("/Login")}
 				>
-					inicia sesión
+					Inicia sesión
 				</Button>
 			</Typography>
 		</Container>
