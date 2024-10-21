@@ -21,11 +21,34 @@ export const Carousel = () => {
 		cssEase: "ease-in-out",
 	};
 
+	const stylesImg = {
+		width: "100%",
+		height: "auto",
+		transition: "transform 0.3s ease-in-out",
+		"&:hover": {
+			transform: "scale(1.05)",
+		},
+	};
+
+	const stylesSlideItem = {
+		boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+		overflow: "hidden",
+		transition: "box-shadow 0.3s ease-in-out",
+		"&:hover": {
+			boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
+		},
+	};
+
 	return (
 		<Box className="carrusel-container">
 			<Slider {...settings}>
-				<Box className="slide-item">
-					<img src={product1} alt="Carrito" />
+				<Box className="slide-item" sx={stylesSlideItem}>
+					<Box
+						component="img"
+						src={product1}
+						alt="img carousel"
+						sx={stylesImg}
+					/>
 					<Box
 						className="slide-text"
 						sx={{
@@ -40,7 +63,10 @@ export const Carousel = () => {
 								fontSize: "1.5rem",
 								fontWeight: "800",
 								textAlign: "center",
-								color: "#66129b",
+								background:
+									"linear-gradient(to right,#9e9e9e, #0c2eec, #66129b)",
+								WebkitBackgroundClip: "text",
+								WebkitTextFillColor: "transparent",
 							}}
 						>
 							<span>REBAJAS</span>
@@ -68,8 +94,14 @@ export const Carousel = () => {
 						</Typography>
 					</Box>
 				</Box>
-				<Box className="slide-item">
-					<img src={product2} alt="Card Carrito" />
+				<Box className="slide-item" sx={stylesSlideItem}>
+					<Box
+						component="img"
+						src={product2}
+						alt="img carousel"
+						sx={stylesImg}
+					/>
+
 					<Box
 						className="slide-text"
 						sx={{
@@ -88,13 +120,16 @@ export const Carousel = () => {
 								background: "#9e9e9ead",
 							}}
 						>
-							10% de Descuento
+							Envío Gratis...
 						</Typography>
 						<Typography
 							style={{
 								fontSize: "1.2rem",
 								textAlign: "center",
 								fontWeight: "600",
+								background: "linear-gradient(to right, #0c2eec, #9e9e9e)",
+								WebkitBackgroundClip: "text",
+								WebkitTextFillColor: "transparent",
 							}}
 						>
 							En tu primer compra!!!
@@ -102,7 +137,7 @@ export const Carousel = () => {
 					</Box>
 				</Box>
 				{/* <Box className="slide-item">
-					<img src={joyas4} alt="Carrito" />
+					<img src={} alt="Carrito" />
 					<Box
 						className="slide-text"
 						sx={{
@@ -120,7 +155,7 @@ export const Carousel = () => {
 								textAlign: "center",
 							}}
 						>
-							¡Luce Radiante!
+							
 						</Typography>
 						<Typography
 							variant="body1"
@@ -130,8 +165,7 @@ export const Carousel = () => {
 								fontWeight: "500",
 							}}
 						>
-							Nuestros aros están diseñados para complementar tu estilo con un
-							toque de elegancia y sofisticación.
+							
 						</Typography>
 					</Box>
 				</Box> */}
