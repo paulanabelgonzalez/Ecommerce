@@ -42,9 +42,9 @@ export const NotFound = () => {
 					sx={{
 						textDecoration: "none",
 						color: "#fff",
-						fontSize: "20px",
+						// fontSize: { md: "20px" },
 						padding: "4px 24px",
-						borderRadius: "6px",
+						borderRadius: "15px",
 						boxShadow: "0 25px 35px #53535333, inset 0 3px 14px 1px #fff",
 						"&:hover": {
 							color: "#999999",

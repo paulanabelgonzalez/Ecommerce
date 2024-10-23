@@ -74,7 +74,7 @@ export const Detail = () => {
 											fontSize: "12px",
 											marginInlineEnd: { sm: "15px" },
 											padding: "4px 24px",
-											borderRadius: "6px",
+											borderRadius: "15px",
 											boxShadow:
 												"0 25px 35px #53535333, inset 0 3px 14px 1px #fff",
 											"&:hover": {

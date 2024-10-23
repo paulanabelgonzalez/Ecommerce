@@ -247,7 +247,7 @@ export const Cart = ({ state, toggleDrawer }) => {
 								onClick={toggleDrawer("right", false)}
 								sx={{ textDecoration: "underline", color: "#f1f1f1" }}
 							>
-								Seguir Comprando
+								Seguir en la tienda
 							</Button>
 						</Link>
 					</Box>

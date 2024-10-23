@@ -1,7 +1,5 @@
 import { useContext } from "react";
 
-import { Link } from "react-router-dom";
-
 import { Box, Typography } from "@mui/material";
 
 import { CartContext } from "../context/CartContext";
@@ -50,13 +48,26 @@ export const OrderHistory = () => {
 						cerrar x
 					</Box>
 				</Box>
+				<Typography
+					sx={{
+						paddingBlock: "5px",
+						color: "white",
+						fontSize: "17px",
+						fontWeight: "600",
+						textDecorationLine: "underline",
+					}}
+				>
+					Historial de Compras:
+				</Typography>
 				{hasOrders ? (
 					user.orders.map((order, index) => (
 						<Box
 							sx={{
-								border: "2px solid #f1f1f1",
 								padding: { sm: "15px" },
 								marginBottom: "20px",
+								boxShadow:
+									"0 10px 20px rgba(0, 0, 0, 0.4), 0 14px 40px rgba(0, 0, 0, 0.4)",
+								borderRadius: "10px",
 							}}
 							key={index}
 						>

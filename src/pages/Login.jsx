@@ -115,7 +115,7 @@ export const Login = () => {
 
 	return (
 		<Container maxWidth="md" as="form" onSubmit={formik.handleSubmit}>
-			<Box sx={{ textAlign: "end" }}>
+			<Box sx={{ textAlign: "end", paddingBlock: "4px" }}>
 				<Button
 					onClick={() => handleFromLoginPage(-1, false)}
 					sx={{
@@ -124,7 +124,7 @@ export const Login = () => {
 						fontSize: "12px",
 						marginInlineEnd: { sm: "15px" },
 						padding: "4px 24px",
-						borderRadius: "6px",
+						borderRadius: "15px",
 						boxShadow: "0 25px 35px #53535333, inset 0 3px 14px 1px #fff",
 						"&:hover": {
 							color: "#999999",
