@@ -129,7 +129,6 @@ export const Card = () => {
 								>
 									{product.name}
 								</Typography>
-								<Typography>{product.category}</Typography>
 								<Typography>{product.description}</Typography>
 								<Typography sx={{ fontWeight: "600" }}>
 									{isNaN(product.price)
